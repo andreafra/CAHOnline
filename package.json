@@ -1,0 +1,27 @@
+{
+  "name": "cahonline",
+  "version": "1.0.0",
+  "description": "An online versione of Cards against Humanity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QUB3X/CAHOnline.git"
+  },
+  "keywords": [
+    "node",
+    "js"
+  ],
+  "author": "Andrea Franchini & Alessandro Astone",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/QUB3X/CAHOnline/issues"
+  },
+  "homepage": "https://github.com/QUB3X/CAHOnline#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "ws": "^1.1.1"
+  }
+}
