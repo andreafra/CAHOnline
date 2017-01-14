@@ -15,15 +15,14 @@
         line-height: 1.4;
       }
     </style>
-
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script>
-      var host = location.origin.replace(/^http/, 'ws')
-      var ws = new WebSocket(host);
-      ws.onmessage = function (event) {
+      var socket = io.connect('http://localhost:5000');
+      socket.on("ping", function(data) {
         var li = document.createElement('li');
-        li.innerHTML = JSON.parse(event.data);
+        li.innerHTML = data
         document.querySelector('#pings').appendChild(li);
-      };
+      })
     </script>
   </head>
   <body>

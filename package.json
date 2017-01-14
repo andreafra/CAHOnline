@@ -4,7 +4,7 @@
   "description": "An online versione of Cards against Humanity",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,6 @@
   "homepage": "https://github.com/QUB3X/CAHOnline#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "ws": "^1.1.1"
-  },
-  "scripts": {
-    "start": "node index.js"
+    "socket.io": "^1.7.2"
   }
 }
