@@ -13,7 +13,7 @@ server.listen(port)
 console.log("http server listening on %d", port)
 
 
-var players = []
+var players = {}
 
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html")
@@ -35,27 +35,31 @@ app.get("/:room", function(req, res) {
 
 io.on("connection", function(socket) {
   // create room and join it
-  socket.on("create_room", function(player) {
-    addPlayer(player)
-    console.log("Name: " + player.name + " Id: " + socket.id) //DEBUG
+  socket.on("create_room", function(data) {
+    console.log("Name: " + data.name + " Id: " + socket.id) //DEBUG
 
-    var newRoom = shortid.generate()
-    socket.join(newRoom)
-    console.log("NEW ROOM WITH ID " + newRoom)
+    var roomId = shortid.generate()
+    data.roomId = roomId;
+    socket.join(roomId)
+    addPlayer({data, socket})
+    console.log("NEW ROOM WITH ID " + roomId)
   })
 
-  socket.on("join_room", function(player) {
-    addPlayer(player)
-    socket.join(player.roomId)
-    console.log("JOINED ROOM WITH ID " + player.roomId)
+  socket.on("join_room", function(data) {
+    socket.join(data.roomId)
+    addPlayer({data, socket})
+    console.log("JOINED ROOM WITH ID " + data.roomId)
   })
 })
 
 
 function addPlayer(player) {
-  players[player.id] = {
-    playerName: player.name,
-    playerId: player.id,
+  players[player.socket.id] = {
+    playerId: player.socket.id,
+    playerName: player.data.name,
+    playerRoom: player.data.roomId,
     points: 0
   }
+  player.socket.emit("load_game_page", player.data.roomId)
+  console.log("Players : " + JSON.stringify(players))
 }

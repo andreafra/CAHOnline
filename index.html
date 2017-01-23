@@ -8,7 +8,7 @@
     <input type="text" name="playerName" placeholder="Carlo Conti" id="playerName">
     <button type="button" name="create_room" id="create_room">Create a room!</button>
     <br><span>OR<span><br>
-    <input type="text" name="roomId" placeholder="12345678" id="playerName">
+    <input type="text" name="roomId" placeholder="12345678" id="roomId">
     <button type="button" name="join_room" id="join_room">Join an existing room!</button>
     <script>
       var io = io("/").connect("http://localhost:5000")
@@ -35,6 +35,10 @@
         } else {
           alert("Inserisci un id della stanza")
         }
+      })
+
+      io.on('load_game_page', function(roomId){
+        window.location.replace("/"+roomId);
       })
     </script>
   </body>
