@@ -1,32 +1,41 @@
 <html>
   <head>
     <title>Test</title>
-    <style>
-      body {
-        font-family: "Helvetica Neue", helvetica, arial;
-        padding: 15px;
-      }
-      ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      ul li {
-        line-height: 1.4;
-      }
-    </style>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script>
-      var socket = io.connect('http://localhost:5000');
-      socket.on("ping", function(data) {
-        var li = document.createElement('li');
-        li.innerHTML = data
-        document.querySelector('#pings').appendChild(li);
-      })
-    </script>
   </head>
   <body>
-    <h1>Pings</h1>
-    <ul id='pings'></ul>
+    <h1>Cards against Humanity</h1>
+    <input type="text" name="playerName" placeholder="Carlo Conti" id="playerName">
+    <button type="button" name="create_room" id="create_room">Create a room!</button>
+    <br><span>OR<span><br>
+    <input type="text" name="roomId" placeholder="12345678" id="playerName">
+    <button type="button" name="join_room" id="join_room">Join an existing room!</button>
+    <script>
+      var io = io("/").connect("http://localhost:5000")
+
+      var createRoomBtn = document.getElementById("create_room")
+      var joinRoomBtn = document.getElementById("join_room")
+      var playerName = document.getElementById("playerName")
+      var roomId = document.getElementById("roomId")
+
+      createRoomBtn.addEventListener("click", function() {
+        if (playerName.value !== "" && playerName.value.length > 2) {
+          io.emit("create_room", { 
+            name: playerName.value 
+          })
+        } else {
+          alert("Name is too short or void")
+        }
+      })
+      joinRoomBtn.addEventListener("click", function() {
+        if (roomId.value !== "" && playerName.value !== "" && playerName.value.length > 2) {
+          io.emit("join_room", { 
+            name: playerName.value,
+            roomId: roomId.value })
+        } else {
+          alert("Inserisci un id della stanza")
+        }
+      })
+    </script>
   </body>
 </html>

@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>Test</title>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  </head>
+  <body>
+    <h1>Cards against Humanity</h1>
+    <h2 id="room">GAME</h2>
+    <script>
+      var io = io("/").connect("http://localhost:5000")
+      io.on("update", function(data) {
+          document.getElementById("room").innerHTML = data.room
+      })
+    </script>
+  </body>
+</html>

@@ -1,7 +1,8 @@
-var express = require("express")
-var app = express();
-var server = require("http").Server(app);
-var io = require("socket.io")(server);
+const express = require('express')
+const shortid = require('shortid');
+const app = express()
+const server = require("http").Server(app)
+const io = require("socket.io")(server)
 
 var port = process.env.PORT || 5000
 
@@ -11,19 +12,50 @@ server.listen(port)
 
 console.log("http server listening on %d", port)
 
-app.get("/", function(res, req) {
+
+var players = []
+
+app.get("/", function(req, res) {
   res.sendFile(__dirname + "/index.html")
 })
 
+app.get("/:room", function(req, res) {
+  res.sendFile(__dirname + "/game.html")
 
-io.on('connection', function(socket){
-  var id = setInterval(function() {
-    socket.emit("ping", "data")
-  }, 1000)
+  io.on("connection", function (socket) {
+    var roomId = req.params.room
 
-  console.log("socket connection open")
-  socket.on("disconnect", function() {
-    console.log("socket connection close")
-    clearInterval(id)
+    socket.join(roomId)
+
+    socket.to(roomId).emit("update", {
+     room: roomId
+    })
   })
 })
+
+io.on("connection", function(socket) {
+  // create room and join it
+  socket.on("create_room", function(player) {
+    addPlayer(player)
+    console.log("Name: " + player.name + " Id: " + socket.id) //DEBUG
+
+    var newRoom = shortid.generate()
+    socket.join(newRoom)
+    console.log("NEW ROOM WITH ID " + newRoom)
+  })
+
+  socket.on("join_room", function(player) {
+    addPlayer(player)
+    socket.join(player.roomId)
+    console.log("JOINED ROOM WITH ID " + player.roomId)
+  })
+})
+
+
+function addPlayer(player) {
+  players[player.id] = {
+    playerName: player.name,
+    playerId: player.id,
+    points: 0
+  }
+}
