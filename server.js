@@ -15,22 +15,8 @@ console.log("http server listening on %d", port)
 
 var players = {}
 
-app.get("/", function(req, res) {
+app.get("*", function(req, res) {
   res.sendFile(__dirname + "/index.html")
-})
-
-app.get("/:room", function(req, res) {
-  res.sendFile(__dirname + "/game.html")
-
-  io.on("connection", function (socket) {
-    var roomId = req.params.room
-
-    socket.join(roomId)
-
-    socket.to(roomId).emit("update", {
-     room: roomId
-    })
-  })
 })
 
 io.on("connection", function(socket) {

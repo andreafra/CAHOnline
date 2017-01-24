@@ -1,45 +1,16 @@
-<html>
+<html ng-app="CAHOnline">
   <head>
+    <meta charset="utf-8">
+    <base href="/">
     <title>Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
   </head>
   <body>
-    <h1>Cards against Humanity</h1>
-    <input type="text" name="playerName" placeholder="Carlo Conti" id="playerName">
-    <button type="button" name="create_room" id="create_room">Create a room!</button>
-    <br><span>OR<span><br>
-    <input type="text" name="roomId" placeholder="12345678" id="roomId">
-    <button type="button" name="join_room" id="join_room">Join an existing room!</button>
-    <script>
-      var io = io("/").connect("http://localhost:5000")
-
-      var createRoomBtn = document.getElementById("create_room")
-      var joinRoomBtn = document.getElementById("join_room")
-      var playerName = document.getElementById("playerName")
-      var roomId = document.getElementById("roomId")
-
-      createRoomBtn.addEventListener("click", function() {
-        if (playerName.value !== "" && playerName.value.length > 2) {
-          io.emit("create_room", { 
-            name: playerName.value 
-          })
-        } else {
-          alert("Name is too short or void")
-        }
-      })
-      joinRoomBtn.addEventListener("click", function() {
-        if (roomId.value !== "" && playerName.value !== "" && playerName.value.length > 2) {
-          io.emit("join_room", { 
-            name: playerName.value,
-            roomId: roomId.value })
-        } else {
-          alert("Inserisci un id della stanza")
-        }
-      })
-
-      io.on('load_game_page', function(roomId){
-        window.location.replace("/"+roomId);
-      })
-    </script>
+    <div id="game_container" ng-view></div>
   </body>
+  <footer>
+    <script type="text/javascript" src="client.js"></script>
+  </footer>
 </html>
