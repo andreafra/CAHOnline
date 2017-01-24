@@ -20,6 +20,8 @@ app.get("*", function(req, res) {
 })
 
 io.on("connection", function(socket) {
+  console.log("Player " + socket.id + " connected");
+  
   // create room and join it
   socket.on("create_room", function(data) {
     console.log("Name: " + data.name + " Id: " + socket.id) //DEBUG
@@ -36,6 +38,11 @@ io.on("connection", function(socket) {
     addPlayer({data, socket})
     console.log("JOINED ROOM WITH ID " + data.roomId)
   })
+
+  socket.on('disconnect', function() {
+  	delete players[socket.id]
+  	console.log("Player " + socket.id + " disconnected");
+  })
 })
 
 
@@ -47,5 +54,5 @@ function addPlayer(player) {
     points: 0
   }
   player.socket.emit("load_game_page", player.data.roomId)
-  console.log("Players : " + JSON.stringify(players))
+  //console.log("Players : " + JSON.stringify(players))
 }
