@@ -4,11 +4,26 @@
     <base href="/">
     <title>Test</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <style>
+    * {
+      font-family: Helvetica, Arial, sans-serif;
+    }
+    </style>
   </head>
   <body>
-    <div id="game_container" ng-view></div>
+    <header>
+      <h1>Cards against humanity</h1>
+    </header>
+    <!--Mi serve che se non c'ho sbatti di mettere la portrait
+    mode forzo l'user a tiltare il device
+    http://fuel-efficient-vehicles.org/pwsdb/?p=330-->
+    <div class="no-portrait-box" style="display: none;">
+      Please tilt your device in landscape!
+    </div>
+    <div class="wrapper" ng-view></div>
   </body>
   <footer>
     <script type="text/javascript" src="client.js"></script>
