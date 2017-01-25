@@ -1,6 +1,15 @@
-<h1>Cards against Humanity</h1>
-<input type="text" name="playerName" placeholder="Carlo Conti" id="playerName">
-<button type="button" name="create_room" id="create_room">Create a room!</button>
-<br><span>OR<span><br>
-<input type="text" name="roomId" placeholder="12345678" id="roomId">
-<button type="button" name="join_room" id="join_room">Join an existing room!</button>
+
+<div ng-controller="mainCtrl">
+    <h1>Cards against Humanity</h1>
+    <input type="text" name="playerName" placeholder="Carlo Conti" ng-model="playerName">
+    <button type="button" name="create_room" ng-click="createRoom()">
+        Create a room!
+    </button>
+    <br>
+    <span>OR</span>
+    <br>
+    <input type="text" name="roomId" placeholder="12345678" ng-model="roomId">
+    <button type="button" name="join_room" ng-click="joinRoom()">
+        Join an existing room!
+    </button>
+</div>

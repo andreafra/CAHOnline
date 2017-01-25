@@ -20,36 +20,33 @@ app.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
 })
 
-app.controller("joinGame", function ($scope,$routeParams){
+app.controller("joinGame", function ($scope, $routeParams){
   $scope.room=$routeParams.room
   $scope.id=socket.io.engine.id
 })
 
 app.controller('mainCtrl', function($scope) {
+      console.log("LOL")
 
-  var createRoomBtn = document.getElementById("create_room")
-  var joinRoomBtn = document.getElementById("join_room")
-  var playerName = document.getElementById("playerName")
-  var roomId = document.getElementById("roomId")
-
-  createRoomBtn.addEventListener("click", function() {
-    if (playerName.value !== "" && playerName.value.length > 2) {
+  $scope.createRoom = function() {
+    if ($scope.playerName !== "" && $scope.playerName.length > 2) {
       socket.emit("create_room", { 
-        name: playerName.value 
+        name: $scope.playerName 
       })
     } else {
       alert("Name is too short or void")
     }
-  })
-  joinRoomBtn.addEventListener("click", function() {
-    if (roomId.value !== "" && playerName.value !== "" && playerName.value.length > 2) {
+  }
+
+  $scope.joinRoom = function() {
+    if ($scope.roomId !== "" && $scope.playerName !== "" && $scope.playerName.length > 2) {
       socket.emit("join_room", { 
-        name: playerName.value,
-        roomId: roomId.value })
+        name: $scope.playerName,
+        roomId: $scope.roomId })
     } else {
       alert("Inserisci un id della stanza")
     }
-  })
+  }
 
   socket.on('load_game_page', function(roomId){
     window.location.replace("/"+roomId);
