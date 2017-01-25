@@ -1,10 +1,4 @@
-var socket = io.connect("http://localhost:5000", {
-    reconnection: true,
-    reconnectionDelay: 1000,
-    reconnectionDelayMax : 5000,
-    reconnectionAttempts: 99999
-})
-
+var socket = io.connect("http://localhost:5000")
 var app = angular.module('CAHOnline',['ngRoute']);
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
@@ -25,7 +19,7 @@ app.controller("joinGame", function ($scope, $routeParams){
   $scope.id=socket.io.engine.id
 })
 
-app.controller('mainCtrl', function($scope) {
+app.controller('mainCtrl', function($scope, $location) {
       console.log("LOL")
 
   $scope.createRoom = function() {
@@ -49,6 +43,7 @@ app.controller('mainCtrl', function($scope) {
   }
 
   socket.on('load_game_page', function(roomId){
-    window.location.replace("/"+roomId);
+    $location.path("/"+roomId)
+    $scope.$apply()
   })
 })
