@@ -1,3 +1,4 @@
+var socket = io('/').connect("http://localhost:5000")
 var app = angular.module('CAHOnline',['ngRoute']);
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
