@@ -20,8 +20,8 @@
 <div class="drawer">
   <div class="scoreboard">
     <ul class="player-score__container">
-      <li class="player-score" ng-repeat="player in players">
-        {{player.name}}
+      <li class="player-score" ng-repeat="(id, player) in players">
+        {{player.playerName}}
         <span class="points">{{player.points}}</span>
       </li>
     </ul>
