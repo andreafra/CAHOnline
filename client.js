@@ -1,4 +1,4 @@
-var socket = io.connect("http://cahonline.herokuapp.com/")
+var socket = io('/').connect("http://cahonline.herokuapp.com/")
 var app = angular.module('CAHOnline',['ngRoute']);
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
