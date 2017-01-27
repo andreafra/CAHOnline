@@ -91,6 +91,7 @@
     height: 7vw;
     margin-left: 1vw;
     margin-right: 1vw;
+    margin-bottom: 1vw; /* CHECK */
     border-radius: 0.4vw;
     padding: var(--white-card-font-size);
     background: var(--white-card-color);
