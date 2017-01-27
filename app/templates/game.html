@@ -29,7 +29,7 @@
   <div class="scoreboard">
     <h3 class="scoreboard__title">Punteggi</h3>
     <ul class="player-score__container">
-      <li class="player-score" ng-repeat="(id, player) in players | orderBy:'player.points'">
+      <li class="player-score" ng-repeat="(id, player) in players">
         {{player.name}}
         <span class="points">{{player.points}}</span>
       </li>
