@@ -6,7 +6,8 @@ const io = require("socket.io")(server)
 
 var port = process.env.PORT || 5000
 
-app.use(express.static(__dirname + "/"))
+app.use(express.static(__dirname + "/app"))
+
 
 server.listen(port)
 
@@ -16,7 +17,7 @@ console.log("http server listening on %d", port)
 var players = {}
 
 app.get("*", function(req, res) {
-  res.sendFile(__dirname + "/index.html")
+  res.sendFile(__dirname + "/app/index.html")
 })
 
 io.on("connection", function(socket) {

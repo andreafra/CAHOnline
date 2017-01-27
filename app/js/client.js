@@ -3,11 +3,11 @@ var app = angular.module('CAHOnline',['ngRoute']);
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
   .when("/", {
-    templateUrl : "home.html",
+    templateUrl : "./templates/home.html",
     controller: "mainCtrl"
   })
   .when("/:room", {
-    templateUrl: "game.html",
+    templateUrl: "./templates/game.html",
     controller: "joinGame"
   })
 

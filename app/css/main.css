@@ -1,0 +1,54 @@
+:root {
+    --background-color: #fff;
+    --board-color: #eee;
+    --drawer-color: #222;
+    --black-card-color: #000;
+    --white-card-color: #fff;
+}
+body {
+    margin: 0;
+}
+.wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--background-color);
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    font-size: 0;
+}
+
+.board, .drawer {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    font-size: 1rem;
+}
+.board {
+    background: var(--board-color);
+}
+.drawer {
+    background: var(--drawer-color);
+}
+
+.black-card__container {
+    width: 100%;
+    border-bottom: 2px dashed red;
+}
+
+.black-card {
+    width: 15em;
+    height: 20em;
+    background: var(--black-card-color);
+    border-radius: 0.9em;
+    margin: 2.5em auto 2.5em auto;
+}
+
+.scoreboard, .player-hand {
+    
+}
