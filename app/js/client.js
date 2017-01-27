@@ -1,30 +1,46 @@
 var socket = io('/').connect("http://cahonline.herokuapp.com/")
-var app = angular.module('CAHOnline',['ngRoute']);
+var app = angular.module('CAHOnline',['ngRoute','ngCookies']);
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
   .when("/", {
-    templateUrl : "home.html",
+    templateUrl : "./templates/home.html",
     controller: "mainCtrl"
   })
   .when("/:room", {
-    templateUrl: "game.html",
+    templateUrl: "./templates/game.html",
     controller: "joinGame"
   })
 
   $locationProvider.html5Mode(true);
 })
 
-app.controller("joinGame", function ($scope, $routeParams){
+app.controller("joinGame", function ($scope, $routeParams, $cookies){
   $scope.room=$routeParams.room
   $scope.id=socket.io.engine.id
+
+  socket.on('first_load', function(data){
+    //RECONNECTION LOGIC
+    var lastId = $cookies.get("lastId")
+    console.log(data.players)
+    if(data.players[lastId]){
+      console.log("FOUND OLD PLAYER")
+      var playerObject = data.players[lastId]
+      delete data.players[lastId]
+      playerObject.id = socket.io.engine.id
+      data.players[playerObject.id]=playerObject
+      socket.emit('reconnect_player', {newPlayer: playerObject, oldPlayer: lastId})
+    }
+    $cookies.put("lastId",socket.io.engine.id)
+    $scope.players=data.players
+    $scope.$apply()
+  })
 
   socket.on('display_players', function(data){
     $scope.players=data.players
     $scope.$apply()
   })
 
-  socket.emit('fetch_players',{room: $routeParams.room})
-
+  socket.emit('get_first_load',{room: $routeParams.room})
 })
 
 app.controller('mainCtrl', function($scope, $location) {

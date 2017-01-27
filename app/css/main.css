@@ -1,0 +1,150 @@
+:root {
+    --background-color: #fff;
+    --board-color: #eee;
+    --drawer-color: #222;
+    --scoreboard-row-color: #444;
+    --scoreboard-text-color: #eee;
+    --black-card-color: #000;
+    --white-card-color: #fff;
+    --white-card-font-size: 0.4vw;
+    --white-card-expanded-font-size: 1.55vw;
+}
+* {
+    margin: 0;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+.wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--background-color);
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    font-size: 0;
+}
+
+.board, .drawer {
+    display: inline-block;
+    width: 50vw;
+    height: 100%;
+    vertical-align: top;
+    font-size: 1rem;
+}
+.board {
+    background: var(--board-color);
+}
+.drawer {
+    background: var(--drawer-color);
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.black-card__container {
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+}
+
+.black-card {
+    position: relative;
+    width: 41.7vh;
+    height: 45vh;
+    background: var(--black-card-color);
+    border-radius: 0.8vh;
+    margin-right: auto;
+    margin-left: auto;
+    align-self: center;
+}
+
+.black-card__text {
+    position: absolute;
+    color: var(--white-card-color);
+    margin: 1em 1em;
+    font-size: 4vh;
+}
+
+.timer__container {
+    width: 100%;
+    height: 2.5em;
+    background: #ddd; /*temp*/
+}
+.played-cards__container {
+    flex-grow: 1;
+}
+.white-card__container {
+    padding: 1rem 2.5vw 0 2.5vw;
+    list-style: none;
+    font-size: 0;
+    overflow-y: scroll;
+}
+.white-card {
+    display: inline-block;
+    width: 7vw;
+    height: 7vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vw; /* CHECK */
+    border-radius: 0.4vw;
+    padding: var(--white-card-font-size);
+    background: var(--white-card-color);
+}
+.white-card--expanded {
+    width: 13vw;
+    height: 14vw;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+    border-radius: 0.8vw;
+    padding: var(--white-card-expanded-font-size);
+}
+.white-card__text {
+    color: var(--black-card-color);
+    font-size: var(--white-card-font-size);
+    text-align: left;
+}
+.white-card--expanded .white-card__text {
+    font-size: var(--white-card-expanded-font-size);
+}
+/* .drawer */
+.scoreboard, .player-hand {
+    text-align: center;
+}
+.scoreboard__title, .player-hand__title {
+    display: block;
+    font-size: 1.3em;
+    padding: 1em 0 1em 0;
+    width: 100%;
+    color: var(--scoreboard-text-color);
+}
+.player-score__container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 1.5em 0 1.5em;
+    list-style: none;
+    border-radius: 0.9em;
+}
+.player-score {
+    padding: 0.3em 0.7em;
+    border-radius: 0.9em;
+    text-align: left;
+    color: var(--scoreboard-text-color);
+}
+.player-score:nth-child(odd) {
+    background: var(--scoreboard-row-color);
+}
+.player-score__points {
+    float: right;
+}
+.hidden {
+    display: none;
+}
+.card-shadow {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
