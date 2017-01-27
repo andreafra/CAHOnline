@@ -1,5 +1,5 @@
 var socket = io('/').connect("http://cahonline.herokuapp.com/")
-var app = angular.module('CAHOnline',['ngRoute','ngCookies']);
+var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy']);
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
   .when("/", {
@@ -21,12 +21,11 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies){
   socket.on('first_load', function(data){
     //RECONNECTION LOGIC
     var lastId = $cookies.get("lastId")
-    console.log(data.players)
     if(data.players[lastId]){
-      console.log("FOUND OLD PLAYER")
       var playerObject = data.players[lastId]
       delete data.players[lastId]
       playerObject.id = socket.io.engine.id
+      playerObject.points++
       data.players[playerObject.id]=playerObject
       socket.emit('reconnect_player', {newPlayer: playerObject, oldPlayer: lastId})
     }
