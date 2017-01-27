@@ -39,7 +39,7 @@ io.on("connection", function(socket) {
   })
 
   socket.on('disconnect', function() {
-  	deletePlayer(socket.id)
+  	setTimeout(function(){deletePlayer(socket.id)}, 3000);
   	console.log("Player " + socket.id + " disconnected");
   })
 
@@ -48,35 +48,55 @@ io.on("connection", function(socket) {
   })
 
   socket.on('fetch_players', function(data){
-	var playersInSameRoom = getPlayersInRoom(data.room)
-	io.to(data.room).emit("display_players", {players: playersInSameRoom})
+	  var playersInSameRoom = getPlayersInRoom(data.room)
+	  io.to(data.room).emit("display_players", {players: playersInSameRoom})
+  })
+
+  socket.on('reconnect_player', function(data){
+    socket.join(data.newPlayer.room)
+    delete players[data.oldPlayer]
+    players[data.newPlayer.id]=data.newPlayer
+  })
+
+  socket.on('get_first_load', function(data){
+    var playersInSameRoom = getPlayersInRoom(data.room)
+    socket.emit('first_load',{players: playersInSameRoom})
   })
 })
 
 function getPlayersInRoom(room){
-	var socketsInSameRoom = io.nsps['/'].adapter.rooms[room] ? io.nsps['/'].adapter.rooms[room].sockets : null
+	//var socketsInSameRoom = io.nsps['/'].adapter.rooms[room] ? io.nsps['/'].adapter.rooms[room].sockets : null
 	var playersInSameRoom = {}
-	for(var otherId in socketsInSameRoom){
+  for(var otherId in players){
+    if(players[otherId].room==room){
+      playersInSameRoom[otherId]=players[otherId]
+    }
+  }
+	/*
+  for(var otherId in socketsInSameRoom){
 	  playersInSameRoom[otherId]=players[otherId]
 	}
+  */
 	return playersInSameRoom
 }
 
 function addPlayer(player) {
   players[player.socket.id] = {
-    playerId: player.socket.id,
-    playerName: player.data.name,
-    playerRoom: player.data.roomId,
+    id: player.socket.id,
+    name: player.data.name,
+    room: player.data.roomId,
     points: 0
   }
 
   player.socket.emit("load_game_page", {room: player.data.roomId})
+  var playersInSameRoom = getPlayersInRoom(player.data.roomId)
+  io.to(player.data.roomId).emit("display_players", {players: playersInSameRoom})
   //console.log("Players : " + JSON.stringify(players))
 }
 
 function deletePlayer(id) {
 	if(players[id]){
-		var playerRoom = players[id].playerRoom
+		var playerRoom = players[id].room
 		delete players[id]
 		var playersInSameRoom = getPlayersInRoom(playerRoom)
 		io.to(playerRoom).emit("display_players", {players: playersInSameRoom})

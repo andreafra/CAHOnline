@@ -29,9 +29,9 @@
   <div class="scoreboard hidden">
     <h3 class="scoreboard__title">Punteggi</h3>
     <ul class="player-score__container">
-      <li class="player-score" ng-repeat="player in [42, 42, 43, 43] track by $index">
-        {{player}}
-        <span class="player-score__points">{{player}}</span>
+      <li class="player-score" ng-repeat="(id, player) in players">
+        {{player.name}}
+        <span class="points">{{player.points}}</span>
       </li>
     </ul>
   </div>
