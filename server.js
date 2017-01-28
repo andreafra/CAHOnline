@@ -3,6 +3,7 @@ const shortid = require('shortid');
 const app = express()
 const server = require("http").Server(app)
 const io = require("socket.io")(server)
+const fs = require('fs')
 
 var port = process.env.PORT || 5000
 
@@ -13,8 +14,8 @@ server.listen(port)
 
 console.log("http server listening on %d", port)
 
-
 var players = {}
+var cards = JSON.parse(fs.readFileSync(__dirname + '/app/json/cards.json', 'utf8'));
 
 app.get("*", function(req, res) {
   res.sendFile(__dirname + "/app/index.html")
@@ -28,13 +29,13 @@ io.on("connection", function(socket) {
     var roomId = shortid.generate()
     data.roomId = roomId;
     socket.join(roomId)
-    addPlayer({data, socket})
+    addPlayer({data, socket}, true)
     console.log("NEW ROOM WITH ID " + roomId)
   })
 
   socket.on("join_room", function(data) {
     socket.join(data.roomId)
-    addPlayer({data, socket})
+    addPlayer({data, socket}, false)
     console.log("JOINED ROOM WITH ID " + data.roomId)
   })
 
@@ -62,6 +63,17 @@ io.on("connection", function(socket) {
     var playersInSameRoom = getPlayersInRoom(data.room)
     socket.emit('first_load',{players: playersInSameRoom})
   })
+
+  socket.on('give_whitecards', function(data){
+    var deck = io.nsps['/'].adapter.rooms[data.room].whiteCards ? io.nsps['/'].adapter.rooms[data.room].whiteCards : getNewDeck("whiteCards",data.room)
+    for(var playerId in getPlayersInRoom(data.room)){  
+      var playerCards = new Array(data.amount)
+      for(var i = deck.length; i > deck.length-data.amount; i--){
+        playerCards.push(deck.pop())
+      }
+      io.to(playerId).emit('display_whitecards', {whiteCards:playerCards})
+    }
+  })
 })
 
 function getPlayersInRoom(room){
@@ -80,11 +92,12 @@ function getPlayersInRoom(room){
 	return playersInSameRoom
 }
 
-function addPlayer(player) {
+function addPlayer(player, isGameMaster) {
   players[player.socket.id] = {
     id: player.socket.id,
     name: player.data.name,
     room: player.data.roomId,
+    isGameMaster: isGameMaster,
     points: 0
   }
 
@@ -101,4 +114,28 @@ function deletePlayer(id) {
 		var playersInSameRoom = getPlayersInRoom(playerRoom)
 		io.to(playerRoom).emit("display_players", {players: playersInSameRoom})
 	}
+}
+
+function getNewDeck(set,room){
+  switch(set){
+    case "whiteCards":
+      var newDeck = cards.whiteCards;
+      shuffle(newDeck)
+      io.nsps['/'].adapter.rooms[room].whiteCards=newDeck
+      return newDeck
+      break
+    case "blackCards":
+      var newDeck = cards.blackCards;
+      shuffle(newDeck)
+      io.nsps['/'].adapter.rooms[room].blackCards=newDeck
+      return newDeck
+      break
+  }
+}
+
+function shuffle(a) {
+    for (let i = a.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [a[i - 1], a[j]] = [a[j], a[i - 1]];
+    }
 }

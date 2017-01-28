@@ -7,6 +7,7 @@
     </div>
   </div>
   <div class="timer__container">
+    <button ng-if="iAmGameMaster" ng-click="startGame()" type="button">Start game</button>
     <!-- Set the timer! -->
   </div>
   <div class="played-cards__container">
@@ -16,9 +17,6 @@
         http://stackoverflow.com/a/32893768/3637244-->
       <li class="white-card card-shadow">
         <p class="white-card__text">Im a card.</p>
-      </li>
-      <li class="white-card" ng-repeat="whiteCard in whiteCards">
-        <p class="white-card__text">{{whiteCard}}</p>
       </li>
     </ul>
   </div>
@@ -32,6 +30,7 @@
       <li class="player-score" ng-repeat="(id, player) in players | orderObjectBy : 'points' : true">
         {{player.name}}
         <span class="points">{{player.points}}</span>
+        <img ng-src="{{(player.isGameMaster?'../img/crown.png':null)}}"/>
       </li>
     </ul>
   </div>
@@ -42,11 +41,8 @@
       <li class="white-card white-card--expanded card-shadow">
         <p class="white-card__text">Im a card, but bigger.</p>
       </li>
-      <li class="white-card white-card--expanded card-shadow">
-        <p class="white-card__text">Im a card, but bigger.</p>
-      </li>
       <li class="white-card card-shadow" ng-repeat="whiteCard in whiteCards">
-        <p class="white-card__text">{{whiteCard}}</p>
+        <p class="white-card__text">{{whiteCard.text}}</p>
       </li>
     </ul>
   </div>
