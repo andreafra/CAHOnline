@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="timer__container">
-    <button class="start-button hidden" type="button">Start</button>
+    <button class="start-button hidden" type="button" ng-if="iAmGameMaster" ng-click="startGame()">Start</button>
     <div class="timer">
       <img class="timer__icon" src="img/clock.svg" alt="Time left">
       <div class="timer__bar"></div>
@@ -33,6 +33,7 @@
       <li class="player-score" ng-repeat="(id, player) in players | orderObjectBy : 'points' : true">
         {{player.name}}
         <span class="points">{{player.points}}</span>
+        <img ng-src="{{(player.isGameMaster?'../img/crown.png':null)}}"/>
       </li>
     </ul>
   </div>

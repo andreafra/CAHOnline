@@ -25,21 +25,35 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies){
       var playerObject = data.players[lastId]
       delete data.players[lastId]
       playerObject.id = socket.io.engine.id
-      playerObject.points++
       data.players[playerObject.id]=playerObject
       socket.emit('reconnect_player', {newPlayer: playerObject, oldPlayer: lastId})
     }
     $cookies.put("lastId",socket.io.engine.id)
     $scope.players=data.players
+    $scope.iAmGameMaster=data.players[$scope.id].isGameMaster
     $scope.$apply()
   })
+
+  socket.emit('get_first_load',{room: $scope.room})
 
   socket.on('display_players', function(data){
     $scope.players=data.players
+    $scope.iAmGameMaster=data.players[$scope.id].isGameMaster
     $scope.$apply()
   })
 
-  socket.emit('get_first_load',{room: $routeParams.room})
+  socket.on('display_whitecards', function(data){
+    $scope.whiteCards=data.whiteCards
+  })
+
+  socket.on('display_blackcard', function(data){
+    $scope.blackCard=data.blackCard
+  })
+
+  $scope.startGame = function(){
+    socket.emit('give_whitecards',{room: $scope.room})
+    setTimeout(socket.emit('give_blackcard',{room: $scope.room, amount: 10}))
+  }
 })
 
 app.controller('mainCtrl', function($scope, $location) {
