@@ -7,13 +7,14 @@
     --black-card-color: #000;
     --white-card-color: #fff;
     --card-placeholder-color: #ddd;
-    --card-font-size: 1.7vh;
-    --card-expanded-font-size: 3.5vh;
+    --card-font-size: 1.2vh;
+    --card-expanded-font-size: 3vh;
     --card-height: 15vh;
     --card-expanded-height: 30vh;
     --card-spacing: 0.75vh;
     --card-expanded-spacing: 1.5vh;
-
+    --card-padding: calc(var(--card-spacing)*2);
+    --card-expanded-padding: calc(var(--card-expanded-spacing)*2);
 }
 * {
     margin: 0;
@@ -146,15 +147,16 @@
     height: var(--card-height);
     width: calc(var(--card-height)*0.8);
     margin: var(--card-spacing);
-    border-radius: var(--card-font-size);
-    padding: var(--card-font-size);
+    border-radius: 0.9vh;
+    padding: var(--card-padding);
     background: var(--white-card-color);
+    vertical-align: top;
 }
 .white-card--expanded {
     width: calc(var(--card-expanded-height)*0.8);
     height: var(--card-expanded-height);
-    border-radius: 0.8vw;
-    padding: var(--card-expanded-font-size);
+    border-radius: 1.8vh;
+    padding: var(--card-expanded-padding);
     margin-left: var(--card-expanded-spacing);
     margin-right: var(--card-expanded-spacing);
     margin-bottom: calc(var(--card-expanded-spacing)*2);
