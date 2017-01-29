@@ -141,8 +141,6 @@
     font-size: 0;
     text-align: center;
     height: 100%;
-    padding-top: 1.5vh;
-    padding-bottom: 1.5vh;
     padding-left: var(--card-spacing);
     padding-right: var(--card-spacing); 
     overflow-y: scroll;
@@ -151,8 +149,6 @@
 }
 .white-card__container--expanded, .player-score__container {
     height: 85vh;
-    padding-top: 3vw;
-    padding-bottom: 3vw;
 }
 .white-card {
     display: inline-block;
