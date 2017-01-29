@@ -7,12 +7,12 @@
     </div>
   </div>
   <div class="timer__container">
-    <button class="start-button glow" type="button" ng-if="iAmGameMaster && gameState==0" ng-click="startGame()">Start</button>
-    <p class="waiting-text" ng-if="!iAmGameMaster" ng-switch="gameState">
+    <button class="start-button pop" type="button" ng-if="iAmGameMaster && gameState==0" ng-click="startGame()">Start</button>
+    <p class="waiting-text pop" ng-if="!iAmGameMaster" ng-switch="gameState">
       <span ng-switch-when="0">Aspettando che il GameMaster avvii la partita...</span>
       <span ng-switch-when="2">Il vincitore è...</span>
     </p>
-    <div ng-show="gameState==1" class="timer">
+    <div ng-show="gameState==1" class="timer pop">
       <img class="timer__icon" src="img/clock.svg" alt="Time left">
       <div class="timer__bar" style="width: {{4*time}}vw"></div>
       <span class="timer__text">{{time+1}}</span>

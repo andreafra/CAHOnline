@@ -257,8 +257,8 @@
 ::-webkit-scrollbar {
     width: 6px;
 }
- ::-webkit-scrollbar-track {
-}
+/* ::-webkit-scrollbar-track {
+}*/
 ::-webkit-scrollbar-thumb {
     border-radius: 2px;
     background: #444;
@@ -288,6 +288,10 @@
 .pop.ng-enter {
     animation: card-pop-in 0.4s ease-in;
     opacity:0;
+}
+.pop.ng-enter-stagger, .pop.ng-leave-stagger {
+  transition-delay: 0.2s;
+  transition-duration: 0s;
 }
 .pop.ng-enter.ng-enter-active {
     opacity:1;
