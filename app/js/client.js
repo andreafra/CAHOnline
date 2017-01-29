@@ -66,6 +66,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     $scope.players=data.players
     $scope.iAmGameMaster=data.players[$scope.playerid].isGameMaster
     $scope.gameState=data.gameState
+    $scope.myPlayedCards=new Array()
     $scope.time=10
   })
 
@@ -118,6 +119,11 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
   $scope.startGame = function(){
     socket.emit('start_game',{room: $scope.room})
     socket.emit('give_blackcard',{room: $scope.room})
+  }
+
+  $scope.playCard = function(index){
+    console.log(index)
+    $scope.myPlayedCards.push($scope.whiteCards[index])
   }
 
   $scope.$on('$destroy', function (event) {
