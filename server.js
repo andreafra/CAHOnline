@@ -72,14 +72,14 @@ io.on("connection", function(socket) {
 
   socket.on('give_whitecards', function(data){
     var deck = io.nsps['/'].adapter.rooms[data.room].whiteCards ? io.nsps['/'].adapter.rooms[data.room].whiteCards : getNewDeck("whiteCards",data.room)
-    for(var playerId in getPlayersInRoom(data.room)){  
+    //for(var playerId in getPlayersInRoom(data.room)){  
       var playerCards = new Array()
       for(var i = 0; i < data.amount; i++){
         playerCards.push(deck.pop())
       }
-      console.log(JSON.stringify(playerCards))
-      io.to(playerId).emit('display_whitecards', {whiteCards:playerCards})
-    }
+      //io.to(playerId).emit('display_whitecards', {whiteCards:playerCards})
+      socket.emit('display_whitecards', {whiteCards:playerCards})
+    //}
   })
 
   socket.on('give_blackcard', function(data){
@@ -117,7 +117,7 @@ function addPlayer(player, isGameMaster) {
     isGameMaster: isGameMaster,
     points: 0
   }
-
+  
   player.socket.emit("load_game_page", {room: player.data.roomId})
   var playersInSameRoom = getPlayersInRoom(player.data.roomId)
   io.to(player.data.roomId).emit("display_players", {players: playersInSameRoom})
@@ -127,6 +127,7 @@ function addPlayer(player, isGameMaster) {
 function deletePlayer(id) {
 	if(players[id]){
 		var playerRoom = players[id].room
+    if(io.sockets.connected[id]) io.sockets.connected[id].leave(playerRoom)
 		delete players[id]
 		var playersInSameRoom = getPlayersInRoom(playerRoom)
 		io.to(playerRoom).emit("display_players", {players: playersInSameRoom})

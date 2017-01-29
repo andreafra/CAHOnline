@@ -122,6 +122,7 @@
     background: red;
     margin: 3.5vh 5vw;
     border-radius: 2px;
+    transition: all 0.1s linear, width 1s linear;
 }
 .timer__text {
     position: absolute;

@@ -11,8 +11,8 @@
     <p ng-if="!iAmGameMaster && gameState==0">Aspettando che il Gamemaster avvii la partita</p>
     <div ng-show="gameState==1" class="timer">
       <img class="timer__icon" src="img/clock.svg" alt="Time left">
-      <div class="timer__bar"></div>
-      <span class="timer__text">10</span>
+      <div class="timer__bar" style="width: {{4*time}}vw !important"></div>
+      <span class="timer__text">{{time+1}}</span>
     </div>
   </div>
   <div class="played-cards__container">
