@@ -44,15 +44,17 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies){
 
   socket.on('display_whitecards', function(data){
     $scope.whiteCards=data.whiteCards
+    $scope.$apply()
   })
 
   socket.on('display_blackcard', function(data){
     $scope.blackCard=data.blackCard
+    $scope.$apply()
   })
 
   $scope.startGame = function(){
-    socket.emit('give_whitecards',{room: $scope.room})
-    setTimeout(socket.emit('give_blackcard',{room: $scope.room, amount: 10}))
+    socket.emit('give_whitecards',{room: $scope.room, amount: 10})
+    socket.emit('give_blackcard',{room: $scope.room})
   }
 })
 

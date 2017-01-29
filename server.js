@@ -67,12 +67,18 @@ io.on("connection", function(socket) {
   socket.on('give_whitecards', function(data){
     var deck = io.nsps['/'].adapter.rooms[data.room].whiteCards ? io.nsps['/'].adapter.rooms[data.room].whiteCards : getNewDeck("whiteCards",data.room)
     for(var playerId in getPlayersInRoom(data.room)){  
-      var playerCards = new Array(data.amount)
-      for(var i = deck.length; i > deck.length-data.amount; i--){
+      var playerCards = new Array()
+      for(var i = 0; i < data.amount; i++){
         playerCards.push(deck.pop())
       }
+      console.log(JSON.stringify(playerCards))
       io.to(playerId).emit('display_whitecards', {whiteCards:playerCards})
     }
+  })
+
+  socket.on('give_blackcard', function(data){
+    var deck = io.nsps['/'].adapter.rooms[data.room].blackCards ? io.nsps['/'].adapter.rooms[data.room].blackCards : getNewDeck("blackCards",data.room)
+    io.to(data.room).emit('display_blackcard', {blackCard:deck.pop()})
   })
 })
 
@@ -117,6 +123,7 @@ function deletePlayer(id) {
 }
 
 function getNewDeck(set,room){
+  console.log("Creating new deck of " + set + " for room " + room)
   switch(set){
     case "whiteCards":
       var newDeck = cards.whiteCards;

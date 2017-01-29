@@ -2,12 +2,12 @@
 <div class="board">
   <div class="black-card__container">
     <div class="black-card card-shadow" id="black-card">
-      <p class="black-card__text">Fancy text{{blackCard.text}}</p>
+      <p class="black-card__text">{{blackCard.text}}</p>
     </div>
   </div>
   <div class="timer__container">
-    <button class="start-button hidden" type="button" ng-if="iAmGameMaster" ng-click="startGame()">Start</button>
-    <div class="timer">
+    <button class="start-button" type="button" ng-if="iAmGameMaster" ng-click="startGame()">Start</button>
+    <div class="timer hidden">
       <img class="timer__icon" src="img/clock.svg" alt="Time left">
       <div class="timer__bar"></div>
       <span class="timer__text">10</span>
@@ -42,7 +42,7 @@
     <button class="drawer__switch" ng-click="isScoreboard=!isScoreboard">[toggle]</button>
     <ul class="white-card__container white-card__container--expanded">
       <!-- white cards loop here -->
-      <li class="white-card white-card--expanded card-shadow" ng-repeat="whiteCard in [1,2,3,4,5,6,7,8,9,10]">
+      <li class="white-card white-card--expanded card-shadow" ng-repeat="whiteCard in whiteCards">
         <p class="white-card__text">{{whiteCard}}</p>
       </li>
     </ul>
