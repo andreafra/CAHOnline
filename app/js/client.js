@@ -91,19 +91,22 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     switch(data.gameState){
       case 1:
         //TODO: startare il timer, rendere clickabili le carte in mano ai non-gamemaster, ecc.
-        $scope.time--
-        var timer = setInterval(function(){
-          if($scope.time>0) {
-            $scope.time--
-            $scope.$apply()
-          }
-          else  {
-            //TIME IS OVER
-            clearInterval(timer)
-            $scope.gameState=2
-            if($scope.iAmGameMaster) socket.emit("sync_room_gamestate",{room: $scope.room, gameState: 2})
-          }
-        },1000)
+        setTimeout(function(){
+          $scope.time--
+          $scope.$apply()
+          var timer = setInterval(function(){
+            if($scope.time>0) {
+              $scope.time--
+              $scope.$apply()
+            }
+            else  {
+              //TIME IS OVER
+              clearInterval(timer)
+              $scope.gameState=2
+              if($scope.iAmGameMaster) socket.emit("sync_room_gamestate",{room: $scope.room, gameState: 2})
+            }
+          },1000)
+        },1)
         break
       case 2:
         //TODO: l'opposto di quanto sopra; + rendere clickabili al gamemaster le carte sul tavolo
