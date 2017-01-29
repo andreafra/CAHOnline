@@ -62,7 +62,8 @@ io.on("connection", function(socket) {
 
   socket.on('get_first_load', function(data){
     var playersInSameRoom = getPlayersInRoom(data.room)
-    if(playersInSameRoom.length == 0){
+    if(!io.nsps['/'].adapter.rooms[data.room]){
+      socket.join(data.room)
       io.nsps['/'].adapter.rooms[data.room].gameState = 0
     }
     socket.emit('first_load',{players: playersInSameRoom, gameState: io.nsps['/'].adapter.rooms[data.room].gameState})
