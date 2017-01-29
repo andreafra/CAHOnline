@@ -8,13 +8,14 @@
     --white-card-color: #fff;
     --card-placeholder-color: #ddd;
     --card-font-size: 1.2vh;
-    --card-expanded-font-size: 3vh;
+    --card-expanded-font-size: 2.5vh;
     --card-height: 15vh;
     --card-expanded-height: 30vh;
     --card-spacing: 0.75vh;
     --card-expanded-spacing: 1.5vh;
     --card-padding: calc(var(--card-spacing)*2);
     --card-expanded-padding: calc(var(--card-expanded-spacing)*2);
+    --highlight-color: #5396b2;
 }
 * {
     margin: 0;
@@ -80,7 +81,16 @@
     color: var(--white-card-color);
     font-size: var(--card-expanded-font-size);
 }
-
+.black-card__pick {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 1em;
+    margin-bottom: 0.5em;
+    font-size: var(--card-expanded-font-size);
+    color: var(--white-card-color);
+}
 .timer__container {
     display: flex;
     width: 100%;
@@ -132,6 +142,7 @@
     text-align: center;
     height: 100%;
     padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
     padding-left: var(--card-spacing);
     padding-right: var(--card-spacing); 
     overflow-y: scroll;
@@ -141,6 +152,7 @@
 .white-card__container--expanded, .player-score__container {
     height: 85vh;
     padding-top: 3vw;
+    padding-bottom: 3vw;
 }
 .white-card {
     display: inline-block;
@@ -195,13 +207,23 @@
     padding: 0.3em 0.7em;
     border-radius: 0.9em;
     text-align: left;
+    vertical-align: middle;
     color: var(--scoreboard-text-color);
 }
 .player-score:nth-child(odd) {
     background: var(--scoreboard-row-color);
 }
+.player-score--gamemaster {
+    background: var(--highlight-color) !important;
+}
 .player-score__points {
     float: right;
+    vertical-align: middle;
+}
+.player-score__icon {
+    height: 1em;
+    vertical-align: middle;
+    padding-bottom: 0.2em;
 }
 .hidden {
     display: none;
