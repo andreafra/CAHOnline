@@ -1,34 +1,34 @@
 //var socket = io('/').connect("http://localhost:5000")
-var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy']);
+var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy'])
 app.factory('socket', function ($rootScope) {
   var socket = io('/').connect("http://localhost:5000")
   return {
     on: function (eventName, callback) {
       socket.on(eventName, function () {  
-        var args = arguments;
+        var args = arguments
         $rootScope.$apply(function () {
-          callback.apply(socket, args);
-        });
-      });
+          callback.apply(socket, args)
+        })
+      })
     },
     emit: function (eventName, data, callback) {
       socket.emit(eventName, data, function () {
-        var args = arguments;
+        var args = arguments
         $rootScope.$apply(function () {
           if (callback) {
-            callback.apply(socket, args);
+            callback.apply(socket, args)
           }
-        });
+        })
       })
     },
     id: function(){
       return socket.io.engine.id
     },
     removeAllListeners: function() {
-      socket.removeAllListeners();
+      socket.removeAllListeners()
     } 
-  };
-});
+  }
+})
 
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
@@ -41,12 +41,11 @@ app.config(function($routeProvider, $locationProvider) {
     controller: "joinGame"
   })
 
-  $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(true)
 })
 
 app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
   $scope.room=$routeParams.room
-  $scope.playerid=socket.id()
   $scope.playerid=socket.id()
   socket.on('first_load', function(data){
     //RECONNECTION LOGIC
@@ -57,6 +56,10 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
       playerObject.id = $scope.playerid
       data.players[playerObject.id]=playerObject
       socket.emit('reconnect_player', {newPlayer: playerObject, oldPlayer: lastId})
+      $scope.whiteCards = $cookies.getObject("whiteCards")
+    }
+    else{
+      socket.emit('give_whitecards',{room: $scope.room, amount: 10})
     }
     $cookies.put("lastId",$scope.playerid)
     $scope.players=data.players
@@ -64,7 +67,6 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     $scope.gameState=data.gameState
     $scope.time=10
 
-    socket.emit('give_whitecards',{room: $scope.room, amount: 10})
   })
 
   socket.emit('get_first_load',{room: $scope.room})
@@ -76,6 +78,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
 
   socket.on('display_whitecards', function(data){
     $scope.whiteCards=data.whiteCards
+    $cookies.putObject("whiteCards",data.whiteCards)
   })
 
   socket.on('display_blackcard', function(data){
@@ -102,10 +105,10 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
             if($scope.iAmGameMaster) socket.emit("sync_room_gamestate",{room: $scope.room, gameState: 2})
           }
         },1000)
-        break;
+        break
       case 2:
         //TODO: l'opposto di quanto sopra; + rendere clickabili al gamemaster le carte sul tavolo
-        break;
+        break
     }
   })
 
@@ -115,8 +118,8 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
   }
 
   $scope.$on('$destroy', function (event) {
-      socket.removeAllListeners();
-  });
+      socket.removeAllListeners()
+  })
 })
 
 app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
@@ -148,8 +151,8 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
   })
 
   $scope.$on('$destroy', function (event) {
-      socket.removeAllListeners();
+      socket.removeAllListeners()
       // or something like
       // socket.removeListener(this);
-  });
+  })
 })

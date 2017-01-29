@@ -1,5 +1,5 @@
 const express = require('express')
-const shortid = require('shortid');
+const shortid = require('shortid')
 const app = express()
 const server = require("http").Server(app)
 const io = require("socket.io")(server)
@@ -15,21 +15,21 @@ server.listen(port)
 console.log("http server listening on %d", port)
 
 var players = {}
-var cards = JSON.parse(fs.readFileSync(__dirname + '/app/json/cards.json', 'utf8'));
+var cards = JSON.parse(fs.readFileSync(__dirname + '/app/json/cards.json', 'utf8'))
 
 app.get("*", function(req, res) {
   res.sendFile(__dirname + "/app/index.html")
 })
 
 io.on("connection", function(socket) {
-  console.log("Player " + socket.id + " connected");
+  console.log("Player " + socket.id + " connected")
   
   // create room and join it
   socket.on("create_room", function(data) {
     var roomId = shortid.generate()
-    data.roomId = roomId;
+    data.roomId = roomId
     socket.join(roomId)
-    io.nsps['/'].adapter.rooms[roomId].gameState=0;
+    io.nsps['/'].adapter.rooms[roomId].gameState=0
     addPlayer({data, socket}, true)
     console.log("NEW ROOM WITH ID " + roomId)
   })
@@ -41,8 +41,8 @@ io.on("connection", function(socket) {
   })
 
   socket.on('disconnect', function() {
-  	setTimeout(function(){deletePlayer(socket.id)}, 3000);
-  	console.log("Player " + socket.id + " disconnected");
+  	setTimeout(function(){deletePlayer(socket.id)}, 3000)
+  	console.log("Player " + socket.id + " disconnected")
   })
 
   socket.on('delete_player', function() {
@@ -142,13 +142,13 @@ function getNewDeck(set,room){
   console.log("Creating new deck of " + set + " for room " + room)
   switch(set){
     case "whiteCards":
-      var newDeck = cards.whiteCards;
+      var newDeck = cards.whiteCards
       shuffle(newDeck)
       io.nsps['/'].adapter.rooms[room].whiteCards=newDeck
       return newDeck
       break
     case "blackCards":
-      var newDeck = cards.blackCards;
+      var newDeck = cards.blackCards
       shuffle(newDeck)
       io.nsps['/'].adapter.rooms[room].blackCards=newDeck
       return newDeck
@@ -158,7 +158,7 @@ function getNewDeck(set,room){
 
 function shuffle(a) {
     for (let i = a.length; i; i--) {
-        let j = Math.floor(Math.random() * i);
-        [a[i - 1], a[j]] = [a[j], a[i - 1]];
+        let j = Math.floor(Math.random() * i)
+        [a[i - 1], a[j]] = [a[j], a[i - 1]]
     }
 }
