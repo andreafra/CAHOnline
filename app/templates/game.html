@@ -2,8 +2,8 @@
 <div class="board">
   <div class="black-card__container">
     <div class="black-card card-shadow" id="black-card">
-      <p class="black-card__text">{{blackCard.text}}</p>
-      <span class="black-card__pick">Pick: {{blackCard.pick}}</span>
+      <p class="black-card__text">{{blackCard.text.replaceAll("_","____")}}</p>
+      <span ng-show="blackCard.text" class="black-card__pick">Pick: {{blackCard.pick}}</span>
     </div>
   </div>
   <div class="timer__container">

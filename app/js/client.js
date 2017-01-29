@@ -49,7 +49,6 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
   $scope.id=socket.id()
   
   socket.on('first_load', function(data){
-    console.log("loading")
     if(data.gameState != 0){
       //TODO: buttalo fuori
     }
