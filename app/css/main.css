@@ -19,6 +19,7 @@
 }
 * {
     margin: 0;
+    outline-style: none;
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 .wrapper {
@@ -53,9 +54,16 @@
 .drawer__switch {
     position: absolute;
     height: 7vh;
+    width: 7vh;
     top: 4vh;
     right: 4vh;
     text-align: right;
+    background: transparent;
+    border: none;
+}
+.drawer__switch .drawer__switch__icon {
+    height: 7vh;
+    width: 7vh;
 }
 .black-card__container {
     width: 50vw;
@@ -101,6 +109,22 @@
 .start-button {
     align-self: center;
     margin: auto;
+    padding: 0.7em 2em;
+    font-size: 2vh;
+    border-radius: 0.7em;
+    background: #fff;
+    border: 0.2em solid var(--highlight-color);
+    color: var(--highlight-color);
+    transition: all 0.4s ease-out;
+}
+.start-button:hover, .start-button:active {
+    background: var(--highlight-color);
+    color: white;
+}
+.waiting-text {
+    align-self: center;
+    text-align: center;
+    width: 100%;
 }
 .timer {
     align-self: center;
@@ -119,7 +143,7 @@
 .timer__bar {
     width: 40vw;
     height: 3vh;
-    background: red;
+    background: var(--highlight-color);
     margin: 3.5vh 5vw;
     border-radius: 2px;
     transition: all 0.1s linear, width 1s linear;
@@ -225,8 +249,10 @@
 .hidden {
     display: none;
 }
+
 .card-shadow {
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16),
+            0 3px 6px rgba(0,0,0,0.23);
 }
 ::-webkit-scrollbar {
     width: 6px;
@@ -236,4 +262,40 @@
 ::-webkit-scrollbar-thumb {
     border-radius: 2px;
     background: #444;
+}
+@keyframes highlight-glow {
+    0%, 100% {box-shadow:  0px 0px rgba(0,0,0,0.0),
+            0 0px 0px rgba(0,0,0,0.0);}
+    50% {box-shadow: 3px 1px 4px rgba(83, 150, 178, 0.5),
+            0 3px 2px 3px rgba(55, 116, 142, 0.4);}
+}
+.glow {
+    animation: highlight-glow 2s linear infinite;
+}
+@keyframes card-pop-out {
+    0% {transform: scale(1);}
+    20% {transform: scale(1.1);}
+    100% {transform: scale(0);}
+}
+@keyframes card-pop-in {
+    0% {transform: scale(0);}
+    80% {transform: scale(1.1);}
+    100% {transform: scale(1);}
+}
+.pop {
+    transition: all 0.4s ease;
+}
+.pop.ng-enter {
+    animation: card-pop-in 0.4s ease-in;
+    opacity:0;
+}
+.pop.ng-enter.ng-enter-active {
+    opacity:1;
+}
+.pop.ng-leave {
+    animation: card-pop-out 0.4s ease-out;
+    opacity:1;
+}
+.pop.ng-leave.ng-leave-active {
+    opacity:0;
 }

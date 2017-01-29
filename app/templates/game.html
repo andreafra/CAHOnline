@@ -7,11 +7,14 @@
     </div>
   </div>
   <div class="timer__container">
-    <button class="start-button" type="button" ng-if="iAmGameMaster && gameState==0" ng-click="startGame()">Start</button>
-    <p ng-if="!iAmGameMaster && gameState==0">Aspettando che il Gamemaster avvii la partita</p>
+    <button class="start-button glow" type="button" ng-if="iAmGameMaster && gameState==0" ng-click="startGame()">Start</button>
+    <p class="waiting-text" ng-if="!iAmGameMaster" ng-switch="gameState">
+      <span ng-switch-when="0">Aspettando che il GameMaster avvii la partita...</span>
+      <span ng-switch-when="2">Il vincitore è...</span>
+    </p>
     <div ng-show="gameState==1" class="timer">
       <img class="timer__icon" src="img/clock.svg" alt="Time left">
-      <div class="timer__bar" style="width: {{4*time}}vw !important"></div>
+      <div class="timer__bar" style="width: {{4*time}}vw"></div>
       <span class="timer__text">{{time+1}}</span>
     </div>
   </div>
@@ -20,7 +23,7 @@
       <!-- white cards loop here -->
       <!-- Per carta da selezionare guarda qui
         http://stackoverflow.com/a/32893768/3637244-->
-      <li class="white-card card-shadow" ng-repeat="playedCard in playedCards">
+      <li class="white-card card-shadow pop" ng-repeat="playedCard in playedCards">
         <p class="white-card__text">{{playedCard}}</p>
       </li>
     </ul>
@@ -28,9 +31,11 @@
 </div>
 <!-- Drawer (collapsable left column)-->
 <div class="drawer">
-  <div class="scoreboard" ng-class="{hidden:!isScoreboard}">
+  <div class="scoreboard fade" ng-class="{hidden:!isScoreboard}">
     <h3 class="scoreboard__title">Punteggi</h3>
-    <button class="drawer__switch" ng-click="isScoreboard=!isScoreboard">[toggle]</button>
+    <button class="drawer__switch" ng-click="isScoreboard=!isScoreboard">
+      <img class="drawer__switch__icon" src="../img/cards.png" alt="Cambia">
+    </button>
     <ul class="player-score__container">
       <li class="player-score" ng-class="{'player-score--you' : player.id==playerid}" ng-repeat="(id, player) in players | orderObjectBy : 'points' : true">
         {{player.name}}
@@ -39,9 +44,11 @@
       </li>
     </ul>
   </div>
-  <div class="player-hand" ng-class="{hidden:isScoreboard}">
+  <div class="player-hand fade" ng-class="{hidden:isScoreboard}">
     <h3 class="player-hand__title">La tua mano</h3>
-    <button class="drawer__switch" ng-click="isScoreboard=!isScoreboard">[toggle]</button>
+    <button class="drawer__switch" ng-click="isScoreboard=!isScoreboard">
+      <img class="drawer__switch__icon" src="../img/scoreboard.png" alt="Cambia">  
+    </button>
     <ul class="white-card__container white-card__container--expanded">
       <!-- white cards loop here -->
       <li class="white-card white-card--expanded card-shadow" ng-repeat="whiteCard in whiteCards" ng-click="gameState==1 && myPlayedCards.length<blackCard.pick && playCard($index)" ng-class="{'pop' : myPlayedCards.indexOf(whiteCard)}">
