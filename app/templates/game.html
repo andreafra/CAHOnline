@@ -7,8 +7,9 @@
     </div>
   </div>
   <div class="timer__container">
-    <button class="start-button" type="button" ng-if="iAmGameMaster" ng-click="startGame()">Start</button>
-    <div class="timer hidden">
+    <button class="start-button" type="button" ng-if="iAmGameMaster && gameState==0" ng-click="startGame()">Start</button>
+    <p ng-if="!iAmGameMaster && gameState==0">Aspettando che il Gamemaster avvii la partita</p>
+    <div ng-show="gameState==1" class="timer">
       <img class="timer__icon" src="img/clock.svg" alt="Time left">
       <div class="timer__bar"></div>
       <span class="timer__text">10</span>
