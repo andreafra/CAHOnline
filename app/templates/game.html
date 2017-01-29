@@ -1,51 +1,50 @@
 <!-- Board -->
 <div class="board">
-  <div class="flex-column">
   <div class="black-card__container">
     <div class="black-card card-shadow" id="black-card">
-      <p class="black-card__text">Fancy text{{blackCard.text}}</p>
+      <p class="black-card__text">{{blackCard.text.replaceAll("_","____")}}</p>
+      <span ng-show="blackCard.text" class="black-card__pick">Pick: {{blackCard.pick}}</span>
     </div>
   </div>
   <div class="timer__container">
-    <!-- Set the timer! -->
+    <button class="start-button" type="button" ng-if="iAmGameMaster && gameState==0" ng-click="startGame()">Start</button>
+    <p ng-if="!iAmGameMaster && gameState==0">Aspettando che il Gamemaster avvii la partita</p>
+    <div ng-show="gameState==1" class="timer">
+      <img class="timer__icon" src="img/clock.svg" alt="Time left">
+      <div class="timer__bar" style="width: {{4*time}}vw !important"></div>
+      <span class="timer__text">{{time+1}}</span>
+    </div>
   </div>
   <div class="played-cards__container">
     <ul class="white-card__container">
       <!-- white cards loop here -->
       <!-- Per carta da selezionare guarda qui
         http://stackoverflow.com/a/32893768/3637244-->
-      <li class="white-card card-shadow">
-        <p class="white-card__text">Im a card.</p>
-      </li>
-      <li class="white-card" ng-repeat="whiteCard in whiteCards">
+      <li class="white-card card-shadow" ng-repeat="whiteCard in [1,2,3,4,5,6,7,8,9,10]">
         <p class="white-card__text">{{whiteCard}}</p>
       </li>
     </ul>
   </div>
-  </div>
 </div>
 <!-- Drawer (collapsable left column)-->
 <div class="drawer">
-  <div class="scoreboard">
+  <div class="scoreboard" ng-class="{hidden:!isScoreboard}">
     <h3 class="scoreboard__title">Punteggi</h3>
+    <button class="drawer__switch" ng-click="isScoreboard=!isScoreboard">[toggle]</button>
     <ul class="player-score__container">
-      <li class="player-score" ng-repeat="(id, player) in players | orderObjectBy : 'points' : true">
+      <li class="player-score" ng-class="{'player-score--you' : player.id==playerid}" ng-repeat="(id, player) in players | orderObjectBy : 'points' : true">
         {{player.name}}
-        <span class="points">{{player.points}}</span>
+        <img class="player-score__icon" src="../img/rating.svg" ng-show="player.isGameMaster"/>
+        <span class="player-score__points">{{player.points}}</span>
       </li>
     </ul>
   </div>
-  <div class="player-hand">
+  <div class="player-hand" ng-class="{hidden:isScoreboard}">
     <h3 class="player-hand__title">La tua mano</h3>
-    <ul class="white-card__container">
+    <button class="drawer__switch" ng-click="isScoreboard=!isScoreboard">[toggle]</button>
+    <ul class="white-card__container white-card__container--expanded">
       <!-- white cards loop here -->
-      <li class="white-card white-card--expanded card-shadow">
-        <p class="white-card__text">Im a card, but bigger.</p>
-      </li>
-      <li class="white-card white-card--expanded card-shadow">
-        <p class="white-card__text">Im a card, but bigger.</p>
-      </li>
-      <li class="white-card card-shadow" ng-repeat="whiteCard in whiteCards">
+      <li class="white-card white-card--expanded card-shadow" ng-repeat="whiteCard in whiteCards">
         <p class="white-card__text">{{whiteCard}}</p>
       </li>
     </ul>
