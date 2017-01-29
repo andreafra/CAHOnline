@@ -49,6 +49,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
   $scope.playerid=socket.id()
   socket.on('first_load', function(data){
     //RECONNECTION LOGIC
+    $scope.playerid=socket.id()
     var lastId = $cookies.get("lastId")
     if(data.players[lastId]){
       var playerObject = data.players[lastId]
@@ -66,7 +67,6 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     $scope.iAmGameMaster=data.players[$scope.playerid].isGameMaster
     $scope.gameState=data.gameState
     $scope.time=10
-
   })
 
   socket.emit('get_first_load',{room: $scope.room})

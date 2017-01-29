@@ -58,6 +58,7 @@ io.on("connection", function(socket) {
     socket.join(data.newPlayer.room)
     delete players[data.oldPlayer]
     players[data.newPlayer.id]=data.newPlayer
+    socket.emit('sync_gamestate', {gameState: io.nsps['/'].adapter.rooms[data.newPlayer.room].gameState})
   })
 
   socket.on('get_first_load', function(data){
