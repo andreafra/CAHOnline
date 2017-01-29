@@ -54,7 +54,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies){
   })
 
   socket.on('display_blackcard', function(data){
-    $scope.blackCard=data.blackCard
+    $scope.blackCard = data.blackCard
     $scope.$apply()
   })
 
