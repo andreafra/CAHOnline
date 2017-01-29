@@ -19,6 +19,9 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies){
   $scope.id=socket.io.engine.id
 
   socket.on('first_load', function(data){
+    if(data.gameState != 0){
+      //buttalo fuori
+    }
     //RECONNECTION LOGIC
     var lastId = $cookies.get("lastId")
     if(data.players[lastId]){
@@ -31,7 +34,10 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies){
     $cookies.put("lastId",socket.io.engine.id)
     $scope.players=data.players
     $scope.iAmGameMaster=data.players[$scope.id].isGameMaster
+    $scope.gameState=data.gameState
     $scope.$apply()
+
+    socket.emit('give_whitecards',{room: $scope.room, amount: 10})
   })
 
   socket.emit('get_first_load',{room: $scope.room})
@@ -52,9 +58,23 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies){
     $scope.$apply()
   })
 
+  socket.on('sync_gamestate', function(data){
+    $scope.gameState=data.gameState
+    $scope.$apply()
+
+    switch(data.gameState){
+      case 1:
+        //TODO: startare il timer, rendere clickabili le carte in mano ai non-gamemaster, ecc.
+        break;
+      case 2:
+        //TODO: l'opposto di quanto sopra; + rendere clickabili al gamemaster le carte sul tavolo
+        break;
+    }
+  })
+
   $scope.startGame = function(){
-    socket.emit('give_whitecards',{room: $scope.room, amount: 10})
     socket.emit('give_blackcard',{room: $scope.room})
+    socket.emit('start_game',{room: $scope.room})
   }
 })
 

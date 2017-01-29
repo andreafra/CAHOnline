@@ -29,6 +29,7 @@ io.on("connection", function(socket) {
     var roomId = shortid.generate()
     data.roomId = roomId;
     socket.join(roomId)
+    io.nsps['/'].adapter.rooms[roomId].gameState=0;
     addPlayer({data, socket}, true)
     console.log("NEW ROOM WITH ID " + roomId)
   })
@@ -61,7 +62,12 @@ io.on("connection", function(socket) {
 
   socket.on('get_first_load', function(data){
     var playersInSameRoom = getPlayersInRoom(data.room)
-    socket.emit('first_load',{players: playersInSameRoom})
+    socket.emit('first_load',{players: playersInSameRoom, gameState: io.nsps['/'].adapter.rooms[data.room].gameState})
+  })
+
+  socket.on('sync_room_gamestate', function(data){
+    io.nsps['/'].adapter.rooms[data.room].gameState=data.gameState
+    io.to(data.room).emit("sync_gamestate", {gameState: io.nsps['/'].adapter.rooms[data.room].gameState})
   })
 
   socket.on('give_whitecards', function(data){
@@ -79,6 +85,11 @@ io.on("connection", function(socket) {
   socket.on('give_blackcard', function(data){
     var deck = io.nsps['/'].adapter.rooms[data.room].blackCards ? io.nsps['/'].adapter.rooms[data.room].blackCards : getNewDeck("blackCards",data.room)
     io.to(data.room).emit('display_blackcard', {blackCard:deck.pop()})
+  })
+
+  socket.on('start_game', function(data){
+    io.nsps['/'].adapter.rooms[data.room].gameState = 1
+    io.to(data.room).emit('sync_gamestate',{gameState: 1})
   })
 })
 
