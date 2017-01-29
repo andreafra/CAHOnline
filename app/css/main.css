@@ -210,7 +210,7 @@
 .player-score:nth-child(odd) {
     background: var(--scoreboard-row-color);
 }
-.player-score--gamemaster {
+.player-score--you {
     background: var(--highlight-color) !important;
 }
 .player-score__points {

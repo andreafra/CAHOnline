@@ -46,24 +46,21 @@ app.config(function($routeProvider, $locationProvider) {
 
 app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
   $scope.room=$routeParams.room
-  $scope.id=socket.id()
-  
+  $scope.playerid=socket.id()
+  $scope.playerid=socket.id()
   socket.on('first_load', function(data){
-    if(data.gameState != 0){
-      //TODO: buttalo fuori
-    }
     //RECONNECTION LOGIC
     var lastId = $cookies.get("lastId")
     if(data.players[lastId]){
       var playerObject = data.players[lastId]
       delete data.players[lastId]
-      playerObject.id = $scope.id
+      playerObject.id = $scope.playerid
       data.players[playerObject.id]=playerObject
       socket.emit('reconnect_player', {newPlayer: playerObject, oldPlayer: lastId})
     }
-    $cookies.put("lastId",$scope.id)
+    $cookies.put("lastId",$scope.playerid)
     $scope.players=data.players
-    $scope.iAmGameMaster=data.players[$scope.id].isGameMaster
+    $scope.iAmGameMaster=data.players[$scope.playerid].isGameMaster
     $scope.gameState=data.gameState
     $scope.time=10
 
@@ -74,7 +71,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
 
   socket.on('display_players', function(data){
     $scope.players=data.players
-    $scope.iAmGameMaster=data.players[$scope.id].isGameMaster
+    $scope.iAmGameMaster=data.players[$scope.playerid].isGameMaster
   })
 
   socket.on('display_whitecards', function(data){
