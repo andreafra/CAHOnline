@@ -133,6 +133,10 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     $cookies.putObject("whiteCards",$scope.whiteCards)
   }
 
+  $scope.pickWinner = function(playerid){
+    console.log("Il giocatore " + playerid + " ha giocato la carta più divertente!")
+  }
+
   $scope.$on('$destroy', function (event) {
     socket.removeAllListeners()
   })
