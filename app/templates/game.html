@@ -1,7 +1,7 @@
 <!-- Board -->
 <div class="board">
   <div class="black-card__container">
-    <div class="black-card card-shadow" id="black-card" ng-class="{'flip': blackCard}">
+    <div class="black-card card-shadow" id="black-card" ng-class="{'flip': blackCard, 'black-card--highlight': gameState==3}">
       <p class="black-card__text" ng-bind-html="blackCard.text"></p>
       <span class="black-card__pick">{{blackCard ? 'Pick: ' + blackCard.pick : ''}}</span>
     </div>
@@ -23,9 +23,9 @@
       <!-- white cards loop here -->
       <!-- Per carta da selezionare guarda qui
         http://stackoverflow.com/a/32893768/3637244-->
-      <li class="white-card__box card-shadow pop" ng-repeat="(key, value) in playedCards" ng-click="gameState==2 && iAmGameMaster && pickWinner({id: value.player, cards: value.cards})" ng-class="{'flip': gameState==2 && value.player != playerid && !iAmGameMaster}">
+      <li class="white-card__box card-shadow pop" ng-repeat="(key, value) in playedCards" ng-click="gameState==2 && iAmGameMaster && pickWinner({id: value.player, cards: value.cards})" ng-class="{'flip': (gameState==2 || gameState==3) && value.player != playerid && !iAmGameMaster, 'white-card--highlight': gameState==3 && winner==value.player}">
         <div class="white-card white-card--folded card-shadow pop" ng-repeat="card in value.cards">
-          <p class="white-card__text">{{(gameState==2 || iAmGameMaster || value.player == playerid) ? card : ''}}</p>
+          <p class="white-card__text">{{(gameState==2 || gameState==3 || iAmGameMaster || value.player == playerid) ? card : ''}}</p>
         </div>
         
       </li>
@@ -64,4 +64,4 @@
     </ul>
   </div>
 </div>
-<div class="highlight"></div>
+<div class="highlight" ng-class="{'highlight--show': gameState==3}"></div>

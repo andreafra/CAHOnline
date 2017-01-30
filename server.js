@@ -73,7 +73,7 @@ io.on("connection", function(socket) {
   socket.on('sync_room_gamestate', function(data){
     if(!io.nsps['/'].adapter.rooms[data.room]) return;
     io.nsps['/'].adapter.rooms[data.room].gameState=data.gameState
-    io.to(data.room).emit("sync_gamestate", {gameState: io.nsps['/'].adapter.rooms[data.room].gameState})
+    io.to(data.room).emit("sync_gamestate", {gameState: io.nsps['/'].adapter.rooms[data.room].gameState, args:data})
   })
 
   socket.on('give_whitecards', function(data){

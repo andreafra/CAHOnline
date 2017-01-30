@@ -112,6 +112,8 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
       case 2:
         //TODO: l'opposto di quanto sopra; + rendere clickabili al gamemaster le carte sul tavolo
         break
+      case 3:
+        $scope.winner=data.args.winner
     }
   })
 
@@ -134,6 +136,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
 
   $scope.pickWinner = function(data){
     console.log("Il giocatore " + data.id + " ha giocato la/e carta/e più divertente/i: " + JSON.stringify(data.cards))
+    if($scope.iAmGameMaster)  socket.emit('sync_room_gamestate', {room:$scope.room, gameState:3, winner:data.id})
   }
 
   $scope.$on('$destroy', function (event) {
