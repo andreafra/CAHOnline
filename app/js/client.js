@@ -130,6 +130,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     $scope.myPlayedCards.push($scope.whiteCards[index])
     socket.emit("play_card",{text: $scope.whiteCards[index], player: $scope.playerid, room: $scope.room})
     $scope.whiteCards.splice(index,1)
+    $cookies.putObject("whiteCards",$scope.whiteCards)
   }
 
   $scope.$on('$destroy', function (event) {
