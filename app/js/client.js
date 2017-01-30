@@ -118,7 +118,6 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
   socket.on('display_played_card', function(data){
     //$scope.playedCards.push(card)
     $scope.playedCards=data.cards
-    console.log(JSON.stringify(data.cards))
   })
 
   $scope.startGame = function(){
@@ -133,8 +132,8 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     $cookies.putObject("whiteCards",$scope.whiteCards)
   }
 
-  $scope.pickWinner = function(playerid){
-    console.log("Il giocatore " + playerid + " ha giocato la carta più divertente!")
+  $scope.pickWinner = function(data){
+    console.log("Il giocatore " + data.id + " ha giocato la/e carta/e più divertente/i: " + JSON.stringify(data.cards))
   }
 
   $scope.$on('$destroy', function (event) {

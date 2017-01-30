@@ -23,7 +23,7 @@
       <!-- white cards loop here -->
       <!-- Per carta da selezionare guarda qui
         http://stackoverflow.com/a/32893768/3637244-->
-      <li class="white-card__box card-shadow pop" ng-repeat="(key, value) in playedCards" ng-click="gameState==2 && iAmGameMaster && pickWinner(value.player)" ng-class="{'flip': gameState==2 && value.player != playerid && !iAmGameMaster}">
+      <li class="white-card__box card-shadow pop" ng-repeat="(key, value) in playedCards" ng-click="gameState==2 && iAmGameMaster && pickWinner({id: value.player, cards: value.cards})" ng-class="{'flip': gameState==2 && value.player != playerid && !iAmGameMaster}">
         <div class="white-card white-card--folded card-shadow pop" ng-repeat="card in value.cards">
           <p class="white-card__text">{{(gameState==2 || iAmGameMaster || value.player == playerid) ? card : ''}}</p>
         </div>
