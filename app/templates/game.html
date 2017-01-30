@@ -7,14 +7,14 @@
     </div>
   </div>
   <div class="timer__container">
-    <button class="start-button glow" type="button" ng-if="iAmGameMaster && gameState==0" ng-click="startGame()">Start</button>
+    <button class="start-button" type="button" ng-if="iAmGameMaster && gameState==0" ng-click="startGame()">Start</button>
     <p class="waiting-text" ng-if="!iAmGameMaster" ng-switch="gameState">
       <span ng-switch-when="0">Aspettando che il GameMaster avvii la partita...</span>
       <span ng-switch-when="2">Il vincitore è...</span>
     </p>
     <div ng-show="gameState==1" class="timer">
       <img class="timer__icon" src="img/clock.svg" alt="Time left">
-      <div class="timer__bar" style="width: {{4*time}}vw"></div>
+      <div class="timer__bar" style="width: {{2*time}}vw"></div>
       <span class="timer__text">{{time+1}}</span>
     </div>
   </div>
@@ -24,7 +24,7 @@
       <!-- Per carta da selezionare guarda qui
         http://stackoverflow.com/a/32893768/3637244-->
       <li class="white-card card-shadow pop" ng-repeat="playedCard in playedCards">
-        <p class="white-card__text">{{playedCard}}</p>
+        <p class="white-card__text">{{playedCard.text}}</p>
       </li>
     </ul>
   </div>
@@ -51,7 +51,7 @@
     </button>
     <ul class="white-card__container white-card__container--expanded">
       <!-- white cards loop here -->
-      <li class="white-card white-card--expanded card-shadow" ng-repeat="whiteCard in whiteCards" ng-click="gameState==1 && myPlayedCards.length<blackCard.pick && playCard($index)" ng-class="{'pop' : myPlayedCards.indexOf(whiteCard)}">
+      <li class="white-card white-card--expanded card-shadow pop" ng-repeat="whiteCard in whiteCards" ng-click="gameState==1 && myPlayedCards.length<blackCard.pick && playCard($index)">
         <p class="white-card__text">{{whiteCard}}</p>
       </li>
     </ul>

@@ -299,3 +299,5 @@
 .pop.ng-leave.ng-leave-active {
     opacity:0;
 }
+
+.ng-leave { display:none; }
