@@ -115,8 +115,10 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     }
   })
 
-  socket.on('display_played_card', function(card){
-    $scope.playedCards.push(card)
+  socket.on('display_played_card', function(data){
+    //$scope.playedCards.push(card)
+    $scope.playedCards=data.cards
+    console.log(JSON.stringify(data.cards))
   })
 
   $scope.startGame = function(){
