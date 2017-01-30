@@ -2,7 +2,7 @@
 <div class="board">
   <div class="black-card__container">
     <div class="black-card card-shadow" id="black-card" ng-class="{'flip': blackCard}">
-      <p class="black-card__text">{{blackCard.text.replaceAll("_","____")}}</p>
+      <p class="black-card__text" ng-bind-html="blackCard.text"></p>
       <span class="black-card__pick">{{blackCard ? 'Pick: ' + blackCard.pick : ''}}</span>
     </div>
   </div>
@@ -58,8 +58,8 @@
     </div>
     <ul class="white-card__container white-card__container--expanded">
       <!-- white cards loop here -->
-      <li class="white-card white-card--expanded card-shadow pop" ng-repeat="whiteCard in whiteCards" ng-click="gameState==1 && myPlayedCards.length<blackCard.pick && playCard($index)">
-        <p class="white-card__text">{{whiteCard}}</p>
+      <li class="white-card white-card--expanded card-shadow pop" ng-repeat="whiteCard in whiteCards" ng-click="!iAmGameMaster && gameState==1 && myPlayedCards.length<blackCard.pick && playCard($index)">
+        <p class="white-card__text" ng-bind-html="whiteCard"></p>
       </li>
     </ul>
   </div>

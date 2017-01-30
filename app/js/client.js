@@ -1,4 +1,4 @@
-var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy', 'ngAnimate'])
+var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy', 'ngAnimate', 'ngSanitize'])
 app.factory('socket', function ($rootScope) {
   var socket = io('/').connect("http://localhost:5000")
   return {
