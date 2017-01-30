@@ -332,3 +332,12 @@
     animation: flip 0.4s ease forwards;
     transform-origin: 50% 50%;
 }
+@keyframes flip-show-text {
+    0% { opacity: 0; }
+    50% { opacity: 0; }
+    60% { opacity: 1; }
+    100% { opacity: 1; }
+}
+.flip > * {
+    animation: flip-show-text 0.4s ease forwards;
+}

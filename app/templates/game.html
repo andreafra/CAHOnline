@@ -1,14 +1,14 @@
 <!-- Board -->
 <div class="board">
   <div class="black-card__container">
-    <div class="black-card flip card-shadow" id="black-card">
+    <div class="black-card card-shadow" id="black-card" ng-class="{'flip': blackCard}">
       <p class="black-card__text">{{blackCard.text.replaceAll("_","____")}}</p>
-      <span ng-show="blackCard.text" class="black-card__pick">Pick: {{blackCard.pick}}</span>
+      <span class="black-card__pick">{{blackCard ? 'Pick: ' + blackCard.pick : ''}}</span>
     </div>
   </div>
   <div class="timer__container">
     <button class="start-button pop" type="button" ng-if="iAmGameMaster && gameState==0" ng-click="startGame()">Start</button>
-    <p class="waiting-text pop" ng-if="!iAmGameMaster" ng-switch="gameState">
+    <p class="waiting-text pop" ng-if="!iAmGameMaster && gameState!=1" ng-switch="gameState">
       <span ng-switch-when="0">Aspettando che il GameMaster avvii la partita...</span>
       <span ng-switch-when="2">Il vincitore è...</span>
     </p>
@@ -23,7 +23,7 @@
       <!-- white cards loop here -->
       <!-- Per carta da selezionare guarda qui
         http://stackoverflow.com/a/32893768/3637244-->
-      <li class="white-card__box card-shadow pop" ng-repeat="(key, value) in playedCards" ng-click="gameState==2 && iAmGameMaster && pickWinner(value.player)">
+      <li class="white-card__box card-shadow pop" ng-repeat="(key, value) in playedCards" ng-click="gameState==2 && iAmGameMaster && pickWinner(value.player)" ng-class="{'flip': gameState==2 && value.player != playerid && !iAmGameMaster}">
         <div class="white-card white-card--folded card-shadow pop" ng-repeat="card in value.cards">
           <p class="white-card__text">{{(gameState==2 || iAmGameMaster || value.player == playerid) ? card : ''}}</p>
         </div>
