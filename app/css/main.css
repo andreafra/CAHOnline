@@ -153,6 +153,7 @@
 .white-card__container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     padding: 0;
     list-style: none;
     font-size: 0;
@@ -322,3 +323,12 @@
 }
 
 .ng-leave:not(.white-card--expanded) { display:none; }
+
+@keyframes flip {
+    0% { transform: rotateY(180deg);}
+    100% { transform: rotateY(0deg);}
+}
+.flip {
+    animation: flip 0.4s ease forwards;
+    transform-origin: 50% 50%;
+}
