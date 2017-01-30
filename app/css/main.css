@@ -166,6 +166,7 @@
 }
 .white-card__container--expanded, .player-score__container {
     height: 85vh;
+    display: block;
 }
 .white-card__box {
     display: flex;
