@@ -7,11 +7,11 @@
     --black-card-color: #000;
     --white-card-color: #fff;
     --card-placeholder-color: #ddd;
-    --card-font-size: 1.2vh;
+    --card-font-size: 1.5vh;
     --card-expanded-font-size: 2.5vh;
-    --card-height: 15vh;
+    --card-height: 25vh;
     --card-expanded-height: 30vh;
-    --card-spacing: 0.75vh;
+    --card-spacing: 1vh;
     --card-expanded-spacing: 1.5vh;
     --card-padding: calc(var(--card-spacing)*2);
     --card-expanded-padding: calc(var(--card-expanded-spacing)*2);
@@ -175,24 +175,35 @@
 .white-card__container--expanded, .player-score__container {
     height: 85vh;
 }
-.white-card {
-    display: inline-block;
+.white-card__box {
+    display: flex;
+    flex-direction: column;
     height: var(--card-height);
     width: calc(var(--card-height)*0.8);
+    vertical-align: top;
+    border-radius: 1vh;
     margin: var(--card-spacing);
-    border-radius: 0.9vh;
+    overflow: hidden;
+}
+.white-card {
+    flex-grow: 1;
+    display: inline-block;
+    border-radius: 1vh;
     padding: var(--card-padding);
     background: var(--white-card-color);
-    vertical-align: top;
+    vertical-align: top;  
+}
+.white-card--folded {
+    margin-bottom: -1.5vh;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;    
 }
 .white-card--expanded {
     width: calc(var(--card-expanded-height)*0.8);
     height: var(--card-expanded-height);
     border-radius: 1.8vh;
     padding: var(--card-expanded-padding);
-    margin-left: var(--card-expanded-spacing);
-    margin-right: var(--card-expanded-spacing);
-    margin-bottom: calc(var(--card-expanded-spacing)*2);
+    margin: var(--card-expanded-spacing);
 }
 .white-card__text {
     color: var(--black-card-color);

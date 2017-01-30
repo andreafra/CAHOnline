@@ -23,8 +23,17 @@
       <!-- white cards loop here -->
       <!-- Per carta da selezionare guarda qui
         http://stackoverflow.com/a/32893768/3637244-->
-      <li class="white-card card-shadow pop" ng-repeat="playedCard in playedCards">
-        <p class="white-card__text">{{playedCard.text}}</p>
+      <li class="white-card__box card-shadow" ng-repeat="playedCard in playedCards">
+        <div class="white-card white-card--folded card-shadow pop">
+          <p class="white-card__text">Hormone injections.</p>
+        </div>
+        <div class="white-card white-card--folded card-shadow pop">
+          <p class="white-card__text">Eating all of the cookies before the AIDS bake-sale.</p>
+        </div>
+        <div class="white-card white-card--folded card-shadow pop hidden">
+          <p class="white-card__text">The terrorists.</p>
+        </div>
+        
       </li>
     </ul>
   </div>
