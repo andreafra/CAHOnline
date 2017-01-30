@@ -304,4 +304,4 @@
     opacity:0;
 }
 
-.ng-leave { display:none; }
+.ng-leave:not(.white-card--expanded) { display:none; }
