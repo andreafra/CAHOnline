@@ -51,19 +51,9 @@
 .drawer {
     background: var(--drawer-color);
 }
-.drawer__switch {
-    position: absolute;
-    height: 7vh;
-    width: 7vh;
-    top: 4vh;
-    right: 4vh;
-    text-align: right;
-    background: transparent;
-    border: none;
-}
 .drawer__switch .drawer__switch__icon {
-    height: 7vh;
-    width: 7vh;
+    height: 5vh;
+    width: 5vh;
 }
 .black-card__container {
     width: 50vw;
@@ -161,6 +151,8 @@
     height: 45vh;
 }
 .white-card__container {
+    display: flex;
+    flex-wrap: wrap;
     padding: 0;
     list-style: none;
     font-size: 0;
@@ -217,19 +209,30 @@
 .scoreboard, .player-hand {
     text-align: center;
 }
-.scoreboard__title, .player-hand__title {
-    display: block;
-    font-size: 1.3em;
+.drawer__header {
     height: 15vh;
-    line-height: 15vh;
-    width: 100%;
+    width: 50vw;
+    display: flex;
     border-bottom: 1px solid var(--scoreboard-row-color);
+}
+.drawer__title {
+    font-size: 1.3em;
+    width: 100%;
+    align-self: center;
     color: var(--scoreboard-text-color);
 }
+.drawer__switch {
+    height: 5vh;
+    width: 5vh;
+    background: transparent;
+    border: none;
+    align-self: center;
+    margin-right: 2em;
+}
 .player-score__container {
-    width: 90%;
-    margin: 0 auto;
-    padding: 1.5em 1.5em 0 1.5em;
+    width: 40vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
     list-style: none;
     border-radius: 0.9em;
     overflow-y: scroll;
@@ -238,6 +241,8 @@
 .player-score {
     padding: 0.3em 0.7em;
     border-radius: 0.9em;
+    width: 100%;
+    margin-top: 0.5em;
     text-align: left;
     vertical-align: middle;
     color: var(--scoreboard-text-color);
