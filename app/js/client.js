@@ -1,4 +1,4 @@
-var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy'])
+var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy', 'ngAnimate'])
 app.factory('socket', function ($rootScope) {
   var socket = io('/').connect("http://cahonline.herokuapp.com/")
   return {
@@ -65,7 +65,9 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     $scope.players=data.players
     $scope.iAmGameMaster=data.players[$scope.playerid].isGameMaster
     $scope.gameState=data.gameState
-    $scope.time=10
+    $scope.myPlayedCards=[]
+    $scope.playedCards=[]
+    $scope.time=20
   })
 
   socket.emit('get_first_load',{room: $scope.room})
@@ -85,12 +87,11 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
   })
 
   socket.on('sync_gamestate', function(data){
-    $scope.time=10
     $scope.gameState=data.gameState
 
     switch(data.gameState){
       case 1:
-        //TODO: startare il timer, rendere clickabili le carte in mano ai non-gamemaster, ecc.
+        $scope.time=20
         setTimeout(function(){
           $scope.time--
           $scope.$apply()
@@ -114,13 +115,23 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     }
   })
 
+  socket.on('display_played_card', function(card){
+    $scope.playedCards.push(card)
+  })
+
   $scope.startGame = function(){
     socket.emit('start_game',{room: $scope.room})
     socket.emit('give_blackcard',{room: $scope.room})
   }
 
+  $scope.playCard = function(index){
+    $scope.myPlayedCards.push($scope.whiteCards[index])
+    socket.emit("play_card",{text: $scope.whiteCards[index], player: $scope.playerid, room: $scope.room})
+    $scope.whiteCards.splice(index,1)
+  }
+
   $scope.$on('$destroy', function (event) {
-      socket.removeAllListeners()
+    socket.removeAllListeners()
   })
 })
 

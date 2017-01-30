@@ -71,6 +71,7 @@ io.on("connection", function(socket) {
   })
 
   socket.on('sync_room_gamestate', function(data){
+    if(!io.nsps['/'].adapter.rooms[data.room]) return;
     io.nsps['/'].adapter.rooms[data.room].gameState=data.gameState
     io.to(data.room).emit("sync_gamestate", {gameState: io.nsps['/'].adapter.rooms[data.room].gameState})
   })
@@ -78,7 +79,7 @@ io.on("connection", function(socket) {
   socket.on('give_whitecards', function(data){
     var deck = io.nsps['/'].adapter.rooms[data.room].whiteCards ? io.nsps['/'].adapter.rooms[data.room].whiteCards : getNewDeck("whiteCards",data.room)
     //for(var playerId in getPlayersInRoom(data.room)){  
-      var playerCards = new Array()
+      var playerCards = []
       for(var i = 0; i < data.amount; i++){
         playerCards.push(deck.pop())
       }
@@ -90,6 +91,12 @@ io.on("connection", function(socket) {
   socket.on('give_blackcard', function(data){
     var deck = io.nsps['/'].adapter.rooms[data.room].blackCards ? io.nsps['/'].adapter.rooms[data.room].blackCards : getNewDeck("blackCards",data.room)
     io.to(data.room).emit('display_blackcard', {blackCard:deck.pop()})
+  })
+
+  socket.on('play_card', function(data){
+    if(!io.nsps['/'].adapter.rooms[data.room].playedCards)  io.nsps['/'].adapter.rooms[data.room].playedCards = []
+    io.nsps['/'].adapter.rooms[data.room].playedCards.push({text: data.text, player: data.player})
+    io.to(data.room).emit('display_played_card', {text: data.text, player: data.player})
   })
 
   socket.on('start_game', function(data){
