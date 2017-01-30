@@ -94,9 +94,11 @@ io.on("connection", function(socket) {
   })
 
   socket.on('play_card', function(data){
-    if(!io.nsps['/'].adapter.rooms[data.room].playedCards)  io.nsps['/'].adapter.rooms[data.room].playedCards = []
-    io.nsps['/'].adapter.rooms[data.room].playedCards.push({text: data.text, player: data.player})
-    io.to(data.room).emit('display_played_card', {text: data.text, player: data.player})
+    if(!io.nsps['/'].adapter.rooms[data.room].playedCards)  io.nsps['/'].adapter.rooms[data.room].playedCards = {}
+    if(!io.nsps['/'].adapter.rooms[data.room].playedCards[data.player]) io.nsps['/'].adapter.rooms[data.room].playedCards[data.player]={player: data.player, cards: []}
+    io.nsps['/'].adapter.rooms[data.room].playedCards[data.player].cards.push(data.text)
+    //io.to(data.room).emit('display_played_card', {text: data.text, player: data.player})
+    io.to(data.room).emit('display_played_card', {cards: io.nsps['/'].adapter.rooms[data.room].playedCards})
   })
 
   socket.on('start_game', function(data){

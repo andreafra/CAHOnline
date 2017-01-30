@@ -23,15 +23,9 @@
       <!-- white cards loop here -->
       <!-- Per carta da selezionare guarda qui
         http://stackoverflow.com/a/32893768/3637244-->
-      <li class="white-card__box card-shadow" ng-repeat="playedCard in playedCards">
-        <div class="white-card white-card--folded card-shadow pop">
-          <p class="white-card__text">Hormone injections.</p>
-        </div>
-        <div class="white-card white-card--folded card-shadow pop">
-          <p class="white-card__text">Eating all of the cookies before the AIDS bake-sale.</p>
-        </div>
-        <div class="white-card white-card--folded card-shadow pop hidden">
-          <p class="white-card__text">The terrorists.</p>
+      <li class="white-card__box card-shadow pop" ng-repeat="(key, value) in playedCards" ng-click="gameState==2 && iAmGameMaster && pickWinner(value.player)">
+        <div class="white-card white-card--folded card-shadow pop" ng-repeat="card in value.cards">
+          <p class="white-card__text">{{(gameState==2 || iAmGameMaster || value.player == playerid) ? card : ''}}</p>
         </div>
         
       </li>
