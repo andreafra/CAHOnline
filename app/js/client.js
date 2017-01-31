@@ -114,6 +114,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
         break
       case 3:
         $scope.winner=data.args.winner
+        $scope.winnerCards=data.args.winnerCards
     }
   })
 
@@ -136,7 +137,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
 
   $scope.pickWinner = function(data){
     console.log("Il giocatore " + data.id + " ha giocato la/e carta/e più divertente/i: " + JSON.stringify(data.cards))
-    if($scope.iAmGameMaster)  socket.emit('sync_room_gamestate', {room:$scope.room, gameState:3, winner:data.id})
+    if($scope.iAmGameMaster)  socket.emit('sync_room_gamestate', {room:$scope.room, gameState:3, winner:data.id, winnerCards:data.cards})
   }
 
   $scope.$on('$destroy', function (event) {

@@ -1,7 +1,7 @@
 <!-- Board -->
 <div class="board">
   <div class="black-card__container">
-    <div class="black-card card-shadow" id="black-card" ng-class="{'flip': blackCard, 'black-card--highlight': gameState==3}">
+    <div class="black-card card-shadow" id="black-card" ng-class="{'flip': blackCard}">
       <p class="black-card__text" ng-bind-html="blackCard.text"></p>
       <span class="black-card__pick">{{blackCard ? 'Pick: ' + blackCard.pick : ''}}</span>
     </div>
@@ -63,14 +63,14 @@
     </ul>
   </div>
 </div>
-<div class="highlight highlight--show">
+<div class="highlight" ng-class="{'highlight--show': gameState==3}">
   <div class="black-card card--highlight card-shadow slide-in-left" id="black-card">
-    <p class="black-card__text">Lorem Ipsum Lorem</p>
-    <span class="black-card__pick">PICK: 2</span>
+    <p class="black-card__text" ng-bind-html="blackCard.text"></p>
+    <span class="black-card__pick">{{'Pick: ' + blackCard.pick}}</span>
   </div>
   <div class="white-card__box card--highlight card-shadow slide-in-right">
-    <div class="white-card white-card--folded card-shadow">
-      <p class="white-card__text">Fancy Text</p>
+    <div class="white-card white-card--folded card-shadow" ng-repeat="card in winnerCards">
+      <p class="white-card__text" ng-bind-html="card"></p>
     </div>
   </div>
 </div>
