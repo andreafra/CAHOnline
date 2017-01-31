@@ -27,7 +27,6 @@
         <div class="white-card white-card--folded card-shadow pop" ng-repeat="card in value.cards">
           <p class="white-card__text">{{(gameState==2 || iAmGameMaster || value.player == playerid) ? card : ''}}</p>
         </div>
-        
       </li>
     </ul>
   </div>
@@ -64,4 +63,14 @@
     </ul>
   </div>
 </div>
-<div class="highlight"></div>
+<div class="highlight highlight--show">
+  <div class="black-card card--highlight card-shadow slide-in-left" id="black-card">
+    <p class="black-card__text">Lorem Ipsum Lorem</p>
+    <span class="black-card__pick">PICK: 2</span>
+  </div>
+  <div class="white-card__box card--highlight card-shadow slide-in-right">
+    <div class="white-card white-card--folded card-shadow">
+      <p class="white-card__text">Fancy Text</p>
+    </div>
+  </div>
+</div>
