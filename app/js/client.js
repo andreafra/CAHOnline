@@ -43,7 +43,7 @@ app.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true)
 })
 
-app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
+app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, socket){
   $scope.room=$routeParams.room
   $scope.playerid=socket.id()
   socket.on('first_load', function(data){
@@ -74,12 +74,19 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
 
   socket.on('display_players', function(data){
     $scope.players=data.players
+    if(!$scope.iAmGameMaster && data.players[$scope.playerid].isGameMaster){
+      $scope.showNewGameMaster=true
+      $timeout(function(){
+        $scope.showNewGameMaster=false
+      },3000)
+    }
     $scope.iAmGameMaster=data.players[$scope.playerid].isGameMaster
   })
 
   socket.on('display_whitecards', function(data){
-    $scope.whiteCards=data.whiteCards
-    $cookies.putObject("whiteCards",data.whiteCards)
+    $scope.whiteCards=data.whiteCards.concat($scope.whiteCards || [])
+    console.log(JSON.stringify($scope.whiteCards) + "\n" + JSON.stringify(data.whiteCards))
+    $cookies.putObject("whiteCards",$scope.whiteCards)
   })
 
   socket.on('display_blackcard', function(data){
@@ -90,9 +97,20 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     $scope.gameState=data.gameState
 
     switch(data.gameState){
+      case 0:
+        delete $scope.winner
+        delete $scope.winnerCards
+        $scope.myPlayedCards.length=0
+        $scope.playedCards.length=0
+        $scope.time=20
+        socket.emit('give_whitecards', {room: $scope.room, amount: 10 - $scope.whiteCards.length})
+        if($scope.iAmGameMaster) {
+          socket.emit("new_round", {players: $scope.players, room: $scope.room})
+        }
+        break
       case 1:
         $scope.time=20
-        setTimeout(function(){
+        $timeout(function(){
           $scope.time--
           $scope.$apply()
           var timer = setInterval(function(){
@@ -110,15 +128,21 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
         },1)
         break
       case 2:
-        //TODO: l'opposto di quanto sopra; + rendere clickabili al gamemaster le carte sul tavolo
         break
       case 3:
         $scope.winner=data.args.winner
         $scope.winnerCards=data.args.winnerCards
+        if($scope.iAmGameMaster){
+          socket.emit("increase_points", {player: $scope.winner, room: $scope.room})
+          $timeout(function(){
+            socket.emit("sync_room_gamestate",{room: $scope.room, gameState:0})
+          },5000)
+        }
+        break
     }
   })
 
-  socket.on('display_played_card', function(data){
+  socket.on('display_played_cards', function(data){
     //$scope.playedCards.push(card)
     $scope.playedCards=data.cards
   })

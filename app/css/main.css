@@ -91,6 +91,18 @@
     font-size: var(--card-expanded-font-size);
     color: var(--white-card-color);
 }
+
+.winner__text {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 1em;
+    margin-bottom: 0.5em;
+    font-size: var(--card-expanded-font-size);
+    color: var(--black-card-color);
+}
+
 .timer__container {
     display: flex;
     width: 100%;
@@ -251,8 +263,6 @@
     text-align: left;
     vertical-align: middle;
     color: var(--scoreboard-text-color);
-}
-.player-score:nth-child(odd) {
     background: var(--scoreboard-row-color);
 }
 .player-score--you {
@@ -399,4 +409,12 @@
 }
 .card--highlight .black-card__text {
     margin: var(--card-highlight-font-size);
+}
+
+.gamemaster-text {
+    font-size: 5vw;
+    z-index: 10001;
+    position: relative;
+    text-align: center;
+    margin: auto;
 }

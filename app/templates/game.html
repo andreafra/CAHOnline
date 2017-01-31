@@ -12,6 +12,9 @@
       <span ng-switch-when="0">Aspettando che il GameMaster avvii la partita...</span>
       <span ng-switch-when="2">Il vincitore è...</span>
     </p>
+    <p class="waiting-text pop" ng-if="iAmGameMaster && gameState!=0 && gameState!=1" ng-switch="gameState">
+      <span ng-switch-when="2">Scegli il vincitore</span>
+    </p>
     <div ng-if="gameState==1" class="timer pop">
       <img class="timer__icon" src="img/clock.svg" alt="Time left">
       <div class="timer__bar" style="width: {{2*time}}vw"></div>
@@ -71,6 +74,10 @@
   <div class="white-card__box card--highlight card-shadow slide-in-right">
     <div class="white-card white-card--folded card-shadow" ng-repeat="card in winnerCards">
       <p class="white-card__text" ng-bind-html="card"></p>
+      <span class="winner__text">Giocata da {{players[winner].name}}</span>
     </div>
   </div>
+</div>
+<div class="highlight" ng-class="{'highlight--show': showNewGameMaster}">
+  <p class="gamemaster-text">Sei il nuovo GameMaster</p>
 </div>
