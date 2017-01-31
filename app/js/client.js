@@ -1,4 +1,4 @@
-var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy', 'ngAnimate'])
+var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy', 'ngAnimate', 'ngSanitize'])
 app.factory('socket', function ($rootScope) {
   var socket = io('/').connect("http://cahonline.herokuapp.com/")
   return {
@@ -112,11 +112,14 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
       case 2:
         //TODO: l'opposto di quanto sopra; + rendere clickabili al gamemaster le carte sul tavolo
         break
+      case 3:
+        $scope.winner=data.args.winner
     }
   })
 
-  socket.on('display_played_card', function(card){
-    $scope.playedCards.push(card)
+  socket.on('display_played_card', function(data){
+    //$scope.playedCards.push(card)
+    $scope.playedCards=data.cards
   })
 
   $scope.startGame = function(){
@@ -128,6 +131,12 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, socket){
     $scope.myPlayedCards.push($scope.whiteCards[index])
     socket.emit("play_card",{text: $scope.whiteCards[index], player: $scope.playerid, room: $scope.room})
     $scope.whiteCards.splice(index,1)
+    $cookies.putObject("whiteCards",$scope.whiteCards)
+  }
+
+  $scope.pickWinner = function(data){
+    console.log("Il giocatore " + data.id + " ha giocato la/e carta/e più divertente/i: " + JSON.stringify(data.cards))
+    if($scope.iAmGameMaster)  socket.emit('sync_room_gamestate', {room:$scope.room, gameState:3, winner:data.id})
   }
 
   $scope.$on('$destroy', function (event) {

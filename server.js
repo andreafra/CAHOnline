@@ -26,7 +26,7 @@ io.on("connection", function(socket) {
   
   // create room and join it
   socket.on("create_room", function(data) {
-    var roomId = shortid.generate()
+    var roomId = newRoomId()
     data.roomId = roomId
     socket.join(roomId)
     io.nsps['/'].adapter.rooms[roomId].gameState=0
@@ -73,10 +73,11 @@ io.on("connection", function(socket) {
   socket.on('sync_room_gamestate', function(data){
     if(!io.nsps['/'].adapter.rooms[data.room]) return;
     io.nsps['/'].adapter.rooms[data.room].gameState=data.gameState
-    io.to(data.room).emit("sync_gamestate", {gameState: io.nsps['/'].adapter.rooms[data.room].gameState})
+    io.to(data.room).emit("sync_gamestate", {gameState: io.nsps['/'].adapter.rooms[data.room].gameState, args:data})
   })
 
   socket.on('give_whitecards', function(data){
+    if(!io.nsps['/'].adapter.rooms[data.room]) return;
     var deck = io.nsps['/'].adapter.rooms[data.room].whiteCards ? io.nsps['/'].adapter.rooms[data.room].whiteCards : getNewDeck("whiteCards",data.room)
     //for(var playerId in getPlayersInRoom(data.room)){  
       var playerCards = []
@@ -89,17 +90,22 @@ io.on("connection", function(socket) {
   })
 
   socket.on('give_blackcard', function(data){
+    if(!io.nsps['/'].adapter.rooms[data.room]) return;
     var deck = io.nsps['/'].adapter.rooms[data.room].blackCards ? io.nsps['/'].adapter.rooms[data.room].blackCards : getNewDeck("blackCards",data.room)
     io.to(data.room).emit('display_blackcard', {blackCard:deck.pop()})
   })
 
   socket.on('play_card', function(data){
-    if(!io.nsps['/'].adapter.rooms[data.room].playedCards)  io.nsps['/'].adapter.rooms[data.room].playedCards = []
-    io.nsps['/'].adapter.rooms[data.room].playedCards.push({text: data.text, player: data.player})
-    io.to(data.room).emit('display_played_card', {text: data.text, player: data.player})
+    if(!io.nsps['/'].adapter.rooms[data.room]) return;
+    if(!io.nsps['/'].adapter.rooms[data.room].playedCards)  io.nsps['/'].adapter.rooms[data.room].playedCards = {}
+    if(!io.nsps['/'].adapter.rooms[data.room].playedCards[data.player]) io.nsps['/'].adapter.rooms[data.room].playedCards[data.player]={player: data.player, cards: []}
+    io.nsps['/'].adapter.rooms[data.room].playedCards[data.player].cards.push(data.text)
+    //io.to(data.room).emit('display_played_card', {text: data.text, player: data.player})
+    io.to(data.room).emit('display_played_card', {cards: io.nsps['/'].adapter.rooms[data.room].playedCards})
   })
 
   socket.on('start_game', function(data){
+    if(!io.nsps['/'].adapter.rooms[data.room]) return;
     io.nsps['/'].adapter.rooms[data.room].gameState = 1
     io.to(data.room).emit('sync_gamestate',{gameState: 1})
   })
@@ -169,4 +175,11 @@ function shuffle(a) {
         let j = Math.floor(Math.random() * i);
         [a[i - 1], a[j]] = [a[j], a[i - 1]];
     }
+}
+
+function newRoomId(){
+  var random = Math.floor(1000 + Math.random() * 9000);
+  while(io.nsps['/'].adapter.rooms[random])
+    random = Math.floor(1000 + Math.random() * 9000);
+  return random;
 }
