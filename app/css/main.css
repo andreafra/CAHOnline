@@ -15,7 +15,7 @@
     --card-expanded-spacing: 1.5vh;
     --card-padding: calc(var(--card-spacing)*2);
     --card-expanded-padding: calc(var(--card-expanded-spacing)*2);
-    --card-highlight-font-size: calc(var(--card-expanded-font-size)*1.3);
+    --card-highlight-font-size: 2.7vw;
     --highlight-color: #5396b2;
 }
 * {
