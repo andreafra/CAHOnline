@@ -78,7 +78,7 @@ io.on("connection", function(socket) {
 
   socket.on('give_whitecards', function(data){
     if(!io.nsps['/'].adapter.rooms[data.room]) return;
-    var deck = io.nsps['/'].adapter.rooms[data.room].whiteCards ? io.nsps['/'].adapter.rooms[data.room].whiteCards : getNewDeck("whiteCards",data.room)
+    var deck = io.nsps['/'].adapter.rooms[data.room].whiteCards || getNewDeck("whiteCards",data.room)
     //for(var playerId in getPlayersInRoom(data.room)){  
       var playerCards = []
       for(var i = 0; i < data.amount; i++){
@@ -91,7 +91,7 @@ io.on("connection", function(socket) {
 
   socket.on('give_blackcard', function(data){
     if(!io.nsps['/'].adapter.rooms[data.room]) return;
-    var deck = io.nsps['/'].adapter.rooms[data.room].blackCards ? io.nsps['/'].adapter.rooms[data.room].blackCards : getNewDeck("blackCards",data.room)
+    var deck = io.nsps['/'].adapter.rooms[data.room].blackCards || getNewDeck("blackCards",data.room)
     io.to(data.room).emit('display_blackcard', {blackCard:deck.pop()})
   })
 
@@ -101,13 +101,45 @@ io.on("connection", function(socket) {
     if(!io.nsps['/'].adapter.rooms[data.room].playedCards[data.player]) io.nsps['/'].adapter.rooms[data.room].playedCards[data.player]={player: data.player, cards: []}
     io.nsps['/'].adapter.rooms[data.room].playedCards[data.player].cards.push(data.text)
     //io.to(data.room).emit('display_played_card', {text: data.text, player: data.player})
-    io.to(data.room).emit('display_played_card', {cards: io.nsps['/'].adapter.rooms[data.room].playedCards})
+    io.to(data.room).emit('display_played_cards', {cards: io.nsps['/'].adapter.rooms[data.room].playedCards})
   })
 
   socket.on('start_game', function(data){
     if(!io.nsps['/'].adapter.rooms[data.room]) return;
     io.nsps['/'].adapter.rooms[data.room].gameState = 1
     io.to(data.room).emit('sync_gamestate',{gameState: 1})
+  })
+
+  socket.on('new_round', function(data){
+    if(!io.nsps['/'].adapter.rooms[data.room]) return;
+    var newGameMaster = function(){
+      var a = randomProperty(data.players)
+      while(a.isGameMaster){
+        a = randomProperty(data.players)
+      }
+      return a;
+    }()
+
+    for(id in data.players){
+      if(players[id].isGameMaster) players[id].isGameMaster=false
+      if(id==newGameMaster.id) players[id].isGameMaster=true
+    }
+    io.to(data.room).emit('display_players', {players: getPlayersInRoom(data.room)})
+
+    //wipe played cards
+    io.nsps['/'].adapter.rooms[data.room].playedCards = {}
+    io.to(data.room).emit('display_played_cards', {cards: io.nsps['/'].adapter.rooms[data.room].playedCards})
+    //start_game
+    io.nsps['/'].adapter.rooms[data.room].gameState = 1
+    io.to(data.room).emit('sync_gamestate',{gameState: 1})
+    //display_black_card
+    var deck = io.nsps['/'].adapter.rooms[data.room].blackCards || getNewDeck("blackCards",data.room)
+    io.to(data.room).emit('display_blackcard', {blackCard:deck.pop()})
+  })
+
+  socket.on('increase_points', function(data){
+    players[data.player].points++
+    io.to(data.room).emit('display_players', {players: getPlayersInRoom(data.room)})
   })
 })
 
@@ -183,3 +215,8 @@ function newRoomId(){
     random = Math.floor(1000 + Math.random() * 9000);
   return random;
 }
+
+function randomProperty (obj) {
+    var keys = Object.keys(obj)
+    return obj[keys[ keys.length * Math.random() << 0]];
+};

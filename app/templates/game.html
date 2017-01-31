@@ -1,7 +1,7 @@
 <!-- Board -->
 <div class="board">
   <div class="black-card__container">
-    <div class="black-card card-shadow" id="black-card" ng-class="{'flip': blackCard, 'black-card--highlight': gameState==3}">
+    <div class="black-card card-shadow" id="black-card" ng-class="{'flip': blackCard}">
       <p class="black-card__text" ng-bind-html="blackCard.text"></p>
       <span class="black-card__pick">{{blackCard ? 'Pick: ' + blackCard.pick : ''}}</span>
     </div>
@@ -11,6 +11,9 @@
     <p class="waiting-text pop" ng-if="!iAmGameMaster && gameState!=1" ng-switch="gameState">
       <span ng-switch-when="0">Aspettando che il GameMaster avvii la partita...</span>
       <span ng-switch-when="2">Il vincitore è...</span>
+    </p>
+    <p class="waiting-text pop" ng-if="iAmGameMaster && gameState!=0 && gameState!=1" ng-switch="gameState">
+      <span ng-switch-when="2">Scegli il vincitore</span>
     </p>
     <div ng-if="gameState==1" class="timer pop">
       <img class="timer__icon" src="img/clock.svg" alt="Time left">
@@ -27,7 +30,6 @@
         <div class="white-card white-card--folded card-shadow pop" ng-repeat="card in value.cards">
           <p class="white-card__text" ng-bind-html="(gameState==2 || gameState==3 || iAmGameMaster || value.player == playerid) ? card : ''"></p>
         </div>
-        
       </li>
     </ul>
   </div>
@@ -64,4 +66,18 @@
     </ul>
   </div>
 </div>
-<div class="highlight" ng-class="{'highlight--show': gameState==3}"></div>
+<div class="highlight" ng-class="{'highlight--show': gameState==3}">
+  <div class="black-card card--highlight card-shadow slide-in-left" id="black-card">
+    <p class="black-card__text" ng-bind-html="blackCard.text"></p>
+    <span class="black-card__pick">{{'Pick: ' + blackCard.pick}}</span>
+  </div>
+  <div class="white-card__box card--highlight card-shadow slide-in-right">
+    <div class="white-card white-card--folded card-shadow" ng-repeat="card in winnerCards">
+      <p class="white-card__text" ng-bind-html="card"></p>
+      <span class="winner__text">Giocata da {{players[winner].name}}</span>
+    </div>
+  </div>
+</div>
+<div class="highlight" ng-class="{'highlight--show': showNewGameMaster}">
+  <p class="gamemaster-text">Sei il nuovo GameMaster</p>
+</div>

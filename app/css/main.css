@@ -15,6 +15,7 @@
     --card-expanded-spacing: 1.5vh;
     --card-padding: calc(var(--card-spacing)*2);
     --card-expanded-padding: calc(var(--card-expanded-spacing)*2);
+    --card-highlight-font-size: 2.7vw;
     --highlight-color: #5396b2;
 }
 * {
@@ -90,6 +91,18 @@
     font-size: var(--card-expanded-font-size);
     color: var(--white-card-color);
 }
+
+.winner__text {
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 1em;
+    margin-bottom: 0.5em;
+    font-size: var(--card-expanded-font-size);
+    color: var(--black-card-color);
+}
+
 .timer__container {
     display: flex;
     width: 100%;
@@ -250,8 +263,6 @@
     text-align: left;
     vertical-align: middle;
     color: var(--scoreboard-text-color);
-}
-.player-score:nth-child(odd) {
     background: var(--scoreboard-row-color);
 }
 .player-score--you {
@@ -343,6 +354,21 @@
 .flip > * {
     animation: flip-show-text 0.4s ease forwards;
 }
+
+@keyframes slide-in-left {
+    0% { transform: translateX(-1000%); }
+    100% { transform: translateX(0%); }
+}
+@keyframes slide-in-right {
+    0% { transform: translateX(1000%); }
+    100% { transform: translateX(0%); }
+}
+.slide-in-left {
+    animation: slide-in-left 0.8s ease-out;
+}
+.slide-in-right {
+    animation: slide-in-right 0.8s ease-out;
+}
 /* HIGHLIGHT (da spostare su)
     1) applichi la classe .highlight--show ad .highlight per mostrare lo sfondo
     2) applichi .black-card--highlight a .black-card per metterla sull'highlight
@@ -358,28 +384,37 @@
     z-index: 10000;
     background: rgba(255,255,255,0.8);
     transition: all 0.4s ease-in;
+    display: flex;
+    justify-content: center;
 }
 .highlight--show {
     margin-top: -100vh;
 }
-.black-card--highlight {
-    position: absolute;
+.card--highlight {
+    position: relative;
+    display: flex;
+    width: 30vw;
+    height: calc(30vw*1.2);
+    border-radius: 1.6vw;
+    align-self: center;
+    padding: 0;
+    margin: var(--card-highlight-font-size);
+}
+.card--highlight .white-card__text,
+.card--highlight .black-card__text {
+    font-size: var(--card-highlight-font-size);
+}
+.card--highlight .white-card--folded {
+    padding: var(--card-highlight-font-size);
+}
+.card--highlight .black-card__text {
+    margin: var(--card-highlight-font-size);
+}
+
+.gamemaster-text {
+    font-size: 5vw;
     z-index: 10001;
-    top: 20vh;
-    left: 20vw;
-    width: 20vw;
-    height: calc(20vw*1.2);
-    border-radius: 1.6vw;
-}
-.white-card--highlight {
-    position: absolute;
-    z-index: 10002;
-    top: 20vh;
-    right: 20vh;
-    width: 20vw;
-    border-radius: 1.6vw;
-    height: calc(20vw*1.2);
-}
-.white-card--highlight > .white-card__text {
-    font-size: var(--card-expanded-font-size);
+    position: relative;
+    text-align: center;
+    margin: auto;
 }
