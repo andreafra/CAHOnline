@@ -191,6 +191,7 @@
     vertical-align: top;
     border-radius: 1vh;
     margin: var(--card-spacing);
+    background: var(--white-card-color);
     overflow: hidden;
 }
 .white-card {

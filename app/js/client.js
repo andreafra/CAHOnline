@@ -50,7 +50,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
     //RECONNECTION LOGIC
     $scope.playerid=socket.id()
     var lastId = $cookies.get("lastId")
-    if(data.players[lastId]){
+    if(data.players[lastId] && data.players[lastId].room==$scope.room){
       var playerObject = data.players[lastId]
       delete data.players[lastId]
       playerObject.id = $scope.playerid

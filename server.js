@@ -68,6 +68,7 @@ io.on("connection", function(socket) {
       io.nsps['/'].adapter.rooms[data.room].gameState = 0
     }
     socket.emit('first_load',{players: playersInSameRoom, gameState: io.nsps['/'].adapter.rooms[data.room].gameState})
+    io.to(data.room).emit("display_players", {players: playersInSameRoom})
   })
 
   socket.on('sync_room_gamestate', function(data){
@@ -169,8 +170,6 @@ function addPlayer(player, isGameMaster) {
   }
   
   player.socket.emit("load_game_page", {room: player.data.roomId})
-  var playersInSameRoom = getPlayersInRoom(player.data.roomId)
-  io.to(player.data.roomId).emit("display_players", {players: playersInSameRoom})
   //console.log("Players : " + JSON.stringify(players))
 }
 
