@@ -50,7 +50,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
     //RECONNECTION LOGIC
     $scope.playerid=socket.id()
     var lastId = $cookies.get("lastId")
-    if(data.players[lastId]){
+    if(data.players[lastId] && data.players[lastId].room==$scope.room){
       var playerObject = data.players[lastId]
       delete data.players[lastId]
       playerObject.id = $scope.playerid
@@ -67,7 +67,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
     $scope.gameState=data.gameState
     $scope.myPlayedCards=[]
     $scope.playedCards=[]
-    $scope.time=20
+    $scope.time=30
   })
 
   socket.emit('get_first_load',{room: $scope.room})
@@ -102,14 +102,14 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
         delete $scope.winnerCards
         $scope.myPlayedCards.length=0
         $scope.playedCards.length=0
-        $scope.time=20
+        $scope.time=30
         socket.emit('give_whitecards', {room: $scope.room, amount: 10 - $scope.whiteCards.length})
         if($scope.iAmGameMaster) {
           socket.emit("new_round", {players: $scope.players, room: $scope.room})
         }
         break
       case 1:
-        $scope.time=20
+        $scope.time=30
         $timeout(function(){
           $scope.time--
           $scope.$apply()

@@ -15,7 +15,7 @@
     --card-expanded-spacing: 1.5vh;
     --card-padding: calc(var(--card-spacing)*2);
     --card-expanded-padding: calc(var(--card-expanded-spacing)*2);
-    --card-highlight-font-size: 2.7vw;
+    --card-highlight-font-size: 2.6vw;
     --highlight-color: #5396b2;
 }
 * {
@@ -191,6 +191,7 @@
     vertical-align: top;
     border-radius: 1vh;
     margin: var(--card-spacing);
+    background: var(--white-card-color);
     overflow: hidden;
 }
 .white-card {
