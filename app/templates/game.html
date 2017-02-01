@@ -17,7 +17,7 @@
     </p>
     <div ng-if="gameState==1" class="timer pop">
       <img class="timer__icon" src="img/clock.svg" alt="Time left">
-      <div class="timer__bar" style="width: {{2*time}}vw"></div>
+      <div class="timer__bar" style="width: {{time*40/30}}vw"></div>
       <span class="timer__text">{{time+1}}</span>
     </div>
   </div>
