@@ -65,8 +65,8 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
     $scope.players=data.players
     $scope.iAmGameMaster=data.players[$scope.playerid].isGameMaster
     $scope.gameState=data.gameState
-    $scope.myPlayedCards=[]
     $scope.playedCards=[]
+    $scope.myPlayedCards=[]
     $scope.time=30
   })
 
@@ -85,7 +85,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
 
   socket.on('display_whitecards', function(data){
     $scope.whiteCards=data.whiteCards.concat($scope.whiteCards || [])
-    console.log(JSON.stringify($scope.whiteCards) + "\n" + JSON.stringify(data.whiteCards))
+    //console.log(JSON.stringify($scope.whiteCards) + "\n" + JSON.stringify(data.whiteCards))
     $cookies.putObject("whiteCards",$scope.whiteCards)
   })
 
@@ -100,15 +100,15 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
       case 0:
         delete $scope.winner
         delete $scope.winnerCards
-        $scope.myPlayedCards.length=0
-        $scope.playedCards.length=0
-        $scope.time=30
-        socket.emit('give_whitecards', {room: $scope.room, amount: 10 - $scope.whiteCards.length})
-        if($scope.iAmGameMaster) {
-          socket.emit("new_round", {players: $scope.players, room: $scope.room})
-        }
+        $scope.myPlayedCards = new Array()
+        $scope.playedCards = new Array()
         break
       case 1:
+        delete $scope.winner
+        delete $scope.winnerCards
+        $scope.myPlayedCards = new Array()
+        $scope.playedCards = new Array()
+        socket.emit('give_whitecards', {room: $scope.room, amount: 10 - $scope.whiteCards.length})
         $scope.time=30
         $timeout(function(){
           $scope.time--
@@ -121,8 +121,6 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
             else  {
               //TIME IS OVER
               clearInterval(timer)
-              $scope.gameState=2
-              if($scope.iAmGameMaster) socket.emit("sync_room_gamestate",{room: $scope.room, gameState: 2})
             }
           },1000)
         },1)
@@ -132,12 +130,6 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
       case 3:
         $scope.winner=data.args.winner
         $scope.winnerCards=data.args.winnerCards
-        if($scope.iAmGameMaster){
-          socket.emit("increase_points", {player: $scope.winner, room: $scope.room})
-          $timeout(function(){
-            socket.emit("sync_room_gamestate",{room: $scope.room, gameState:0})
-          },5000)
-        }
         break
     }
   })
@@ -153,6 +145,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
   }
 
   $scope.playCard = function(index){
+    if(!$scope.myPlayedCards) $scope.myPlayedCards=[]
     $scope.myPlayedCards.push($scope.whiteCards[index])
     socket.emit("play_card",{text: $scope.whiteCards[index], player: $scope.playerid, room: $scope.room})
     $scope.whiteCards.splice(index,1)
@@ -161,7 +154,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
 
   $scope.pickWinner = function(data){
     console.log("Il giocatore " + data.id + " ha giocato la/e carta/e più divertente/i: " + JSON.stringify(data.cards))
-    if($scope.iAmGameMaster)  socket.emit('sync_room_gamestate', {room:$scope.room, gameState:3, winner:data.id, winnerCards:data.cards})
+    if($scope.iAmGameMaster)  socket.emit('pick_winner', {room:$scope.room, winner:data.id, winnerCards:data.cards})
   }
 
   $scope.$on('$destroy', function (event) {

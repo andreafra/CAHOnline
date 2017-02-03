@@ -71,12 +71,6 @@ io.on("connection", function(socket) {
     io.to(data.room).emit("display_players", {players: playersInSameRoom})
   })
 
-  socket.on('sync_room_gamestate', function(data){
-    if(!io.nsps['/'].adapter.rooms[data.room]) return;
-    io.nsps['/'].adapter.rooms[data.room].gameState=data.gameState
-    io.to(data.room).emit("sync_gamestate", {gameState: io.nsps['/'].adapter.rooms[data.room].gameState, args:data})
-  })
-
   socket.on('give_whitecards', function(data){
     if(!io.nsps['/'].adapter.rooms[data.room]) return;
     var deck = io.nsps['/'].adapter.rooms[data.room].whiteCards || getNewDeck("whiteCards",data.room)
@@ -106,42 +100,54 @@ io.on("connection", function(socket) {
   })
 
   socket.on('start_game', function(data){
-    if(!io.nsps['/'].adapter.rooms[data.room]) return;
-    io.nsps['/'].adapter.rooms[data.room].gameState = 1
-    io.to(data.room).emit('sync_gamestate',{gameState: 1})
+    startRound(data.room)
   })
 
-  socket.on('new_round', function(data){
-    if(!io.nsps['/'].adapter.rooms[data.room]) return;
-    var newGameMaster = function(){
-      var a = randomProperty(data.players)
+  socket.on('pick_winner', function(data){
+    if(!players[data.winner]) return;
+    players[data.winner].points++
+    io.to(data.room).emit('display_players', {players: getPlayersInRoom(data.room)})
+    endRound(data.room, data.winner, data.winnerCards)
+  })
+
+  function startRound(room){
+    if(!io.nsps['/'].adapter.rooms[room]) return;
+    syncGamestate(room,1)
+    var deck = io.nsps['/'].adapter.rooms[room].blackCards || getNewDeck("blackCards",room)
+    io.to(room).emit('display_blackcard', {blackCard:deck.pop()})
+    io.nsps['/'].adapter.rooms[room].timer=setTimeout(function(){
+      syncGamestate(room,2)
+    }, 30*1000)
+  }
+
+  function endRound(room, lastWinner, lastWinnerCards){
+    syncGamestate(room, 3, {winner: lastWinner, winnerCards: lastWinnerCards})
+    setTimeout(function(){
+      var roomPlayers = getPlayersInRoom(room)
+      var newGameMaster = pickNewGameMaster(roomPlayers)
+      for(id in roomPlayers){
+        if(players[id].isGameMaster) players[id].isGameMaster=false
+        if(id==newGameMaster.id) players[id].isGameMaster=true
+      }
+      io.to(room).emit('display_players', {players: getPlayersInRoom(room)})
+      io.nsps['/'].adapter.rooms[room].playedCards = new Object; 
+      startRound(room)
+    },5*1000)
+  }
+
+  function syncGamestate(room, gamestate, data){
+    if(!io.nsps['/'].adapter.rooms[room]) return;
+    io.nsps['/'].adapter.rooms[room].gameState=gamestate
+    io.to(room).emit('sync_gamestate',{gameState:gamestate, args: data})
+  }
+
+  function pickNewGameMaster (roomPlayers){
+      var a = randomProperty(roomPlayers)
       while(a.isGameMaster){
-        a = randomProperty(data.players)
+        a = randomProperty(roomPlayers)
       }
       return a;
-    }()
-
-    for(id in data.players){
-      if(players[id].isGameMaster) players[id].isGameMaster=false
-      if(id==newGameMaster.id) players[id].isGameMaster=true
     }
-    io.to(data.room).emit('display_players', {players: getPlayersInRoom(data.room)})
-
-    //wipe played cards
-    io.nsps['/'].adapter.rooms[data.room].playedCards = {}
-    io.to(data.room).emit('display_played_cards', {cards: io.nsps['/'].adapter.rooms[data.room].playedCards})
-    //start_game
-    io.nsps['/'].adapter.rooms[data.room].gameState = 1
-    io.to(data.room).emit('sync_gamestate',{gameState: 1})
-    //display_black_card
-    var deck = io.nsps['/'].adapter.rooms[data.room].blackCards || getNewDeck("blackCards",data.room)
-    io.to(data.room).emit('display_blackcard', {blackCard:deck.pop()})
-  })
-
-  socket.on('increase_points', function(data){
-    players[data.player].points++
-    io.to(data.room).emit('display_players', {players: getPlayersInRoom(data.room)})
-  })
 })
 
 function getPlayersInRoom(room){
