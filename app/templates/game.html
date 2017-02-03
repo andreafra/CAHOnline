@@ -68,7 +68,7 @@
 </div>
 <div class="highlight" ng-class="{'highlight--show': gameState==3}">
   <div class="black-card card--highlight card-shadow slide-in-left" id="black-card">
-    <p class="black-card__text" ng-bind-html="blackCard.text"></p>
+    <p class="black-card__text" ng-bind-html="gameState==3 ? blackCard.text : ''"></p>
     <span class="black-card__pick">{{'Pick: ' + blackCard.pick}}</span>
   </div>
   <div class="white-card__box card--highlight card-shadow slide-in-right">

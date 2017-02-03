@@ -84,12 +84,6 @@ io.on("connection", function(socket) {
     //}
   })
 
-  socket.on('give_blackcard', function(data){
-    if(!io.nsps['/'].adapter.rooms[data.room]) return;
-    var deck = io.nsps['/'].adapter.rooms[data.room].blackCards || getNewDeck("blackCards",data.room)
-    io.to(data.room).emit('display_blackcard', {blackCard:deck.pop()})
-  })
-
   socket.on('play_card', function(data){
     if(!io.nsps['/'].adapter.rooms[data.room]) return;
     if(!io.nsps['/'].adapter.rooms[data.room].playedCards)  io.nsps['/'].adapter.rooms[data.room].playedCards = {}
