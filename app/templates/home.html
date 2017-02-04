@@ -1,11 +1,35 @@
-<input type="text" name="playerName" placeholder="Carlo Conti" ng-model="playerName">
-<button type="button" name="create_room" ng-click="createRoom()">
-    Create a room!
-</button>
-<br>
-<span>OR</span>
-<br>
-<input type="text" name="roomId" placeholder="12345678" ng-model="roomId">
-<button type="button" name="join_room" ng-click="joinRoom()">
-    Join an existing room!
-</button>
+<div class="home__container">
+    <div class="home__container__card card-shadow">
+        <div class="card__footer">
+            <h1 class="card__title">Cards against Humanity.</h1>
+            <div ng-show="!homeIntro">
+                <button class="start-button start-button--full"
+                        ng-click="homeIntro=!homeIntro; homeCreateRoom=!homeCreateRoom">
+                    Crea una partita!
+                </button>
+                <button class="start-button start-button--full"
+                        ng-click="homeIntro=!homeIntro; homeJoinRoom=!homeJoinRoom">
+                    Uniscita a una partita!
+                </button>
+            </div>
+            <div ng-show="homeIntro">
+                <input class="text-input" type="text" name="playerName" placeholder="Carlo Conti" ng-model="playerName">
+                <button class="start-button start-button--full"
+                        ng-show="homeIntro && homeCreateRoom"
+                        type="button" name="create_room" ng-click="createRoom()">
+                    Crea una partita!
+                </button>
+                <div ng-show="homeIntro && homeJoinRoom">
+                    <input class="text-input" type="number" name="roomId" placeholder="1234"
+                           pattern="[0-9]{4}" ng-model="roomId">
+                    <button class="start-button start-button--full" type="button" name="join_room" ng-click="joinRoom()">
+                        Uniscita alla partita!
+                    </button>
+                </div>
+                <button class="start-button start-button--full start-button--secondary" type="button" name="join_room" ng-click="homeJoinRoom=false; homeCreateRoom=false; homeIntro=false">
+                    Indietro
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
