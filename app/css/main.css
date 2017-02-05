@@ -7,6 +7,7 @@
     --black-card-color: #000;
     --white-card-color: #fff;
     --card-placeholder-color: #ddd;
+    --secondary-color: #aaa;
     --card-font-size: 1.5vh;
     --card-expanded-font-size: 2.5vh;
     --card-height: 25vh;
@@ -124,6 +125,20 @@
 .start-button:hover, .start-button:active {
     background: var(--highlight-color);
     color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16),
+            0 3px 6px rgba(0,0,0,0.23);
+}
+.start-button--full {
+    width: 100%;
+    display: block;
+    margin: 0.5em 0;
+}
+.start-button--secondary {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+.start-button--secondary:hover, .start-button--secondary:active {
+    background: var(--secondary-color);
 }
 .waiting-text {
     align-self: center;
@@ -418,4 +433,47 @@
     position: relative;
     text-align: center;
     margin: auto;
+}
+
+/* HOME.HTML */
+.home__container {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+.home__container__card {
+    align-self: center;
+    background: var(--board-color);
+    padding: 1rem;
+    font-size: 1rem;
+}
+.card__footer {
+    bottom: 0;
+}
+.card__title {
+    font-size: 1.4em;
+    margin: 0.5em 0 3em 0;
+}
+.text-input {
+    margin: 0.5em 0;
+    width: 100%;
+    padding: 0.7em 2em;
+    font-size: 2vh;
+    border-radius: 0.7em;
+    background: #fff;
+    border: 0.2em solid var(--secondary-color);
+    color: var(--highlight-color);
+    transition: all 0.4s ease-out;
+}
+.text-input:focus {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16),
+            0 3px 6px rgba(0,0,0,0.23);
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
 }

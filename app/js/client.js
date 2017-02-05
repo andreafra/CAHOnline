@@ -170,17 +170,21 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
     if ($scope.playerName && $scope.playerName.length > 2) {
       socket.emit("create_room", {name: $scope.playerName})
     } else {
-      alert("Name is too short or void")
+      alert("Inserisci un nome di almeno 3 caratteri")
     }
   }
 
   $scope.joinRoom = function() {
-    if ($scope.roomId && ($scope.playerName ? $scope.playerName.length > 2 : false)) {
+    if(!$scope.roomId){
+      alert("Inserisci un id di 4 cifre")
+    }
+    else if(!$scope.playerName || $scope.playerName.length <= 2){
+      alert("Inserisci un nome di almeno 3 caratteri")
+    }
+    else{
       socket.emit("join_room", { 
         name: $scope.playerName,
         roomId: $scope.roomId })
-    } else {
-      alert("Inserisci un id della stanza")
     }
   }
 
