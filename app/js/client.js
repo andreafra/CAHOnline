@@ -141,6 +141,10 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
 
   $scope.startGame = function(){
     socket.emit('start_game',{room: $scope.room})
+    $scope.showNewGameMaster=true
+    $timeout(function(){
+      $scope.showNewGameMaster=false
+    },3000)
   }
 
   $scope.playCard = function(index){
