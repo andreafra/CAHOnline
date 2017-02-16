@@ -15,7 +15,7 @@ server.listen(port)
 console.log("http server listening on %d", port)
 
 var players = {}
-var cards = JSON.parse(fs.readFileSync(__dirname + '/app/json/cards.json', 'utf8'))
+var cards = JSON.parse(fs.readFileSync(__dirname + '/app/json/italian-cards.json', 'utf8'))
 
 app.get("*", function(req, res) {
   res.sendFile(__dirname + "/app/index.html")
