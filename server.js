@@ -99,6 +99,7 @@ io.on("connection", function(socket) {
 
   socket.on('pick_winner', function(data){
     if(!players[data.winner]) return;
+    if(io.nsps['/'].adapter.rooms[data.room].gameState!=2) return;
     players[data.winner].points++
     io.to(data.room).emit('display_players', {players: getPlayersInRoom(data.room)})
     endRound(data.room, data.winner, data.winnerCards)
