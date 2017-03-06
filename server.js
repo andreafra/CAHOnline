@@ -91,6 +91,10 @@ io.on("connection", function(socket) {
     io.nsps['/'].adapter.rooms[data.room].playedCards[data.player].cards.push(data.text)
     //io.to(data.room).emit('display_played_card', {text: data.text, player: data.player})
     io.to(data.room).emit('display_played_cards', {cards: io.nsps['/'].adapter.rooms[data.room].playedCards})
+    if(Object.keys(io.nsps['/'].adapter.rooms[data.room].playedCards).length == (Object.keys(getPlayersInRoom(data.room)).length-1)){
+      clearTimeout(io.nsps['/'].adapter.rooms[data.room].timer)
+      syncGamestate(data.room,2)
+    }
   })
 
   socket.on('start_game', function(data){
@@ -125,8 +129,10 @@ io.on("connection", function(socket) {
         if(id==newGameMaster.id) players[id].isGameMaster=true
       }
       io.to(room).emit('display_players', {players: getPlayersInRoom(room)})
-      io.nsps['/'].adapter.rooms[room].playedCards = new Object; 
-      startRound(room)
+      if(io.nsps['/'].adapter.rooms[room]){
+        io.nsps['/'].adapter.rooms[room].playedCards = new Object; 
+        startRound(room)
+      }
     },5*1000)
   }
 
