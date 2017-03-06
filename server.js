@@ -129,8 +129,10 @@ io.on("connection", function(socket) {
         if(id==newGameMaster.id) players[id].isGameMaster=true
       }
       io.to(room).emit('display_players', {players: getPlayersInRoom(room)})
-      io.nsps['/'].adapter.rooms[room].playedCards = new Object; 
-      startRound(room)
+      if(io.nsps['/'].adapter.rooms[room]){
+        io.nsps['/'].adapter.rooms[room].playedCards = new Object; 
+        startRound(room)
+      }
     },5*1000)
   }
 
