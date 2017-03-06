@@ -91,6 +91,10 @@ io.on("connection", function(socket) {
     io.nsps['/'].adapter.rooms[data.room].playedCards[data.player].cards.push(data.text)
     //io.to(data.room).emit('display_played_card', {text: data.text, player: data.player})
     io.to(data.room).emit('display_played_cards', {cards: io.nsps['/'].adapter.rooms[data.room].playedCards})
+    if(Object.keys(io.nsps['/'].adapter.rooms[data.room].playedCards).length == (Object.keys(getPlayersInRoom(data.room)).length-1)){
+      clearTimeout(io.nsps['/'].adapter.rooms[data.room].timer)
+      syncGamestate(data.room,2)
+    }
   })
 
   socket.on('start_game', function(data){
