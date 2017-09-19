@@ -58,7 +58,11 @@ io.on("connection", function(socket) {
     socket.join(data.newPlayer.room)
     delete players[data.oldPlayer]
     players[data.newPlayer.id]=data.newPlayer
-    socket.emit('sync_gamestate', {gameState: io.nsps['/'].adapter.rooms[data.newPlayer.room].gameState})
+    if(io.nsps['/'].adapter.rooms[data.newPlayer.room].gameState!=1){
+      socket.emit('sync_gamestate', {gameState: io.nsps['/'].adapter.rooms[data.newPlayer.room].gameState})
+    }
+    else  socket.emit('waiting_room')
+    socket.emit('display_blackcard', {blackCard: io.nsps['/'].adapter.rooms[data.newPlayer.room].blackCard})
   })
 
   socket.on('get_first_load', function(data){
@@ -91,9 +95,17 @@ io.on("connection", function(socket) {
     io.nsps['/'].adapter.rooms[data.room].playedCards[data.player].cards.push(data.text)
     //io.to(data.room).emit('display_played_card', {text: data.text, player: data.player})
     io.to(data.room).emit('display_played_cards', {cards: io.nsps['/'].adapter.rooms[data.room].playedCards})
-    if(Object.keys(io.nsps['/'].adapter.rooms[data.room].playedCards).length == (Object.keys(getPlayersInRoom(data.room)).length-1)){
+    var playedCardsCount = 0;
+    var playedCards = Object.keys(io.nsps['/'].adapter.rooms[data.room].playedCards).map(function(key) {
+      return io.nsps['/'].adapter.rooms[data.room].playedCards[key];
+    });
+    for(var i=0; i<playedCards.length; i++){
+      playedCardsCount += playedCards[i].cards.length;
+    }
+    if(playedCardsCount == (Object.keys(getPlayersInRoom(data.room)).length-1) * io.nsps['/'].adapter.rooms[data.room].blackCard.pick)
+    {
       clearTimeout(io.nsps['/'].adapter.rooms[data.room].timer)
-      syncGamestate(data.room,2)
+      syncGamestate(data.room, 2)
     }
   })
 
@@ -113,9 +125,16 @@ io.on("connection", function(socket) {
     if(!io.nsps['/'].adapter.rooms[room]) return;
     syncGamestate(room,1)
     var deck = io.nsps['/'].adapter.rooms[room].blackCards || getNewDeck("blackCards",room)
-    io.to(room).emit('display_blackcard', {blackCard:deck.pop()})
+    var newCard = deck.pop()
+    io.nsps['/'].adapter.rooms[room].blackCard=newCard;
+    io.to(room).emit('display_blackcard', {blackCard:newCard})
     io.nsps['/'].adapter.rooms[room].timer=setTimeout(function(){
-      syncGamestate(room,2)
+      if(!io.nsps['/'].adapter.rooms[room]) return;
+      if(io.nsps['/'].adapter.rooms[room].playedCards)
+        syncGamestate(room,2)
+      else{
+        startRound(room);
+      }
     }, 30*1000)
   }
 
@@ -130,7 +149,7 @@ io.on("connection", function(socket) {
       }
       io.to(room).emit('display_players', {players: getPlayersInRoom(room)})
       if(io.nsps['/'].adapter.rooms[room]){
-        io.nsps['/'].adapter.rooms[room].playedCards = new Object; 
+        io.nsps['/'].adapter.rooms[room].playedCards = null; 
         startRound(room)
       }
     },5*1000)

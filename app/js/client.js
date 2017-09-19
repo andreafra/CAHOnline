@@ -47,10 +47,10 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
   $scope.room=$routeParams.room
   $scope.playerid=socket.id()
   socket.on('first_load', function(data){
-    //RECONNECTION LOGIC
     $scope.playerid=socket.id()
     var lastId = $cookies.get("lastId")
     if(data.players[lastId] && data.players[lastId].room==$scope.room){
+      //RECONNECT
       var playerObject = data.players[lastId]
       delete data.players[lastId]
       playerObject.id = $scope.playerid
@@ -69,6 +69,10 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
     $scope.myPlayedCards=[]
     $scope.time=30
   })
+
+  socket.on('waiting_room', function() {
+    $scope.isWaitingRoom = true;
+  });
 
   socket.emit('get_first_load',{room: $scope.room})
 
@@ -94,6 +98,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
   })
 
   socket.on('sync_gamestate', function(data){
+    $scope.isWaitingRoom = false
     $scope.gameState=data.gameState
 
     switch(data.gameState){
