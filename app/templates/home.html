@@ -14,6 +14,12 @@
             </div>
             <div ng-show="homeIntro">
                 <input class="text-input" type="text" name="playerName" placeholder="Carlo Conti" ng-model="playerName">
+                <select class="text-input start-button--full"
+                        ng-show="homeIntro && homeCreateRoom"
+                        ng-init="lang='ita'" ng-model="lang">
+                    <option value="ita">Italiano</option>
+                    <option value="eng">Inglese</option>
+                </select>
                 <button class="start-button start-button--full"
                         ng-show="homeIntro && homeCreateRoom"
                         type="button" name="create_room" ng-click="createRoom()">

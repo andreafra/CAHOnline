@@ -15,7 +15,10 @@ server.listen(port)
 console.log("http server listening on %d", port)
 
 var players = {}
-var cards = JSON.parse(fs.readFileSync(__dirname + '/app/json/italian-cards.json', 'utf8'))
+var cards = { 
+  "ita": JSON.parse(fs.readFileSync(__dirname + '/app/json/italian-cards.json', 'utf8')),
+  "eng": JSON.parse(fs.readFileSync(__dirname + '/app/json/cards.json', 'utf8'))
+}
 
 app.get("*", function(req, res) {
   res.sendFile(__dirname + "/app/index.html")
@@ -30,6 +33,7 @@ io.on("connection", function(socket) {
     data.roomId = roomId
     socket.join(roomId)
     io.nsps['/'].adapter.rooms[roomId].gameState=0
+    io.nsps['/'].adapter.rooms[roomId].lang=data.lang
     addPlayer({data, socket}, true)
     console.log("NEW ROOM WITH ID " + roomId)
   })
@@ -210,16 +214,17 @@ function deletePlayer(id) {
 }
 
 function getNewDeck(set,room){
-  console.log("Creating new deck of " + set + " for room " + room)
+  var lang = io.nsps['/'].adapter.rooms[room].lang;
+  console.log("Creating new deck of " + set + " for room " + room + " with language " + lang)
   switch(set){
     case "whiteCards":
-      var newDeck = cards.whiteCards
+      var newDeck = cards[lang].whiteCards
       shuffle(newDeck)
       io.nsps['/'].adapter.rooms[room].whiteCards=newDeck
       return newDeck
       break
     case "blackCards":
-      var newDeck = cards.blackCards
+      var newDeck = cards[lang].blackCards
       shuffle(newDeck)
       io.nsps['/'].adapter.rooms[room].blackCards=newDeck
       return newDeck

@@ -177,7 +177,7 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
 
   $scope.createRoom = function() {
     if ($scope.playerName && $scope.playerName.length > 2) {
-      socket.emit("create_room", {name: $scope.playerName})
+      socket.emit("create_room", {name: $scope.playerName, lang: $scope.lang})
     } else {
       alert("Inserisci un nome di almeno 3 caratteri")
     }
