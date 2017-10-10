@@ -166,12 +166,21 @@ io.on("connection", function(socket) {
   }
 
   function pickNewGameMaster (roomPlayers){
-      var a = randomProperty(roomPlayers)
-      while(a.isGameMaster){
-        a = randomProperty(roomPlayers)
-      }
-      return a;
+    var keys = Object.keys(roomPlayers);
+    var currentIndex = -1;
+    var newIndex = -1;
+    for(var i=0; i<keys.length; i++){
+      if(roomPlayers[keys[i]].isGameMaster)
+        currentIndex = i;
     }
+    
+    if(currentIndex==keys.length-1)
+      newIndex = 0;
+    else
+      newIndex = currentIndex + 1;
+
+    return roomPlayers[keys[newIndex]];
+  }
 })
 
 function getPlayersInRoom(room){
