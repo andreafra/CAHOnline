@@ -47,7 +47,6 @@ io.on("connection", function(socket) {
   })
 
   socket.on('get_rooms', function(){
-    console.log(io.nsps['/'].adapter.rooms);
     socket.emit('show_rooms', {rooms: io.nsps['/'].adapter.rooms})
   });
 
@@ -194,10 +193,6 @@ io.on("connection", function(socket) {
     return roomPlayers[keys[newIndex]]
   }
 })
-
-function getSmallerData(arr){
-
-}
 
 function getPlayersInRoom(room){
 	//let socketsInSameRoom = io.nsps['/'].adapter.rooms[room] ? io.nsps['/'].adapter.rooms[room].sockets : null

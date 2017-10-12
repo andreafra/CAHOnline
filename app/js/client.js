@@ -212,7 +212,6 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
   }
 
   socket.on('show_rooms', function(data){
-    console.log(data.rooms);
     $scope.roomList = data.rooms;
   });
 
