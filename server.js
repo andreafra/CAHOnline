@@ -76,6 +76,12 @@ io.on("connection", function(socket) {
     }
     socket.emit('first_load',{players: playersInSameRoom, gameState: io.nsps['/'].adapter.rooms[data.room].gameState})
 
+    if(io.nsps['/'].adapter.rooms[data.room].gameState!=1){
+      socket.emit('sync_gamestate', {gameState: io.nsps['/'].adapter.rooms[data.room].gameState})
+    }
+    else  socket.emit('waiting_room')
+    socket.emit('display_blackcard', {blackCard: io.nsps['/'].adapter.rooms[data.room].blackCard})
+
     // The user might have accessed a room gamepage without going through the menu, not being recognised as a player
     if(players[socket.id])
       io.to(data.room).emit("display_players", {players: playersInSameRoom})
