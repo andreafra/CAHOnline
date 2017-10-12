@@ -206,10 +206,13 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
         roomId: $scope.roomId })
     }
   }
-
-  socket.emit('get_rooms');
   
+  $scope.loadRooms = function(){
+    socket.emit('get_rooms');
+  }
+
   socket.on('show_rooms', function(data){
+    console.log(data.rooms);
     $scope.roomList = data.rooms;
   });
 
