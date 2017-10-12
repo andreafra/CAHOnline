@@ -32,16 +32,23 @@ io.on("connection", function(socket) {
     data.roomId = roomId
     socket.join(roomId)
     io.nsps['/'].adapter.rooms[roomId].gameState=0
+    io.nsps['/'].adapter.rooms[roomId].name=data.roomName || roomId
     io.nsps['/'].adapter.rooms[roomId].lang=data.lang
+    io.sockets.emit('show_rooms', {rooms: io.nsps['/'].adapter.rooms})
     addPlayer({data, socket}, true)
     console.log("NEW ROOM WITH ID " + roomId)
   })
 
   socket.on("join_room", function(data) {
     socket.join(data.roomId)
+    io.sockets.emit('show_rooms', {rooms: io.nsps['/'].adapter.rooms})
     addPlayer({data, socket}, false)
     console.log("JOINED ROOM WITH ID " + data.roomId)
   })
+
+  socket.on('get_rooms', function(){
+    socket.emit('show_rooms', {rooms: io.nsps['/'].adapter.rooms})
+  });
 
   socket.on('disconnect', function() {
   	setTimeout(function(){deletePlayer(socket.id)}, 3000)
@@ -201,7 +208,7 @@ function getPlayersInRoom(room){
 function addPlayer(player, isGameMaster) {
   players[player.socket.id] = {
     id: player.socket.id,
-    name: player.data.name,
+    name: player.data.playerName,
     room: player.data.roomId,
     isGameMaster: isGameMaster,
     points: 0
@@ -217,7 +224,8 @@ function deletePlayer(id) {
     if(io.sockets.connected[id]) io.sockets.connected[id].leave(playerRoom)
 		delete players[id]
 		let playersInSameRoom = getPlayersInRoom(playerRoom)
-		io.to(playerRoom).emit("display_players", {players: playersInSameRoom})
+    io.to(playerRoom).emit("display_players", {players: playersInSameRoom})
+    io.sockets.emit('show_rooms', {rooms: io.nsps['/'].adapter.rooms})
 	}
 }
 

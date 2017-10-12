@@ -274,7 +274,6 @@
 .player-score {
     padding: 0.3em 0.7em;
     border-radius: 0.9em;
-    width: 100%;
     margin-top: 0.5em;
     text-align: left;
     vertical-align: middle;
@@ -444,8 +443,15 @@
 .home__container__card {
     align-self: center;
     background: var(--board-color);
-    padding: 1rem;
     font-size: 1rem;
+}
+.home__container__section{
+    padding: 1rem;
+    display: table-cell;
+}
+.home__room__list{
+    background: white;
+    width: 20rem;
 }
 .card__footer {
     bottom: 0;

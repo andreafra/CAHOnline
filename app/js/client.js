@@ -187,7 +187,7 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
 
   $scope.createRoom = function() {
     if ($scope.playerName && $scope.playerName.length > 2) {
-      socket.emit("create_room", {name: $scope.playerName, lang: $scope.lang})
+      socket.emit("create_room", {playerName: $scope.playerName, roomName: $scope.roomName, lang: $scope.lang})
     } else {
       alert("Inserisci un nome di almeno 3 caratteri")
     }
@@ -207,6 +207,16 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
     }
   }
 
+  socket.emit('get_rooms');
+  
+  socket.on('show_rooms', function(data){
+    $scope.roomList = data.rooms;
+  });
+
+  $scope.test = function(id){
+    $scope.roomId = parseInt(id);
+  }
+
   socket.on('load_game_page', function(data){
     $location.path("/"+data.room)
   })
@@ -216,4 +226,6 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
       // or something like
       // socket.removeListener(this);
   })
+
+
 })
