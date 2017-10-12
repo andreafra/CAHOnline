@@ -34,20 +34,20 @@ io.on("connection", function(socket) {
     io.nsps['/'].adapter.rooms[roomId].gameState=0
     io.nsps['/'].adapter.rooms[roomId].name=data.roomName || roomId
     io.nsps['/'].adapter.rooms[roomId].lang=data.lang
-    io.sockets.emit('show_rooms', {rooms: io.nsps['/'].adapter.rooms})
+    io.sockets.emit('show_rooms', {rooms: shrinkRooms(io.nsps['/'].adapter.rooms)})
     addPlayer({data, socket}, true)
     console.log("NEW ROOM WITH ID " + roomId)
   })
 
   socket.on("join_room", function(data) {
     socket.join(data.roomId)
-    io.sockets.emit('show_rooms', {rooms: io.nsps['/'].adapter.rooms})
+    io.sockets.emit('show_rooms', {rooms: shrinkRooms(io.nsps['/'].adapter.rooms)})
     addPlayer({data, socket}, false)
     console.log("JOINED ROOM WITH ID " + data.roomId)
   })
 
   socket.on('get_rooms', function(){
-    socket.emit('show_rooms', {rooms: io.nsps['/'].adapter.rooms})
+    socket.emit('show_rooms', {rooms: shrinkRooms(io.nsps['/'].adapter.rooms)})
   });
 
   socket.on('disconnect', function() {
@@ -225,8 +225,23 @@ function deletePlayer(id) {
 		delete players[id]
 		let playersInSameRoom = getPlayersInRoom(playerRoom)
     io.to(playerRoom).emit("display_players", {players: playersInSameRoom})
-    io.sockets.emit('show_rooms', {rooms: io.nsps['/'].adapter.rooms})
+    io.sockets.emit('show_rooms', {rooms: shrinkRooms(io.nsps['/'].adapter.rooms)})
 	}
+}
+
+function shrinkRooms(){
+  let rooms = io.nsps['/'].adapter.rooms
+  let out = {}
+  for(let [id, room] of entries(rooms)){
+    out[id] = {name: room.name, length: room.length, lang: room.lang}
+  }
+  return out
+}
+
+function* entries(obj) {
+  for (let key of Object.keys(obj)) {
+    yield [key, obj[key]];
+  }
 }
 
 function getNewDeck(set,room){
