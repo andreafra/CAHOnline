@@ -130,14 +130,16 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
         socket.emit('give_whitecards', {room: $scope.room, amount: 10 - $scope.whiteCards.length})
         $scope.time=30
         $interval.cancel(timer)
-        timer = $interval(function tick(){
-          if($scope.time>0) 
-            $scope.time--
-          else
-            //Time is over so let's stop the timer here
-            $interval.cancel(timer)
-          return tick;
-        }(),1000)
+        $timeout(function(){
+          timer = $interval(function tick(){
+            if($scope.time>0) 
+              $scope.time--
+            else
+              //Time is over so let's stop the timer here
+              $interval.cancel(timer)
+            return tick;
+          }(),1000)
+        }, 1)
         break
       case 2:
         break
