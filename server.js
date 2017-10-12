@@ -1,5 +1,4 @@
 const express = require('express')
-const shortid = require('shortid')
 const app = express()
 const server = require("http").Server(app)
 const io = require("socket.io")(server)
@@ -76,20 +75,20 @@ io.on("connection", function(socket) {
       io.nsps['/'].adapter.rooms[data.room].gameState = 0
     }
     socket.emit('first_load',{players: playersInSameRoom, gameState: io.nsps['/'].adapter.rooms[data.room].gameState})
-    io.to(data.room).emit("display_players", {players: playersInSameRoom})
+
+    // The user might have accessed a room gamepage without going through the menu, not being recognised as a player
+    if(players[socket.id])
+      io.to(data.room).emit("display_players", {players: playersInSameRoom})
   })
 
   socket.on('give_whitecards', function(data){
     if(!io.nsps['/'].adapter.rooms[data.room]) return;
     var deck = io.nsps['/'].adapter.rooms[data.room].whiteCards || getNewDeck("whiteCards",data.room)
-    //for(var playerId in getPlayersInRoom(data.room)){  
-      var playerCards = []
-      for(var i = 0; i < data.amount; i++){
-        playerCards.push(deck.pop())
-      }
-      //io.to(playerId).emit('display_whitecards', {whiteCards:playerCards})
-      socket.emit('display_whitecards', {whiteCards:playerCards})
-    //}
+    var playerCards = []
+    for(var i = 0; i < data.amount; i++){
+      playerCards.push(deck.pop())
+    }
+    socket.emit('display_whitecards', {whiteCards:playerCards})
   })
 
   socket.on('play_card', function(data){
@@ -97,7 +96,6 @@ io.on("connection", function(socket) {
     if(!io.nsps['/'].adapter.rooms[data.room].playedCards)  io.nsps['/'].adapter.rooms[data.room].playedCards = {}
     if(!io.nsps['/'].adapter.rooms[data.room].playedCards[data.player]) io.nsps['/'].adapter.rooms[data.room].playedCards[data.player]={player: data.player, cards: []}
     io.nsps['/'].adapter.rooms[data.room].playedCards[data.player].cards.push(data.text)
-    //io.to(data.room).emit('display_played_card', {text: data.text, player: data.player})
     io.to(data.room).emit('display_played_cards', {cards: io.nsps['/'].adapter.rooms[data.room].playedCards})
     var playedCardsCount = 0;
     var playedCards = Object.keys(io.nsps['/'].adapter.rooms[data.room].playedCards).map(function(key) {
@@ -166,20 +164,20 @@ io.on("connection", function(socket) {
   }
 
   function pickNewGameMaster (roomPlayers){
-    var keys = Object.keys(roomPlayers);
-    var currentIndex = -1;
-    var newIndex = -1;
+    var keys = Object.keys(roomPlayers)
+    var currentIndex = -1
+    var newIndex = -1
     for(var i=0; i<keys.length; i++){
       if(roomPlayers[keys[i]].isGameMaster)
-        currentIndex = i;
+        currentIndex = i
     }
     
     if(currentIndex==keys.length-1)
-      newIndex = 0;
+      newIndex = 0
     else
-      newIndex = currentIndex + 1;
+      newIndex = currentIndex + 1
 
-    return roomPlayers[keys[newIndex]];
+    return roomPlayers[keys[newIndex]]
   }
 })
 
@@ -191,11 +189,6 @@ function getPlayersInRoom(room){
       playersInSameRoom[otherId]=players[otherId]
     }
   }
-	/*
-  for(var otherId in socketsInSameRoom){
-	  playersInSameRoom[otherId]=players[otherId]
-	}
-  */
 	return playersInSameRoom
 }
 
@@ -223,7 +216,7 @@ function deletePlayer(id) {
 }
 
 function getNewDeck(set,room){
-  var lang = io.nsps['/'].adapter.rooms[room].lang;
+  var lang = io.nsps['/'].adapter.rooms[room].lang || 'ita';
   console.log("Creating new deck of " + set + " for room " + room + " with language " + lang)
   switch(set){
     case "whiteCards":
@@ -231,13 +224,11 @@ function getNewDeck(set,room){
       shuffle(newDeck)
       io.nsps['/'].adapter.rooms[room].whiteCards=newDeck
       return newDeck
-      break
     case "blackCards":
       var newDeck = cards[lang].blackCards
       shuffle(newDeck)
       io.nsps['/'].adapter.rooms[room].blackCards=newDeck
       return newDeck
-      break
   }
 }
 
@@ -249,13 +240,13 @@ function shuffle(a) {
 }
 
 function newRoomId(){
-  var random = Math.floor(1000 + Math.random() * 9000);
+  var random = Math.floor(1000 + Math.random() * 9000)
   while(io.nsps['/'].adapter.rooms[random])
-    random = Math.floor(1000 + Math.random() * 9000);
+    random = Math.floor(1000 + Math.random() * 9000)
   return random;
 }
 
 function randomProperty (obj) {
     var keys = Object.keys(obj)
-    return obj[keys[ keys.length * Math.random() << 0]];
+    return obj[keys[ keys.length * Math.random() << 0]]
 };

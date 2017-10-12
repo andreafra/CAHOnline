@@ -1,6 +1,6 @@
 var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy', 'ngAnimate', 'ngSanitize'])
 app.factory('socket', function ($rootScope) {
-  var socket = io('/').connect("http://cahonline.herokuapp.com/")
+  var socket = io('/')
   return {
     on: function (eventName, callback) {
       socket.on(eventName, function () {  
@@ -43,12 +43,26 @@ app.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true)
 })
 
-app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, socket){
+app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $location, socket){
   $scope.room=$routeParams.room
   $scope.playerid=socket.id()
+  
+  socket.emit('get_first_load',{room: $scope.room})
+
   socket.on('first_load', function(data){
-    $scope.playerid=socket.id()
     var lastId = $cookies.get("lastId")
+
+    // if the user manually loaded a room page without going through the main menu, 
+    // we should kick him cause we cannot have his user infos
+    if(!data.players[$scope.playerid] && !data.players[lastId]){
+      $scope.isToKick = true;
+      $timeout(function(){
+        $location.path("/")
+      }, 4000)
+      return
+    }
+
+    // See if user refreshed the page (or lost connection and got reconnected)
     if(data.players[lastId] && data.players[lastId].room==$scope.room){
       //RECONNECT
       var playerObject = data.players[lastId]
@@ -70,11 +84,11 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
     $scope.time=30
   })
 
+  // Wierd things can happen if only 2 people are playing (which shouldnt happen, but yea.)
+  // TODO: See into this
   socket.on('waiting_room', function() {
     $scope.isWaitingRoom = true;
   });
-
-  socket.emit('get_first_load',{room: $scope.room})
 
   socket.on('display_players', function(data){
     $scope.players=data.players
@@ -89,7 +103,6 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
 
   socket.on('display_whitecards', function(data){
     $scope.whiteCards=data.whiteCards.concat($scope.whiteCards || [])
-    //console.log(JSON.stringify($scope.whiteCards) + "\n" + JSON.stringify(data.whiteCards))
     $cookies.putObject("whiteCards",$scope.whiteCards)
   })
 
@@ -140,7 +153,6 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, s
   })
 
   socket.on('display_played_cards', function(data){
-    //$scope.playedCards.push(card)
     $scope.playedCards=data.cards
   })
 
@@ -199,7 +211,6 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
 
   socket.on('load_game_page', function(data){
     $location.path("/"+data.room)
-    //$scope.$apply()
   })
 
   $scope.$on('$destroy', function (event) {
