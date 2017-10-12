@@ -43,7 +43,7 @@ app.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true)
 })
 
-app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $location, socket){
+app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $interval, $location, socket){
   $scope.room=$routeParams.room
   $scope.playerid=socket.id()
   
@@ -110,6 +110,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
     $scope.blackCard = data.blackCard
   })
 
+  var timer;
   socket.on('sync_gamestate', function(data){
     $scope.isWaitingRoom = false
     $scope.gameState=data.gameState
@@ -128,20 +129,15 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
         $scope.playedCards = new Array()
         socket.emit('give_whitecards', {room: $scope.room, amount: 10 - $scope.whiteCards.length})
         $scope.time=30
-        $timeout(function(){
-          $scope.time--
-          $scope.$apply()
-          var timer = setInterval(function(){
-            if($scope.time>0) {
-              $scope.time--
-              $scope.$apply()
-            }
-            else  {
-              //TIME IS OVER
-              clearInterval(timer)
-            }
-          },1000)
-        },1)
+        $interval.cancel(timer)
+        timer = $interval(function tick(){
+          if($scope.time>0) 
+            $scope.time--
+          else
+            //Time is over so let's stop the timer here
+            $interval.cancel(timer)
+          return tick;
+        }(),1000)
         break
       case 2:
         break
