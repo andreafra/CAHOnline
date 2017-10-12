@@ -1,10 +1,10 @@
-var app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy', 'ngAnimate', 'ngSanitize'])
+let app = angular.module('CAHOnline',['ngRoute','ngCookies','ngOrderObjectBy', 'ngAnimate', 'ngSanitize'])
 app.factory('socket', function ($rootScope) {
-  var socket = io('/')
+  let socket = io('/')
   return {
     on: function (eventName, callback) {
       socket.on(eventName, function () {  
-        var args = arguments
+        let args = arguments
         $rootScope.$apply(function () {
           callback.apply(socket, args)
         })
@@ -12,7 +12,7 @@ app.factory('socket', function ($rootScope) {
     },
     emit: function (eventName, data, callback) {
       socket.emit(eventName, data, function () {
-        var args = arguments
+        let args = arguments
         $rootScope.$apply(function () {
           if (callback) {
             callback.apply(socket, args)
@@ -50,7 +50,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
   socket.emit('get_first_load',{room: $scope.room})
 
   socket.on('first_load', function(data){
-    var lastId = $cookies.get("lastId")
+    let lastId = $cookies.get("lastId")
 
     // if the user manually loaded a room page without going through the main menu, 
     // we should kick him cause we cannot have his user infos
@@ -65,7 +65,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
     // See if user refreshed the page (or lost connection and got reconnected)
     if(data.players[lastId] && data.players[lastId].room==$scope.room){
       //RECONNECT
-      var playerObject = data.players[lastId]
+      let playerObject = data.players[lastId]
       delete data.players[lastId]
       playerObject.id = $scope.playerid
       data.players[playerObject.id]=playerObject
@@ -110,7 +110,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
     $scope.blackCard = data.blackCard
   })
 
-  var timer;
+  let timer;
   socket.on('sync_gamestate', function(data){
     $scope.isWaitingRoom = false
     $scope.gameState=data.gameState

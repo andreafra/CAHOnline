@@ -11,7 +11,7 @@
             return !isNaN(parseFloat(n)) && isFinite(n);
           }
           
-          var filtered = [];
+          let filtered = [];
 
           angular.forEach(items, function(item, key) {
             item.key = key;
@@ -23,9 +23,9 @@
           }
 
           filtered.sort(function (a, b) {
-            var comparator;
-            var reducedA = field.split('.').reduce(index, a);
-            var reducedB = field.split('.').reduce(index, b);
+            let comparator;
+            let reducedA = field.split('.').reduce(index, a);
+            let reducedB = field.split('.').reduce(index, b);
 
             if (isNumeric(reducedA) && isNumeric(reducedB)) {
               reducedA = Number(reducedA);
