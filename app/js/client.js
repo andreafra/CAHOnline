@@ -202,7 +202,7 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
     }
     else{
       socket.emit("join_room", { 
-        name: $scope.playerName,
+        playerName: $scope.playerName,
         roomId: $scope.roomId })
     }
   }
