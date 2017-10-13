@@ -1,35 +1,37 @@
-<div class="home__container">
-    <div class="home__container__card card-shadow">
-        <div class="card__footer">
-            <h1 class="card__title">Cards against Humanity.</h1>
-            <div ng-show="!homeIntro">
-                <button class="start-button start-button--full"
-                        ng-click="homeIntro=!homeIntro; homeCreateRoom=!homeCreateRoom">
-                    Crea una partita!
-                </button>
-                <button class="start-button start-button--full"
-                        ng-click="homeIntro=!homeIntro; homeJoinRoom=!homeJoinRoom">
-                    Unisciti a una partita!
+<div class="home">
+    <div class="box">
+        <h1 class="box__title">
+            <span class="box__title__padding-0">Cards</span>
+            <span class="box__title__padding-1">against</span>
+            <span class="box__title__padding-2">Humanity</span>
+        </h1>
+        <div class="box__content" ng-show="!homeIntro">
+            <button class="start-button start-button--full"
+                    ng-click="homeIntro=!homeIntro; homeCreateRoom=!homeCreateRoom">
+                Crea una partita!
+            </button>
+            <button class="start-button start-button--full"
+                    ng-click="homeIntro=!homeIntro; homeJoinRoom=!homeJoinRoom">
+                Unisciti a una partita!
+            </button>
+        </div>
+        <div class="box__content" ng-show="homeIntro">
+            <input class="text-input" type="text" name="playerName" placeholder="Username" ng-model="playerName">
+            <button class="start-button start-button--full"
+                    ng-show="homeIntro && homeCreateRoom"
+                    type="button" name="create_room" ng-click="createRoom()">
+                Crea una partita!
+            </button>
+            <div ng-show="homeIntro && homeJoinRoom">
+                <input class="text-input" type="tel" name="roomId" placeholder="ID Stanza"
+                        pattern="[1-9][0-9]{3}" ng-model="roomId">
+                <button class="start-button start-button--full" type="button" name="join_room" ng-click="joinRoom()">
+                    Unisciti alla partita!
                 </button>
             </div>
-            <div ng-show="homeIntro">
-                <input class="text-input" type="text" name="playerName" placeholder="Carlo Conti" ng-model="playerName">
-                <button class="start-button start-button--full"
-                        ng-show="homeIntro && homeCreateRoom"
-                        type="button" name="create_room" ng-click="createRoom()">
-                    Crea una partita!
-                </button>
-                <div ng-show="homeIntro && homeJoinRoom">
-                    <input class="text-input" type="number" name="roomId" placeholder="1234"
-                           pattern="[1-9][0-9]{3}" ng-model="roomId">
-                    <button class="start-button start-button--full" type="button" name="join_room" ng-click="joinRoom()">
-                        Unisciti alla partita!
-                    </button>
-                </div>
-                <button class="start-button start-button--full start-button--secondary" type="button" name="join_room" ng-click="homeJoinRoom=false; homeCreateRoom=false; homeIntro=false">
-                    Indietro
-                </button>
-            </div>
+            <button class="start-button start-button--full start-button--secondary" type="button" name="join_room" ng-click="homeJoinRoom=false; homeCreateRoom=false; homeIntro=false">
+                Indietro
+            </button>
         </div>
     </div>
 </div>

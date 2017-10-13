@@ -1,0 +1,33 @@
+// Home/Welcome Page
+.home {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    .box {
+        display: block;
+        align-self: center;
+        
+        &__title {
+            font-size: $size * 2;
+            font-weight: bolder;
+            text-transform: uppercase;
+            transition: 0.3s ease-out all;
+            @for $i from 0 through 2 {
+                span {
+                    display: block;
+                    line-height: 1.4 * $size;
+                }
+                &__padding-#{$i} {
+                    padding-left: 0 + $i * 0.9em;
+                }
+            }
+        }
+        &__content {
+            width: 100%;
+            padding: $size 0;
+            text-align: center;
+        }
+    }
+
+}
