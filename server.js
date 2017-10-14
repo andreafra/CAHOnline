@@ -14,6 +14,7 @@ server.listen(port)
 console.log("http server listening on %d", port)
 
 let players = {}
+let timers = {}
 let cards = { 
   "ita": JSON.parse(fs.readFileSync(__dirname + '/app/json/italian-cards.json', 'utf8')),
   "eng": JSON.parse(fs.readFileSync(__dirname + '/app/json/cards.json', 'utf8'))
@@ -78,6 +79,8 @@ io.on("connection", function(socket) {
   socket.on('get_first_load', function(data){
     let playersInSameRoom = getPlayersInRoom(data.room)
     if(!io.nsps['/'].adapter.rooms[data.room]){
+      clearTimeout(timers[data.room])
+      delete timers[data.room]
       socket.join(data.room)
       io.nsps['/'].adapter.rooms[data.room].gameState = 0
     }
@@ -119,7 +122,8 @@ io.on("connection", function(socket) {
     }
     if(playedCardsCount == (Object.keys(getPlayersInRoom(data.room)).length-1) * io.nsps['/'].adapter.rooms[data.room].blackCard.pick)
     {
-      clearTimeout(io.nsps['/'].adapter.rooms[data.room].timer)
+      clearTimeout(timers[data.room])
+      delete timers[data.room]
       syncGamestate(data.room, 2)
     }
   })
@@ -143,7 +147,7 @@ io.on("connection", function(socket) {
     let newCard = deck.pop()
     io.nsps['/'].adapter.rooms[room].blackCard=newCard;
     io.to(room).emit('display_blackcard', {blackCard:newCard})
-    io.nsps['/'].adapter.rooms[room].timer=setTimeout(function(){
+    timers[room]=setTimeout(function(){
       if(!io.nsps['/'].adapter.rooms[room]) return;
       if(io.nsps['/'].adapter.rooms[room].playedCards)
         syncGamestate(room,2)
