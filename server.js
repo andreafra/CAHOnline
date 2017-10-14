@@ -52,6 +52,13 @@ io.on("connection", function(socket) {
   });
 
   socket.on('disconnect', function() {
+    if(players[socket.id]){
+      let room = players[socket.id].room;
+      if(!io.nsps['/'].adapter.rooms[room]){
+        clearTimeout(timers[room])
+        delete timers[room]
+      }
+    }
   	setTimeout(function(){deletePlayer(socket.id)}, 3000)
   	console.log("Player " + socket.id + " disconnected")
   })
@@ -79,8 +86,6 @@ io.on("connection", function(socket) {
   socket.on('get_first_load', function(data){
     let playersInSameRoom = getPlayersInRoom(data.room)
     if(!io.nsps['/'].adapter.rooms[data.room]){
-      clearTimeout(timers[data.room])
-      delete timers[data.room]
       socket.join(data.room)
       io.nsps['/'].adapter.rooms[data.room].gameState = 0
     }

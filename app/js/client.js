@@ -50,6 +50,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
   socket.emit('get_first_load',{room: $scope.room})
 
   socket.on('first_load', function(data){
+    $scope.playerid=socket.id()
     let lastId = $cookies.get("lastId")
 
     // if the user manually loaded a room page without going through the main menu, 
