@@ -1,14 +1,201 @@
 .board {
-    position: fixed;
-    display: block;
+    display: inline-block;
     height: 100%;
-    width: 100%;
-
+    width: 50%;
+    vertical-align: top;
     background-color: $color--light-background;
+
+    &__section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        &__top, &__bottom {
+            position: relative;
+            height: 45%;
+        }
+        &__middle {
+            //position: absolute;
+            display: flex;
+            top: 50%;
+            height: 10%;
+            //transform: translateY(-50%);
+            background: darken($color--light-background, 10%);
+            .waiting-text {
+                align-self: center;
+                display: flex;
+                padding: $size--button-padding;
+                font-size: $size--font*0.9;
+                span {
+                    //could be redundant
+                    align-self: center;
+                }
+            }
+            .timer {
+                display: flex;
+                position: relative;
+                align-self: center;
+                justify-content: center;
+                height: 100%;
+                width: 100%;
+                &__icon, &__text {
+                    position: relative;
+                    display: inline-block;
+                    align-self: center;
+                }
+                &__icon {
+                    height: 60%;
+                }
+                &__text {
+                    font-size: $size--font*1.5;
+                    width: 2em;
+                    text-align: center
+                }
+                &__bar {
+                    display: block;
+                    position: absolute;
+                    height: 100%;
+                    background-color: $color--accent;
+                }
+            }
+        }
+
+        &__top {
+            .black-card {
+                align-self: center;
+            }
+        }
+        &__bottom {
+            .cards {
+                display: flex;
+                width: 100%;
+                padding: $size--cards-padding;
+                margin: 0;
+                list-style: none;
+                flex-wrap: wrap;
+                overflow-y: scroll;
+                -webkit-overflow-scrolling: touch;
+                
+                &__item {
+                    height: $size*$size--white-card-height;
+                    display: flex;
+                    flex-flow: column;
+                    margin: $size--cards-padding;
+                    border-radius: $size--card-border-radius;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
 }
 .drawer {
-    position: absolute;
+    display: inline-block;
     height: 100%;
-    width: 50%; //temp
+    width: 50%;
+    vertical-align: top;
     background-color: $color--dark-background;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    
+    &__header {
+        position: fixed;
+        width: 50%; //if position: fixed;
+        height: $size*3;
+        background-color: lighten($color--dark-background, 10%);
+        &__switch {
+            display: inline-block;
+            background: none !important;
+            height: 100%;
+            float: right;
+            padding: 0 $size--button-padding*2;
+            &__icon {
+                height: 60%;
+            }
+        }
+        &__title {
+            display: inline-block;            
+            height: 100%;
+            padding-left: $size--button-padding*2;            
+            color: $color--white;
+            font-size: $size--font*1.3;
+            line-height: $size*3;        
+        }
+        
+    }
+    .scoreboard {
+        padding-top: $size*3;
+        &__scores {
+            padding: $size--button-padding;
+            .player-score {
+                display: block;
+                height: $size--font*1.5;
+                line-height: $size--font*1.5;
+                padding: $size--button-padding;
+                font-size: $size;
+                border-radius: 0.5 * $size;
+                color: $color--white;
+                &:nth-child(even) {
+                    background: $color--accent;
+                }
+                &__icon {
+                    height: 75%;
+                    vertical-align: sub;
+                }
+                &__points {
+                    float: right;
+                }
+            }
+        }
+    }
+    .player-hand {
+        padding-top: $size*3;
+        .cards {
+            display: block;
+            padding: 0.5rem;
+            margin: 0;
+            list-style: none;
+            text-align: center;
+            .white-card {
+                display: inline-block;
+                margin: $size--cards-padding;
+                width: $size*$size--white-card-width;
+                vertical-align: top;
+                text-align: left;
+            }
+        }
+    }
+}
+
+.black-card {
+    height: $size*$size--black-card-height;
+    width: $size*$size--black-card-width;
+    border-radius: $size--card-border-radius;
+    background-color: $color--card-black;
+    &__text {
+        padding: $size--cards-padding;
+        font-size: $size--font;
+        color: $color--white;
+    }
+    &__pick {
+        position: absolute;
+        right: $size/2;
+        bottom: $size/2;
+        font-size: 0.8*$size--font;
+        color: $color--white;
+    }
+}
+.white-card {
+    height: $size*$size--white-card-height;
+    width: $size*$size--white-card-width;
+    border-radius: $size--card-border-radius;
+    background-color: $color--card-white;
+    flex-grow: 1;
+    &--folded {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-bottom: -1.5*$size;
+    }
+    &__text {
+        padding: $size--cards-padding;
+        font-size: $size--font;
+    }
 }

@@ -6,6 +6,7 @@
     background-color: $color--accent;
     font-size: $size;
     border-radius: 0.5 * $size;
+    align-self: center;
     margin: $size--button-margin 0;
     transition: 0.3s ease-out all;
     &:focus, &:hover {
