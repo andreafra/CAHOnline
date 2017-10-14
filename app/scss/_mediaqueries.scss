@@ -1,0 +1,15 @@
+// WELCOME
+@media screen and (orientation : landscape) {
+    .home {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        justify-content: space-evenly;
+        .box {
+            width: 40%;
+            height: 100%;
+        }
+
+    }
+    
+}

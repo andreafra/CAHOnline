@@ -4,15 +4,20 @@
     height: 100%;
     width: 100%;
     justify-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+
     .box {
         display: block;
+        width: 80%;
         align-self: center;
         
         &__title {
             font-size: $size * 2;
             font-weight: bolder;
             text-transform: uppercase;
-            transition: 0.3s ease-out all;
+            margin-top: $size;
             @for $i from 0 through 2 {
                 span {
                     display: block;
@@ -23,10 +28,37 @@
                 }
             }
         }
+        &__subtitle {
+            width: 100%;
+            text-align: left;
+            margin: $size 0;            
+            font-size: $size * 1.5;
+            font-weight: bolder;
+            text-transform: uppercase;     
+        }
         &__content {
             width: 100%;
             padding: $size 0;
             text-align: center;
+        }
+        &__rooms {
+            font-size: $size--font;
+            padding: 0;
+            list-style: none;
+            .player-score {
+                display: block;
+                padding: $size--button-padding;
+                background-color: $color--light-background;
+                font-size: $size;
+                border-radius: 0.5 * $size;
+
+                &:nth-child(even) {
+                    @extend .start-button
+                }
+                &__points {
+                    float: right;
+                }
+            }
         }
     }
 
