@@ -41,13 +41,13 @@
     
     // game.html
     .white-card, .black-card {
-        height: $size--white-card-height*$mobile-landscape-font-scalar;
-        width: $size--white-card-width*$mobile-landscape-font-scalar;
+        height: $size--white-card-height*$desktop-landscape-font-scalar;
+        width: $size--white-card-width*$desktop-landscape-font-scalar;
         &__text {
-            font-size: $size--font--card*$mobile-landscape-font-scalar;
+            font-size: $size--font--card*$desktop-landscape-font-scalar;
         }
     }
     .cards__item {
-        height: $size--white-card-height*$mobile-landscape-font-scalar;
+        height: $size--white-card-height*$desktop-landscape-font-scalar !important;
     }
 }
