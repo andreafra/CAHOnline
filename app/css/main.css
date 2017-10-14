@@ -433,7 +433,7 @@ body {
     .white-card__text, .black-card__text {
       font-size: 3.6vh; }
   .cards__item {
-    height: 39.6vh; } }
+    height: 39.6vh !important; } }
 
 @media screen and (min-width: 500px) and (min-height: 500px) {
   .home {

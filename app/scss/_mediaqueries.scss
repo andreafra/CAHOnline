@@ -23,7 +23,7 @@
         }
     }
     .cards__item {
-        height: $size--white-card-height*$mobile-landscape-font-scalar;
+        height: $size--white-card-height*$mobile-landscape-font-scalar !important;
     }
 }
 // DESKTOP
