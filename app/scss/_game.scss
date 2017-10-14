@@ -136,8 +136,11 @@
                 font-size: $size;
                 border-radius: 0.5 * $size;
                 color: $color--white;
-                &:nth-child(even) {
+                &--you {
                     background: $color--accent;
+                }
+                &:nth-child(even) {
+                    background: $color--light-background;
                 }
                 &__icon {
                     height: 75%;
