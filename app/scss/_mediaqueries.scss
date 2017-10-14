@@ -1,4 +1,7 @@
-@media screen and (orientation : landscape) {
+//MOBILE LANDSCAPE
+@media screen and 
+(max-height:499px) and
+(orientation : landscape) {
     // home.html
     .home {
         flex-direction: row;
@@ -12,4 +15,39 @@
 
     }
     // game.html
+    .white-card, .black-card {
+        height: $size--white-card-height*$mobile-landscape-font-scalar;
+        width: $size--white-card-width*$mobile-landscape-font-scalar;
+        &__text {
+            font-size: $size--font--card*$mobile-landscape-font-scalar;
+        }
+    }
+    .cards__item {
+        height: $size--white-card-height*$mobile-landscape-font-scalar;
+    }
+}
+// DESKTOP
+@media screen and 
+(min-width:500px) and (min-height:500px) {
+    
+    // home.html
+    .home {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        .box {
+            width: 20rem;
+        }
+    }
+    
+    // game.html
+    .white-card, .black-card {
+        height: $size--white-card-height*$mobile-landscape-font-scalar;
+        width: $size--white-card-width*$mobile-landscape-font-scalar;
+        &__text {
+            font-size: $size--font--card*$mobile-landscape-font-scalar;
+        }
+    }
+    .cards__item {
+        height: $size--white-card-height*$mobile-landscape-font-scalar;
+    }
 }

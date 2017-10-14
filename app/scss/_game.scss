@@ -54,6 +54,7 @@
                     display: block;
                     position: absolute;
                     height: 100%;
+                    transition: 1s ease all;
                     background-color: $color--accent;
                 }
             }
@@ -73,10 +74,11 @@
                 list-style: none;
                 flex-wrap: wrap;
                 overflow-y: scroll;
+                overflow-x: hidden;
                 -webkit-overflow-scrolling: touch;
                 
                 &__item {
-                    height: $size*$size--white-card-height;
+                    height: $size--white-card-height*$mobile-portrait-font-scalar;
                     display: flex;
                     flex-flow: column;
                     margin: $size--cards-padding;
@@ -94,6 +96,7 @@
     vertical-align: top;
     background-color: $color--dark-background;
     overflow-y: scroll;
+    overflow-x: hidde;
     -webkit-overflow-scrolling: touch;
     
     &__header {
@@ -150,14 +153,14 @@
         padding-top: $size*3;
         .cards {
             display: block;
-            padding: 0.5rem;
+            padding: 0;
             margin: 0;
             list-style: none;
             text-align: center;
+            //overflow: hidden;
             .white-card {
                 display: inline-block;
                 margin: $size--cards-padding;
-                width: $size*$size--white-card-width;
                 vertical-align: top;
                 text-align: left;
             }
@@ -166,13 +169,13 @@
 }
 
 .black-card {
-    height: $size*$size--black-card-height;
-    width: $size*$size--black-card-width;
+    height: $size--black-card-height*$mobile-portrait-font-scalar;
+    width: $size--black-card-width*$mobile-portrait-font-scalar;
     border-radius: $size--card-border-radius;
     background-color: $color--card-black;
     &__text {
         padding: $size--cards-padding;
-        font-size: $size--font;
+        font-size: $size--font--card*3vw;
         color: $color--white;
     }
     &__pick {
@@ -184,8 +187,8 @@
     }
 }
 .white-card {
-    height: $size*$size--white-card-height;
-    width: $size*$size--white-card-width;
+    height: $size--white-card-height*$mobile-portrait-font-scalar;
+    width: $size--white-card-width*$mobile-portrait-font-scalar;
     border-radius: $size--card-border-radius;
     background-color: $color--card-white;
     flex-grow: 1;
@@ -196,6 +199,6 @@
     }
     &__text {
         padding: $size--cards-padding;
-        font-size: $size--font;
+        font-size: $size--font--card*3vw;
     }
 }

@@ -22,6 +22,7 @@
                 span {
                     display: block;
                     line-height: 1.4 * $size;
+                    font-family: $font-title;                    
                 }
                 &__padding-#{$i} {
                     padding-left: 0 + $i * 0.9em;
@@ -31,10 +32,11 @@
         &__subtitle {
             width: 100%;
             text-align: left;
-            margin: $size 0;            
+            margin: $size 0;
+            font-family: $font-title;
             font-size: $size * 1.5;
             font-weight: bolder;
-            text-transform: uppercase;     
+            text-transform: uppercase;
         }
         &__content {
             width: 100%;

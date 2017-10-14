@@ -35,4 +35,8 @@
     &::placeholder {
         color: $color--accent;
     }
+
+    &--red {
+        border: $size--button-margin solid #cf3b3b;
+    }
 }

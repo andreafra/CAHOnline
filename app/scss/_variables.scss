@@ -20,15 +20,27 @@ $color--dark-accent: darken($color--accent, 10%);
 $size: 1rem;
 
 $size--font: $size;
+
+//EDIT THESE
+$mobile-landscape-font-scalar: 1.8vh;
+$mobile-portrait-font-scalar: 2.5vw;
+//==========
+
+$size--font--card: 2;
 $size--button-padding: $size/2;
 $size--button-margin: $size/5;
 
+$card-scalar: 2;
+$card-height: 11;
+$card-width: 9;
+
 $size--card-border-radius: $size/3*2;
-$size--white-card-height: 11;
-$size--white-card-width: 8;
-$size--black-card-height: 11;
-$size--black-card-width: 8;
+$size--white-card-height: $card-height*$card-scalar;
+$size--white-card-width: $card-width*$card-scalar;
+$size--black-card-height: $card-height*$card-scalar;
+$size--black-card-width: $card-width*$card-scalar;
 
 $size--cards-padding: $size/2;
 //FONTS
-$font: 'Rubik', Helvetica, Arial, sans-serif;
+$font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-title: 'Rubik', Helvetica, Arial, sans-serif;
