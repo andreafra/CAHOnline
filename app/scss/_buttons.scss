@@ -1,0 +1,37 @@
+// Buttons
+// Homescreen:
+.start-button {
+    display: block;
+    padding: $size--button-padding;
+    background-color: $color--accent;
+    font-size: $size;
+    border-radius: 0.5 * $size;
+    margin: $size--button-margin 0;
+    transition: 0.3s ease-out all;
+    &:focus, &:hover {
+        background-color: $color--light-accent;
+    }
+    &:active {
+        background-color: $color--dark-accent;
+    }
+    &--full {
+        width: 100%;
+    }
+}
+
+.text-input {
+    display: block;
+    width: 100%;
+    padding: $size--button-padding - $size--button-margin;
+    background-color: $color--white;
+    font-size: $size;
+    color: $color--accent;
+    border: $size--button-margin solid $color--accent;
+    border-radius: 0.5 * $size;
+    margin: $size--button-margin 0;
+
+    transition: 0.3s ease-out all;
+    &::placeholder {
+        color: $color--accent;
+    }
+}

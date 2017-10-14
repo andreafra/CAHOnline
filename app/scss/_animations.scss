@@ -1,0 +1,75 @@
+@keyframes highlight-glow {
+    0%, 100% {box-shadow:  0px 0px rgba(0,0,0,0.0),
+            0 0px 0px rgba(0,0,0,0.0);}
+    50% {box-shadow: 3px 1px 4px rgba(83, 150, 178, 0.5),
+            0 3px 2px 3px rgba(55, 116, 142, 0.4);}
+}
+.glow {
+    animation: highlight-glow 2s linear infinite;
+}
+@keyframes card-pop-out {
+    0% {transform: scale(1);}
+    20% {transform: scale(1.1);}
+    100% {transform: scale(0);}
+}
+@keyframes card-pop-in {
+    0% {transform: scale(0);}
+    80% {transform: scale(1.1);}
+    100% {transform: scale(1);}
+}
+.pop {
+    transition: all 0.4s ease;
+}
+.pop.ng-enter {
+    animation: card-pop-in 0.4s ease-in;
+    opacity:0;
+}
+.pop.ng-enter-stagger, .pop.ng-leave-stagger {
+  transition-delay: 0.2s;
+  transition-duration: 0s;
+}
+.pop.ng-enter.ng-enter-active {
+    opacity:1;
+}
+.pop.ng-leave {
+    animation: card-pop-out 0.4s ease-out;
+    opacity:1;
+}
+.pop.ng-leave.ng-leave-active {
+    opacity:0;
+}
+
+.ng-leave:not(.white-card--expanded) { display:none; }
+
+@keyframes flip {
+    0% { transform: rotateY(180deg);}
+    100% { transform: rotateY(0deg);}
+}
+.flip {
+    animation: flip 0.4s ease forwards;
+    transform-origin: 50% 50%;
+}
+@keyframes flip-show-text {
+    0% { opacity: 0; }
+    50% { opacity: 0; }
+    60% { opacity: 1; }
+    100% { opacity: 1; }
+}
+.flip > * {
+    animation: flip-show-text 0.4s ease forwards;
+}
+
+@keyframes slide-in-left {
+    0% { transform: translateX(-1000%); }
+    100% { transform: translateX(0%); }
+}
+@keyframes slide-in-right {
+    0% { transform: translateX(1000%); }
+    100% { transform: translateX(0%); }
+}
+.slide-in-left {
+    animation: slide-in-left 0.8s ease-out;
+}
+.slide-in-right {
+    animation: slide-in-right 0.8s ease-out;
+}

@@ -1,0 +1,27 @@
+// COLORS
+$color--white: #ffffff;
+$color--black: #000000;
+
+
+$color--light-background: $color--white;
+$color--dark-background: $color--black;
+
+$color--card-white: $color--white;
+$color--card-black: $color--black;
+
+$color--card-placeholder: darken($color--light-background, 30%);
+
+$color--scoreboard-row: lighten($color--dark-background, 30%);
+
+$color--accent: #0cd17f;
+$color--light-accent: lighten($color--accent, 10%);
+$color--dark-accent: darken($color--accent, 10%);
+// DIMENSIONS
+$size: 1rem;
+
+$size---font: $size;
+$size--button-padding: $size/2;
+$size--button-margin: $size/5;
+
+//FONTS
+$font: 'Rubik', Helvetica, Arial, sans-serif;
