@@ -41,7 +41,7 @@
             </button>  
         </div>
     </div>
-    <div class="box">
+    <div class="box" ng-show="homeIntro && homeJoinRoom">
         <h2 class="box__subtitle">Stanze</h2>
         <ul class="box__rooms">
             <li class="player-score" ng-repeat="(id, room) in roomList" ng-show="room.name" ng-click="test(id)">
