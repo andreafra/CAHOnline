@@ -219,6 +219,8 @@
         padding: $size--cards-padding-mobile-portrait;
         font-size: $size--font--card*3vw;
         color: $color--white;
+        font-weight: bold;
+        letter-spacing: $size*0.015;
     }
     &__pick {
         position: absolute;
@@ -242,5 +244,7 @@
     &__text {
         padding: $size--cards-padding-mobile-portrait;
         font-size: $size--font--card*3vw;
+        font-weight: bold;
+        letter-spacing: $size*0.015;
     }
 }
