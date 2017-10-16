@@ -319,7 +319,7 @@ body {
         .drawer .scoreboard__scores .player-score--you {
           background: #0cd17f; }
         .drawer .scoreboard__scores .player-score:nth-child(even) {
-          background: #ffffff; }
+          background: #1a1a1a; }
         .drawer .scoreboard__scores .player-score__icon {
           height: 75%;
           vertical-align: sub; }

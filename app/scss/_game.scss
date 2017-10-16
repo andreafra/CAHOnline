@@ -140,7 +140,7 @@
                     background: $color--accent;
                 }
                 &:nth-child(even) {
-                    background: $color--light-background;
+                    background: lighten($color--dark-background, 10%);
                 }
                 &__icon {
                     height: 75%;
