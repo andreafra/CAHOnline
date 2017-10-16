@@ -42,6 +42,10 @@ $size--black-card-height: $card-height*$card-scalar;
 $size--black-card-width: $card-width*$card-scalar;
 
 $size--cards-padding: $size/2;
+// EDIT THESE  FOR PADDING
+$size--cards-padding-mobile-portrait: $size--cards-padding;
+$size--cards-padding-mobile-landscape: $size--cards-padding;
+$size--cards-padding-desktop-landscape: $size--cards-padding;
 //FONTS
 $font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-title: 'Rubik', Helvetica, Arial, sans-serif;

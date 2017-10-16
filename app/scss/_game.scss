@@ -170,14 +170,53 @@
         }
     }
 }
+.highlight {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(2px);    
+    transition: all 0.4s ease-in;
+    display: flex;
+    justify-content: center;
 
+    &__cards {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-around;
+        justify-content: space-evenly;        
+        height: 100%;
+               
+        .black-card {
+
+        }
+        .cards {
+            border-radius: $size--card-border-radius;
+            overflow: hidden;
+            &__item {
+                height: $size--white-card-height*$mobile-portrait-font-scalar;
+                display: flex;
+                flex-flow: column;
+                border-radius: $size--card-border-radius;
+                overflow: hidden;
+            }
+        }
+    }
+
+    &__text {
+        font-size: $size--font;
+        align-self: center;
+    }
+}
 .black-card {
     height: $size--black-card-height*$mobile-portrait-font-scalar;
     width: $size--black-card-width*$mobile-portrait-font-scalar;
     border-radius: $size--card-border-radius;
     background-color: $color--card-black;
     &__text {
-        padding: $size--cards-padding;
+        padding: $size--cards-padding-mobile-portrait;
         font-size: $size--font--card*3vw;
         color: $color--white;
     }
@@ -201,7 +240,7 @@
         margin-bottom: -1.5*$size;
     }
     &__text {
-        padding: $size--cards-padding;
+        padding: $size--cards-padding-mobile-portrait;
         font-size: $size--font--card*3vw;
     }
 }
