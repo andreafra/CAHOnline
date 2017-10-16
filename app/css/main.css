@@ -93,7 +93,7 @@
   padding: 0;
   border: 0;
   outline-style: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+  font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
 
 body {
   overflow: hidden; }
@@ -367,7 +367,7 @@ body {
         border-radius: 0.66667rem;
         overflow: hidden; }
   .highlight__text {
-    font-size: 1rem;
+    font-size: 2rem;
     align-self: center; }
 
 .black-card {
@@ -376,8 +376,9 @@ body {
   border-radius: 0.66667rem;
   background-color: #000000; }
   .black-card__text {
-    padding: 0.5rem;
-    font-size: 6vw;
+    padding: 1.2rem;
+    font-size: 4.2vw;
+    font-weight: bold;
     color: #ffffff; }
   .black-card__pick {
     position: absolute;
@@ -397,8 +398,9 @@ body {
     border-bottom-right-radius: 0;
     margin-bottom: -1.5rem; }
   .white-card__text {
-    padding: 0.5rem;
-    font-size: 6vw; }
+    padding: 1.2rem;
+    font-size: 4.2vw;
+    font-weight: bold; }
 
 @media screen and (max-height: 499px) and (min-aspect-ratio: 13 / 9) {
   .home {
@@ -413,8 +415,8 @@ body {
     height: 39.6vh;
     width: 32.4vh; }
     .white-card__text, .black-card__text {
-      padding: 0.5rem;
-      font-size: 3.6vh; }
+      padding: 1.2rem;
+      font-size: 2.52vh; }
   .cards__item {
     height: 39.6vh !important; }
   .highlight__cards {
@@ -435,8 +437,8 @@ body {
     height: 33vh;
     width: 27vh; }
     .white-card__text, .black-card__text {
-      padding: 0.5rem;
-      font-size: 3vh; }
+      padding: 1.2rem;
+      font-size: 2.1vh; }
   .cards__item {
     height: 33vh !important; }
   .highlight__cards {

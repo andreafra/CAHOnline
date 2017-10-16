@@ -27,7 +27,7 @@ $mobile-portrait-font-scalar: 2.5vw;
 $desktop-landscape-font-scalar: 1.5vh;
 //==========
 
-$size--font--card: 2;
+$size--font--card: 1.4;
 $size--button-padding: $size/2;
 $size--button-margin: $size/5;
 
@@ -43,9 +43,9 @@ $size--black-card-width: $card-width*$card-scalar;
 
 $size--cards-padding: $size/2;
 // EDIT THESE  FOR PADDING
-$size--cards-padding-mobile-portrait: $size--cards-padding;
-$size--cards-padding-mobile-landscape: $size--cards-padding;
-$size--cards-padding-desktop-landscape: $size--cards-padding;
+$size--cards-padding-mobile-portrait: $size--cards-padding*2.4;
+$size--cards-padding-mobile-landscape: $size--cards-padding*2.4;
+$size--cards-padding-desktop-landscape: $size--cards-padding*2.4;
 //FONTS
-$font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font: -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-title: 'Rubik', Helvetica, Arial, sans-serif;

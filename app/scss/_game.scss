@@ -206,7 +206,7 @@
     }
 
     &__text {
-        font-size: $size--font;
+        font-size: $size--font*2;
         align-self: center;
     }
 }
@@ -218,6 +218,7 @@
     &__text {
         padding: $size--cards-padding-mobile-portrait;
         font-size: $size--font--card*3vw;
+        font-weight: bold;
         color: $color--white;
     }
     &__pick {
@@ -242,5 +243,6 @@
     &__text {
         padding: $size--cards-padding-mobile-portrait;
         font-size: $size--font--card*3vw;
+        font-weight: bold;
     }
 }
