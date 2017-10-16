@@ -200,8 +200,9 @@ app.controller('mainCtrl', function($scope, $location, $cookies, $timeout, socke
   $scope.joinRoom = function() {
     if($scope.roomId && $scope.playerName && $scope.playerName.length > 2){
       socket.emit("join_room", { 
-      playerName: $scope.playerName,
-      roomId: $scope.roomId })
+        playerName: $scope.playerName,
+        roomId: $scope.roomId
+      })
     }
     else {
       if(!$scope.roomId){
