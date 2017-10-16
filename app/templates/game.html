@@ -23,11 +23,6 @@
   </div>
   <div class="board__section board__section__bottom">
     <ul class="cards">
-      <li class="cards__item shadow pop">
-        <div class="white-card white-card--folded shadow pop">
-          <p class="white-card__text">TESTOH</p>
-        </div>
-      </li>
       <!-- white cards loop here -->
       <!-- Per carta da selezionare guarda qui
         http://stackoverflow.com/a/32893768/3637244-->
@@ -71,18 +66,13 @@
 </div>
 
 <!-- Highlight -->
-<div class="highlight" p-ng-show="gameState === 3 || showNewGameMaster || isWaitingRoom || isToKick">
-  <div class="highlight__cards" p-ng-show="gameState === 3">
+<div class="highlight" ng-show="gameState === 3 || showNewGameMaster || isWaitingRoom || isToKick">
+  <div class="highlight__cards" ng-show="gameState === 3">
     <div class="black-card shadow slide-in-left" id="black-card">
       <p class="black-card__text" ng-bind-html="gameState==3 ? blackCard.text : ''"></p>
       <span class="black-card__pick">{{'Pick: ' + blackCard.pick}}</span>
     </div>
     <div class="cards shadow slide-in-right">
-      <li class="cards__item shadow pop">
-        <div class="white-card white-card--folded shadow pop">
-          <p class="white-card__text">TESTOH</p>
-        </div>
-      </li>
       <div class="white-card white-card--folded shadow" ng-repeat="card in winnerCards">
         <p class="white-card__text" ng-bind-html="card"></p>
         <span class="winner__text">Giocata da {{players[winner].name}}</span>
