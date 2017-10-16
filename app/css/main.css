@@ -399,7 +399,7 @@ body {
     padding: 0.5rem;
     font-size: 6vw; }
 
-@media screen and (max-height: 499px) and (orientation: landscape) {
+@media screen and (max-height: 499px) and (min-aspect-ratio: 13 / 9) {
   .home {
     flex-direction: row;
     flex-wrap: wrap;

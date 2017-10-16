@@ -1,7 +1,7 @@
 //MOBILE LANDSCAPE
 @media screen and 
 (max-height:499px) and
-(orientation : landscape) {
+(min-aspect-ratio: 13/9) {
     // home.html
     .home {
         flex-direction: row;
