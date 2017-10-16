@@ -16,7 +16,8 @@
             </button>
         </div>
         <div class="box__content" ng-show="homeIntro">
-            <input class="text-input start-button--full" type="text" name="playerName" placeholder="Tuo nome" ng-model="playerName">
+            <input class="text-input start-button--full" type="text" name="playerName" placeholder="Tuo nome" 
+                ng-model="playerName" ng-class="{'text-input--red' : playerNameWrong}">
             <div ng-show="homeIntro && homeCreateRoom">
                 <input class="text-input start-button--full" type="text" name="roomName" placeholder="Nome stanza" ng-model="roomName">
                 <select class="text-input start-button--full"
@@ -30,8 +31,8 @@
                 </button>
             </div>
             <div ng-show="homeIntro && homeJoinRoom">
-                <input class="text-input" type="tel" name="roomId" placeholder="1234"
-                    pattern="[1-9][0-9]{3}" ng-model="roomId">
+                <input class="text-input" type="tel" name="roomId" placeholder="1234" pattern="[1-9][0-9]{3}" 
+                    ng-model="roomId" ng-class="{'text-input--red' : roomIdWrong}">
                 <button class="start-button start-button--full" type="button" name="join_room" ng-click="joinRoom()">
                     Unisciti alla partita!
                 </button>
@@ -44,7 +45,7 @@
     <div class="box" ng-show="homeIntro && homeJoinRoom">
         <h2 class="box__subtitle">Stanze</h2>
         <ul class="box__rooms">
-            <li class="player-score" ng-repeat="(id, room) in roomList" ng-show="room.name" ng-click="test(id)">
+            <li class="player-score" ng-repeat="(id, room) in roomList" ng-show="room.name" ng-click="getRoom(id); joinRoom()">
                 {{room.name}}
                 <span class="player-score__points">{{room.length}}</span>
             </li>
