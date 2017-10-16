@@ -93,7 +93,7 @@
   padding: 0;
   border: 0;
   outline-style: none;
-  font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, Roboto, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
 
 body {
   overflow: hidden; }
@@ -260,7 +260,7 @@ body {
     .board__section__bottom .cards {
       display: flex;
       width: 100%;
-      padding: 1.4rem;
+      padding: 1rem;
       margin: 0;
       list-style: none;
       flex-wrap: wrap;
@@ -271,7 +271,7 @@ body {
         height: 55vw;
         display: flex;
         flex-flow: column;
-        margin: 1.4rem;
+        margin: 1rem;
         border-radius: 0.66667rem;
         overflow: hidden; }
 
@@ -335,7 +335,7 @@ body {
       text-align: center; }
       .drawer .player-hand .cards .white-card {
         display: inline-block;
-        margin: 1.4rem;
+        margin: 1rem;
         vertical-align: top;
         text-align: left; }
 
@@ -375,11 +375,9 @@ body {
   border-radius: 0.66667rem;
   background-color: #000000; }
   .black-card__text {
-    padding: 1.4rem;
+    padding: 1rem;
     font-size: 4.5vw;
-    color: #ffffff;
-    font-weight: bold;
-    letter-spacing: 0.015rem; }
+    color: #ffffff; }
   .black-card__pick {
     position: absolute;
     right: 0.5rem;
@@ -398,10 +396,8 @@ body {
     border-bottom-right-radius: 0;
     margin-bottom: -1.5rem; }
   .white-card__text {
-    padding: 1.4rem;
-    font-size: 4.5vw;
-    font-weight: bold;
-    letter-spacing: 0.015rem; }
+    padding: 1rem;
+    font-size: 4.5vw; }
 
 @media screen and (max-height: 499px) and (orientation: landscape) {
   .home {
@@ -416,7 +412,7 @@ body {
     height: 39.6vh;
     width: 32.4vh; }
     .white-card__text, .black-card__text {
-      padding: 1.4rem;
+      padding: 1rem;
       font-size: 2.7vh; }
   .cards__item {
     height: 39.6vh !important; }
@@ -425,7 +421,7 @@ body {
     flex-flow: row;
     justify-content: center; }
     .highlight__cards .black-card, .highlight__cards .cards {
-      margin: 0 4.2rem;
+      margin: 0 3rem;
       align-self: center; } }
 
 @media screen and (min-width: 500px) and (min-height: 500px) {
@@ -438,7 +434,7 @@ body {
     height: 33vh;
     width: 27vh; }
     .white-card__text, .black-card__text {
-      padding: 1.4rem;
+      padding: 1rem;
       font-size: 2.25vh; }
   .cards__item {
     height: 33vh !important; }
@@ -447,7 +443,7 @@ body {
     flex-flow: row;
     justify-content: center; }
     .highlight__cards .black-card, .highlight__cards .cards {
-      margin: 0 5.6rem;
+      margin: 0 4rem;
       align-self: center; } }
 
 .shadow {
