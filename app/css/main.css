@@ -318,7 +318,7 @@ body {
         border-radius: 0.5rem;
         color: #ffffff; }
         .drawer .scoreboard__scores .player-score--you {
-          background: #0cd17f; }
+          background: #0cd17f !important; }
         .drawer .scoreboard__scores .player-score:nth-child(even) {
           background: #1a1a1a; }
         .drawer .scoreboard__scores .player-score__icon {

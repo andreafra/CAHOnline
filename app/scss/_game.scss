@@ -137,7 +137,7 @@
                 border-radius: 0.5 * $size;
                 color: $color--white;
                 &--you {
-                    background: $color--accent;
+                    background: $color--accent !important;
                 }
                 &:nth-child(even) {
                     background: lighten($color--dark-background, 10%);
