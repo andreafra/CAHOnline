@@ -27,7 +27,7 @@ $mobile-portrait-font-scalar: 2.5vw;
 $desktop-landscape-font-scalar: 1.5vh;
 //==========
 
-$size--font--card: 1.5;
+$size--font--card: 2;
 $size--button-padding: $size/2;
 $size--button-margin: $size/5;
 
@@ -41,7 +41,7 @@ $size--white-card-width: $card-width*$card-scalar;
 $size--black-card-height: $card-height*$card-scalar;
 $size--black-card-width: $card-width*$card-scalar;
 
-$size--cards-padding: $size;
+$size--cards-padding: $size/2;
 // EDIT THESE  FOR PADDING
 $size--cards-padding-mobile-portrait: $size--cards-padding;
 $size--cards-padding-mobile-landscape: $size--cards-padding;

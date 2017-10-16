@@ -260,7 +260,7 @@ body {
     .board__section__bottom .cards {
       display: flex;
       width: 100%;
-      padding: 1rem;
+      padding: 0.5rem;
       margin: 0;
       list-style: none;
       flex-wrap: wrap;
@@ -271,7 +271,7 @@ body {
         height: 55vw;
         display: flex;
         flex-flow: column;
-        margin: 1rem;
+        margin: 0.5rem;
         border-radius: 0.66667rem;
         overflow: hidden; }
 
@@ -335,7 +335,7 @@ body {
       text-align: center; }
       .drawer .player-hand .cards .white-card {
         display: inline-block;
-        margin: 1rem;
+        margin: 0.5rem;
         vertical-align: top;
         text-align: left; }
 
@@ -366,7 +366,7 @@ body {
         border-radius: 0.66667rem;
         overflow: hidden; }
   .highlight__text {
-    font-size: 2rem;
+    font-size: 1rem;
     align-self: center; }
 
 .black-card {
@@ -375,8 +375,8 @@ body {
   border-radius: 0.66667rem;
   background-color: #000000; }
   .black-card__text {
-    padding: 1rem;
-    font-size: 4.5vw;
+    padding: 0.5rem;
+    font-size: 6vw;
     color: #ffffff; }
   .black-card__pick {
     position: absolute;
@@ -396,8 +396,8 @@ body {
     border-bottom-right-radius: 0;
     margin-bottom: -1.5rem; }
   .white-card__text {
-    padding: 1rem;
-    font-size: 4.5vw; }
+    padding: 0.5rem;
+    font-size: 6vw; }
 
 @media screen and (max-height: 499px) and (orientation: landscape) {
   .home {
@@ -412,8 +412,8 @@ body {
     height: 39.6vh;
     width: 32.4vh; }
     .white-card__text, .black-card__text {
-      padding: 1rem;
-      font-size: 2.7vh; }
+      padding: 0.5rem;
+      font-size: 3.6vh; }
   .cards__item {
     height: 39.6vh !important; }
   .highlight__cards {
@@ -421,7 +421,7 @@ body {
     flex-flow: row;
     justify-content: center; }
     .highlight__cards .black-card, .highlight__cards .cards {
-      margin: 0 3rem;
+      margin: 0 1.5rem;
       align-self: center; } }
 
 @media screen and (min-width: 500px) and (min-height: 500px) {
@@ -434,8 +434,8 @@ body {
     height: 33vh;
     width: 27vh; }
     .white-card__text, .black-card__text {
-      padding: 1rem;
-      font-size: 2.25vh; }
+      padding: 0.5rem;
+      font-size: 3vh; }
   .cards__item {
     height: 33vh !important; }
   .highlight__cards {
@@ -443,7 +443,7 @@ body {
     flex-flow: row;
     justify-content: center; }
     .highlight__cards .black-card, .highlight__cards .cards {
-      margin: 0 4rem;
+      margin: 0 2rem;
       align-self: center; } }
 
 .shadow {
