@@ -53,9 +53,9 @@
                 background-color: $color--light-background;
                 font-size: $size;
                 border-radius: 0.5 * $size;
-
+                background-color: lighten($color--accent,40%);
                 &:nth-child(even) {
-                    background-color: $color--accent;
+                    background-color: lighten($color--accent,35%);
                 }
                 &__points {
                     float: right;

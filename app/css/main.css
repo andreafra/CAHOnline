@@ -201,9 +201,10 @@ body {
         padding: 0.5rem;
         background-color: #ffffff;
         font-size: 1rem;
-        border-radius: 0.5rem; }
+        border-radius: 0.5rem;
+        background-color: #affadb; }
         .home .box__rooms .player-score:nth-child(even) {
-          background-color: #0cd17f; }
+          background-color: #97f9d0; }
         .home .box__rooms .player-score__points {
           float: right; }
 
