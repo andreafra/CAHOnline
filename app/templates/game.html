@@ -56,7 +56,7 @@
     </ul>
   </div>
   <div class="player-hand fade" ng-class="{hidden:isScoreboard}">
-    <ul class="cards shadow slide-in-right">
+    <ul class="cards shadow">
       <!-- white cards loop here -->
       <li class="white-card shadow pop" ng-repeat="whiteCard in whiteCards" ng-click="!iAmGameMaster && gameState==1 && myPlayedCards.length<blackCard.pick && playCard($index)">
         <p class="white-card__text" ng-bind-html="whiteCard"></p>
