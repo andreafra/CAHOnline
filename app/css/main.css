@@ -269,7 +269,7 @@ body {
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch; }
       .board__section__bottom .cards__item {
-        height: 55vw;
+        height: 49.5vw;
         display: flex;
         flex-flow: column;
         margin: 0.5rem;
@@ -358,38 +358,45 @@ body {
     justify-content: space-evenly;
     height: 100%; }
     .highlight__cards .cards {
+      display: flex;
+      flex-flow: column;
       border-radius: 0.66667rem;
-      overflow: hidden; }
-      .highlight__cards .cards__item {
-        height: 55vw;
-        display: flex;
-        flex-flow: column;
-        border-radius: 0.66667rem;
-        overflow: hidden; }
+      overflow: hidden;
+      height: 49.5vw; }
+      .highlight__cards .cards .white-card {
+        height: auto; }
+    .highlight__cards .winner__text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      font-size: 1rem;
+      padding: 0.75rem 0;
+      font-weight: bold;
+      text-align: center; }
   .highlight__text {
     font-size: 2rem;
     align-self: center; }
 
 .black-card {
-  height: 55vw;
-  width: 45vw;
+  height: 49.5vw;
+  width: 40.5vw;
   border-radius: 0.66667rem;
   background-color: #000000; }
   .black-card__text {
-    padding: 1.2rem;
-    font-size: 4.2vw;
-    font-weight: bold;
+    padding: 0.9rem;
+    font-size: 3.8vw;
     color: #ffffff; }
   .black-card__pick {
     position: absolute;
     right: 0.5rem;
     bottom: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 3.04vw;
     color: #ffffff; }
 
 .white-card {
-  height: 55vw;
-  width: 45vw;
+  height: 49.5vw;
+  width: 40.5vw;
   border-radius: 0.66667rem;
   background-color: #ffffff;
   flex-grow: 1; }
@@ -398,9 +405,8 @@ body {
     border-bottom-right-radius: 0;
     margin-bottom: -1.5rem; }
   .white-card__text {
-    padding: 1.2rem;
-    font-size: 4.2vw;
-    font-weight: bold; }
+    padding: 0.9rem;
+    font-size: 3.8vw; }
 
 @media screen and (max-height: 499px) and (min-aspect-ratio: 13 / 9) {
   .home {
@@ -412,18 +418,21 @@ body {
       width: 40%;
       height: 100%; }
   .white-card, .black-card {
-    height: 39.6vh;
-    width: 32.4vh; }
+    height: 37.4vh;
+    width: 30.6vh; }
     .white-card__text, .black-card__text {
-      padding: 1.2rem;
-      font-size: 2.52vh; }
+      padding: 0.7rem;
+      font-size: 3.5vh; }
+    .white-card__pick, .black-card__pick {
+      font-size: 2.8vh !important; }
   .cards__item {
-    height: 39.6vh !important; }
+    height: 37.4vh !important; }
   .highlight__cards {
     width: 100%;
     flex-flow: row;
     justify-content: center; }
     .highlight__cards .black-card, .highlight__cards .cards {
+      height: 37.4vh;
       margin: 0 1.5rem;
       align-self: center; } }
 
@@ -434,19 +443,22 @@ body {
     .home .box {
       width: 20rem; }
   .white-card, .black-card {
-    height: 33vh;
-    width: 27vh; }
+    height: 27.5vh;
+    width: 22.5vh; }
     .white-card__text, .black-card__text {
-      padding: 1.2rem;
-      font-size: 2.1vh; }
+      padding: 1rem;
+      font-size: 2.5vh; }
+    .white-card__pick, .black-card__pick {
+      font-size: 2vh !important; }
   .cards__item {
-    height: 33vh !important; }
+    height: 27.5vh !important; }
   .highlight__cards {
     width: 100%;
     flex-flow: row;
     justify-content: center; }
     .highlight__cards .black-card, .highlight__cards .cards {
       margin: 0 2rem;
+      height: 27.5vh;
       align-self: center; } }
 
 .shadow {
