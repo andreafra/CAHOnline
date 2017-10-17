@@ -9,11 +9,11 @@
             <!-- Welcome screen -->
             <input class="text-input start-button--full" type="text" name="playerName" placeholder="Tuo nome" ng-model="playerName" ng-class="{'text-input--red' : playerNameWrong}">
             <button class="start-button start-button--full"
-                    ng-click="homeIntro=!homeIntro; homeCreateRoom=!homeCreateRoom">
+                    ng-click="menuCreate()">
                 Crea una partita!
             </button>
             <button class="start-button start-button--full"
-                    ng-click="loadRooms(); homeIntro=!homeIntro; homeJoinRoom=!homeJoinRoom">
+                    ng-click="menuJoin()">
                 Unisciti a una partita!
             </button>
         </div>

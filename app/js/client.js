@@ -192,45 +192,49 @@ app.controller('mainCtrl', function($scope, $location, $cookies, $timeout, socke
   $cookies.remove("lastId")
 
   $scope.createRoom = function() {
-    if ($scope.playerName && $scope.playerName.length > 2) {
       socket.emit("create_room", {playerName: $scope.playerName, roomName: $scope.roomName, lang: $scope.lang})
-    } else {
-      $scope.playerNameWrong = true
-      $timeout(function(){
-        $scope.playerNameWrong = false
-      }, 2000)
-    }
   }
 
   $scope.joinRoom = function() {
-    if($scope.roomId && $scope.playerName && $scope.playerName.length > 2){
-      socket.emit("join_room", { 
-        playerName: $scope.playerName,
-        roomId: $scope.roomId
-      })
-    }
-    else {
-      if(!$scope.roomId){
-        $scope.roomIdWrong = true
-        $timeout(function(){
-          $scope.roomIdWrong = false
-        }, 2000)
-      }
-      if(!$scope.playerName || $scope.playerName.length <= 2){
-        $scope.playerNameWrong = true
-        $timeout(function(){
-          $scope.playerNameWrong = false
-        }, 2000)
-      }
-    }
+    socket.emit("join_room", { 
+      playerName: $scope.playerName,
+      roomId: $scope.roomId
+    })
   }
   
   $scope.loadRooms = function(){
     socket.emit('get_rooms');
   }
 
+  $scope.menuJoin = function(){
+    if(!$scope.playerName || $scope.playerName.length <= 2){
+      $scope.playerNameWrong = true
+      $timeout(function(){
+        $scope.playerNameWrong = false
+      },2000)
+    }
+    else{
+      $scope.loadRooms()
+      $scope.homeIntro=!$scope.homeIntro
+      $scope.homeJoinRoom=!$scope.homeJoinRoom
+    }
+  }
+
+  $scope.menuCreate = function(){
+    if(!$scope.playerName || $scope.playerName.length <= 2){
+      $scope.playerNameWrong = true
+      $timeout(function(){
+        $scope.playerNameWrong = false
+      },2000)
+    }
+    else{
+      $scope.homeIntro=!$scope.homeIntro
+      $scope.homeCreateRoom=!$scope.homeCreateRoom
+    }
+  }
+
   socket.on('show_rooms', function(data){
-    $scope.roomList = data.rooms;
+    $scope.roomList = data.rooms
   });
 
   $scope.getRoom = function(id){
