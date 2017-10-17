@@ -409,6 +409,7 @@ body {
   .black-card__text {
     padding: 1rem;
     font-size: 3.8vw;
+    font-weight: bold;
     color: #ffffff; }
   .black-card__pick {
     position: absolute;
