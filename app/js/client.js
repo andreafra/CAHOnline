@@ -46,9 +46,8 @@ app.config(function($routeProvider, $locationProvider) {
 app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $interval, $location, socket){
   $scope.room=$routeParams.room
   $scope.playerid=socket.id()
-  
-  socket.emit('get_first_load',{room: $scope.room})
 
+  /* Listeners */
   socket.on('first_load', function(data){
     $scope.playerid=socket.id()
     let lastId = $cookies.get("lastId")
@@ -155,6 +154,8 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
     $scope.playedCards=data.cards
   })
 
+  /* Functions */
+
   $scope.startGame = function(){
     socket.emit('start_game',{room: $scope.room})
     $scope.showNewGameMaster=true
@@ -179,6 +180,10 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
   $scope.$on('$destroy', function (event) {
     socket.removeAllListeners()
   })
+  
+  /* Init */
+  /* Should be called after all listeners, and maybe functions. */
+  socket.emit('get_first_load',{room: $scope.room})
 })
 
 app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
