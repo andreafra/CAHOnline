@@ -31,9 +31,9 @@ $mobile-portrait-size-scalar: 4.5vw;
 $mobile-landscape-size-scalar: 3.4vh;
 $desktop-landscape-size-scalar: 2.5vh;
 //AND THESE
-$size--font-card-mobile-portrait: 3.8vw;
-$size--font-card-mobile-landscape: 3vh;
-$size--font-card-desktop-landscape: 2vh;
+$size--font-card-mobile-portrait: 3.6vw;
+$size--font-card-mobile-landscape: 2.6vh;
+$size--font-card-desktop-landscape: 1.8vh;
 // MAYBE NOT THIS
 $size--cards-padding: $size/2;
 // EDIT THESE  FOR PADDING
@@ -45,9 +45,9 @@ $size--button-padding: $size/2;
 $size--button-margin: $size/5;
 
 $card-height: 11;
-$card-width: 9;
+$card-width: 8;
 
-$size--card-border-radius: $size/3*2;
+$size--card-border-radius: $size/2;
 
 $size--card-height-mobile-portrait: $card-height*$mobile-portrait-size-scalar;
 $size--card-width-mobile-portrait: $card-width*$mobile-portrait-size-scalar;

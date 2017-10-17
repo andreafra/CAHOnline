@@ -296,7 +296,7 @@ body {
         display: flex;
         flex-flow: column;
         margin: 0.5rem;
-        border-radius: 0.66667rem;
+        border-radius: 0.5rem;
         overflow: hidden; }
 
 .drawer {
@@ -383,7 +383,7 @@ body {
     .highlight__cards .cards {
       display: flex;
       flex-flow: column;
-      border-radius: 0.66667rem;
+      border-radius: 0.5rem;
       overflow: hidden;
       height: 49.5vw; }
       .highlight__cards .cards .white-card {
@@ -403,25 +403,24 @@ body {
 
 .black-card {
   height: 49.5vw;
-  width: 40.5vw;
-  border-radius: 0.66667rem;
+  width: 36vw;
+  border-radius: 0.5rem;
   background-color: #000000; }
   .black-card__text {
     padding: 1rem;
-    font-size: 3.8vw;
-    font-weight: bold;
+    font-size: 3.6vw;
     color: #ffffff; }
   .black-card__pick {
     position: absolute;
     right: 0.5rem;
     bottom: 0.5rem;
-    font-size: 3.04vw;
+    font-size: 2.88vw;
     color: #ffffff; }
 
 .white-card {
   height: 49.5vw;
-  width: 40.5vw;
-  border-radius: 0.66667rem;
+  width: 36vw;
+  border-radius: 0.5rem;
   background-color: #ffffff;
   flex-grow: 1; }
   .white-card--folded {
@@ -430,7 +429,7 @@ body {
     margin-bottom: -1.5rem; }
   .white-card__text {
     padding: 1rem;
-    font-size: 3.8vw;
+    font-size: 3.6vw;
     font-weight: bold; }
 
 @media screen and (max-height: 499px) and (min-aspect-ratio: 13 / 9) {
@@ -444,12 +443,12 @@ body {
       height: 100%; }
   .white-card, .black-card {
     height: 37.4vh;
-    width: 30.6vh; }
+    width: 27.2vh; }
     .white-card__text, .black-card__text {
       padding: 0.8rem;
-      font-size: 3vh; }
+      font-size: 2.6vh; }
     .white-card__pick, .black-card__pick {
-      font-size: 2.4vh !important; }
+      font-size: 2.08vh !important; }
   .cards__item {
     height: 37.4vh !important; }
   .highlight__cards {
@@ -469,12 +468,12 @@ body {
       width: 20rem; }
   .white-card, .black-card {
     height: 27.5vh;
-    width: 22.5vh; }
+    width: 20vh; }
     .white-card__text, .black-card__text {
       padding: 1.25rem;
-      font-size: 2vh; }
+      font-size: 1.8vh; }
     .white-card__pick, .black-card__pick {
-      font-size: 1.6vh !important; }
+      font-size: 1.44vh !important; }
   .cards__item {
     height: 27.5vh !important; }
   .highlight__cards {
