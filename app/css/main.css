@@ -128,6 +128,8 @@ body {
     background-color: #09a162; }
   .start-button--full {
     width: 100%; }
+  .start-button--secondary {
+    background-color: #b3b3b3; }
 
 .text-input {
   display: block;
@@ -195,6 +197,7 @@ body {
     .home .box__rooms {
       font-size: 1rem;
       padding: 0;
+      margin-bottom: 1rem;
       list-style: none; }
       .home .box__rooms .player-score {
         display: block;
@@ -202,11 +205,15 @@ body {
         background-color: #ffffff;
         font-size: 1rem;
         border-radius: 0.5rem;
-        background-color: #affadb; }
+        background-color: #97f9d0; }
         .home .box__rooms .player-score:nth-child(even) {
-          background-color: #97f9d0; }
+          background-color: #affadb; }
         .home .box__rooms .player-score__points {
           float: right; }
+        .home .box__rooms .player-score--placeholder {
+          border: 0.2rem dashed #97f9d0;
+          background-color: #ffffff;
+          color: #97f9d0; }
 
 .board {
   display: inline-block;
