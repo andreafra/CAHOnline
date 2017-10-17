@@ -32,14 +32,14 @@ $mobile-landscape-size-scalar: 3.4vh;
 $desktop-landscape-size-scalar: 2.5vh;
 //AND THESE
 $size--font-card-mobile-portrait: 3.8vw;
-$size--font-card-mobile-landscape: 3.5vh;
-$size--font-card-desktop-landscape: 2.5vh;
+$size--font-card-mobile-landscape: 3vh;
+$size--font-card-desktop-landscape: 2vh;
 // MAYBE NOT THIS
 $size--cards-padding: $size/2;
 // EDIT THESE  FOR PADDING
-$size--cards-padding-mobile-portrait: $size--cards-padding*1.8;
-$size--cards-padding-mobile-landscape: $size--cards-padding*1.4;
-$size--cards-padding-desktop-landscape: $size--cards-padding*2;
+$size--cards-padding-mobile-portrait: $size--cards-padding*2;
+$size--cards-padding-mobile-landscape: $size--cards-padding*1.6;
+$size--cards-padding-desktop-landscape: $size--cards-padding*2.5;
 // STOP
 $size--button-padding: $size/2;
 $size--button-margin: $size/5;

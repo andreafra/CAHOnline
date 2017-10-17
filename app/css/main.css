@@ -407,7 +407,7 @@ body {
   border-radius: 0.66667rem;
   background-color: #000000; }
   .black-card__text {
-    padding: 0.9rem;
+    padding: 1rem;
     font-size: 3.8vw;
     color: #ffffff; }
   .black-card__pick {
@@ -428,8 +428,9 @@ body {
     border-bottom-right-radius: 0;
     margin-bottom: -1.5rem; }
   .white-card__text {
-    padding: 0.9rem;
-    font-size: 3.8vw; }
+    padding: 1rem;
+    font-size: 3.8vw;
+    font-weight: bold; }
 
 @media screen and (max-height: 499px) and (min-aspect-ratio: 13 / 9) {
   .home {
@@ -444,10 +445,10 @@ body {
     height: 37.4vh;
     width: 30.6vh; }
     .white-card__text, .black-card__text {
-      padding: 0.7rem;
-      font-size: 3.5vh; }
+      padding: 0.8rem;
+      font-size: 3vh; }
     .white-card__pick, .black-card__pick {
-      font-size: 2.8vh !important; }
+      font-size: 2.4vh !important; }
   .cards__item {
     height: 37.4vh !important; }
   .highlight__cards {
@@ -469,10 +470,10 @@ body {
     height: 27.5vh;
     width: 22.5vh; }
     .white-card__text, .black-card__text {
-      padding: 1rem;
-      font-size: 2.5vh; }
+      padding: 1.25rem;
+      font-size: 2vh; }
     .white-card__pick, .black-card__pick {
-      font-size: 2vh !important; }
+      font-size: 1.6vh !important; }
   .cards__item {
     height: 27.5vh !important; }
   .highlight__cards {
