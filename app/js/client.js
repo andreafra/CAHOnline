@@ -225,7 +225,7 @@ app.controller('mainCtrl', function($scope, $location, $cookies, $timeout, socke
       $scope.playerNameWrong = true
       $timeout(function(){
         $scope.playerNameWrong = false
-      },2000)
+      },900)
     }
     else{
       $scope.homeIntro=!$scope.homeIntro

@@ -7,7 +7,7 @@
         </h1>
         <div class="box__content" ng-show="!homeIntro">
             <!-- Welcome screen -->
-            <input class="text-input start-button--full" type="text" name="playerName" placeholder="Tuo nome" ng-model="playerName" ng-class="{'text-input--red' : playerNameWrong}">
+            <input class="text-input start-button--full" type="text" name="playerName" placeholder="Tuo nome" ng-model="playerName" ng-class="{'text-input--red' : playerNameWrong, 'shake' : playerNameWrong}">
             <button class="start-button start-button--full"
                     ng-click="menuCreate()">
                 Crea una partita!
