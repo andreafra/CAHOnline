@@ -75,11 +75,11 @@
     <div class="cards shadow slide-in-right">
       <div class="white-card white-card--folded shadow" ng-repeat="card in winnerCards">
         <p class="white-card__text" ng-bind-html="card"></p>
-        <span class="winner__text">Giocata da {{players[winner].name}}</span>
       </div>
     </div>
+    <div class="winner__text">Giocata da {{players[winner].name}}</div>
   </div>
   <p class="highlight__text" ng-show="showNewGameMaster">Sei il GameMaster</p>
   <p class="highlight__text" ng-show="isWaitingRoom">Attendi il prossimo turno</p>  
   <p class="highlight__text" ng-show="isToKick">Non risulti partecipante a questa partita.<br>Verrai reindirizzato al menu principale.</p>
-</div>
+</div> 

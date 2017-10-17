@@ -1,7 +1,7 @@
 //MOBILE LANDSCAPE
 @media screen and 
 (max-height:499px) and
-(orientation : landscape) {
+(min-aspect-ratio: 13/9) {
     // home.html
     .home {
         flex-direction: row;
@@ -16,15 +16,18 @@
     }
     // game.html
     .white-card, .black-card {
-        height: $size--white-card-height*$mobile-landscape-font-scalar;
-        width: $size--white-card-width*$mobile-landscape-font-scalar;
+        height: $size--card-height-mobile-landscape;
+        width: $size--card-width-mobile-landscape;
         &__text {
-            padding: $size--cards-padding-mobile-landscape;            
-            font-size: $size--font--card*$mobile-landscape-font-scalar;
+            padding: $size--cards-padding-mobile-landscape;          
+            font-size: $size--font-card-mobile-landscape;
+        }
+        &__pick {
+            font-size: 0.8*$size--font-card-mobile-landscape !important;                
         }
     }
     .cards__item {
-        height: $size--white-card-height*$mobile-landscape-font-scalar !important;
+        height: $size--card-height-mobile-landscape !important;
     }
     .highlight {
         &__cards {
@@ -32,8 +35,10 @@
             flex-flow: row;
             justify-content: center;
             .black-card, .cards {
+                height: $size--card-height-mobile-landscape;                
                 margin: 0 $size--cards-padding*3;
                 align-self: center;
+                
             }
         }
     }
@@ -53,15 +58,18 @@
     
     // game.html
     .white-card, .black-card {
-        height: $size--white-card-height*$desktop-landscape-font-scalar;
-        width: $size--white-card-width*$desktop-landscape-font-scalar;
+        height: $size--card-height-desktop-landscape;
+        width: $size--card-width-desktop-landscape;
         &__text {
-            padding: $size--cards-padding-mobile-landscape;            
-            font-size: $size--font--card*$desktop-landscape-font-scalar;
+            padding: $size--cards-padding-desktop-landscape;            
+            font-size: $size--font-card-desktop-landscape;
+        }
+        &__pick {
+            font-size: 0.8*$size--font-card-desktop-landscape !important;                
         }
     }
     .cards__item {
-        height: $size--white-card-height*$desktop-landscape-font-scalar !important;
+        height: $size--card-height-desktop-landscape !important;
     }
     .highlight {
         &__cards {
@@ -70,6 +78,7 @@
             justify-content: center;
             .black-card, .cards {
                 margin: 0 $size--cards-padding*4;
+                height: $size--card-height-desktop-landscape;                
                 align-self: center;
             }
         }

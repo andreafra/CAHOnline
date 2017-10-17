@@ -18,6 +18,9 @@
     &--full {
         width: 100%;
     }
+    &--secondary {
+        background-color: $color--card-placeholder;
+    }
 }
 
 .text-input {

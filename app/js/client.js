@@ -186,7 +186,7 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
   socket.emit('get_first_load',{room: $scope.room})
 })
 
-app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
+app.controller('mainCtrl', function($scope, $location, $cookies, $timeout, socket) {
   //if user clicked to go back to home we should remove him from the players, until he joins another room
   socket.emit("delete_player")
   $cookies.remove("lastId")
@@ -195,21 +195,33 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
     if ($scope.playerName && $scope.playerName.length > 2) {
       socket.emit("create_room", {playerName: $scope.playerName, roomName: $scope.roomName, lang: $scope.lang})
     } else {
-      alert("Inserisci un nome di almeno 3 caratteri")
+      $scope.playerNameWrong = true
+      $timeout(function(){
+        $scope.playerNameWrong = false
+      }, 2000)
     }
   }
 
   $scope.joinRoom = function() {
-    if(!$scope.roomId){
-      alert("Inserisci un id di 4 cifre")
-    }
-    else if(!$scope.playerName || $scope.playerName.length <= 2){
-      alert("Inserisci un nome di almeno 3 caratteri")
-    }
-    else{
+    if($scope.roomId && $scope.playerName && $scope.playerName.length > 2){
       socket.emit("join_room", { 
         playerName: $scope.playerName,
-        roomId: $scope.roomId })
+        roomId: $scope.roomId
+      })
+    }
+    else {
+      if(!$scope.roomId){
+        $scope.roomIdWrong = true
+        $timeout(function(){
+          $scope.roomIdWrong = false
+        }, 2000)
+      }
+      if(!$scope.playerName || $scope.playerName.length <= 2){
+        $scope.playerNameWrong = true
+        $timeout(function(){
+          $scope.playerNameWrong = false
+        }, 2000)
+      }
     }
   }
   
@@ -221,7 +233,7 @@ app.controller('mainCtrl', function($scope, $location, $cookies, socket) {
     $scope.roomList = data.rooms;
   });
 
-  $scope.test = function(id){
+  $scope.getRoom = function(id){
     $scope.roomId = parseInt(id);
   }
 

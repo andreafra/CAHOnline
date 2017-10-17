@@ -78,7 +78,7 @@
                 -webkit-overflow-scrolling: touch;
                 
                 &__item {
-                    height: $size--white-card-height*$mobile-portrait-font-scalar;
+                    height: $size--card-height-mobile-portrait;
                     display: flex;
                     flex-flow: column;
                     margin: $size--cards-padding;
@@ -137,7 +137,7 @@
                 border-radius: 0.5 * $size;
                 color: $color--white;
                 &--you {
-                    background: $color--accent;
+                    background: $color--accent !important;
                 }
                 &:nth-child(even) {
                     background: lighten($color--dark-background, 10%);
@@ -193,44 +193,54 @@
 
         }
         .cards {
+            display: flex;
+            flex-flow: column;
             border-radius: $size--card-border-radius;
             overflow: hidden;
-            &__item {
-                height: $size--white-card-height*$mobile-portrait-font-scalar;
-                display: flex;
-                flex-flow: column;
-                border-radius: $size--card-border-radius;
-                overflow: hidden;
+            height: $size--card-height-mobile-portrait;
+
+            .white-card {
+                height: auto;
             }
+        }
+        .winner__text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            font-size: $size--font;
+            padding: $size--button-padding*1.5 0;
+            font-weight: bold;
+            text-align: center;
         }
     }
 
     &__text {
-        font-size: $size--font;
+        font-size: $size--font*2;
         align-self: center;
     }
 }
 .black-card {
-    height: $size--black-card-height*$mobile-portrait-font-scalar;
-    width: $size--black-card-width*$mobile-portrait-font-scalar;
+    height: $size--card-height-mobile-portrait;
+    width: $size--card-width-mobile-portrait;
     border-radius: $size--card-border-radius;
     background-color: $color--card-black;
     &__text {
         padding: $size--cards-padding-mobile-portrait;
-        font-size: $size--font--card*3vw;
+        font-size: $size--font-card-mobile-portrait;
         color: $color--white;
     }
     &__pick {
         position: absolute;
         right: $size/2;
         bottom: $size/2;
-        font-size: 0.8*$size--font;
+        font-size: 0.8*$size--font-card-mobile-portrait;
         color: $color--white;
     }
 }
 .white-card {
-    height: $size--white-card-height*$mobile-portrait-font-scalar;
-    width: $size--white-card-width*$mobile-portrait-font-scalar;
+    height: $size--card-height-mobile-portrait;
+    width: $size--card-width-mobile-portrait;
     border-radius: $size--card-border-radius;
     background-color: $color--card-white;
     flex-grow: 1;
@@ -241,6 +251,6 @@
     }
     &__text {
         padding: $size--cards-padding-mobile-portrait;
-        font-size: $size--font--card*3vw;
+        font-size: $size--font-card-mobile-portrait;
     }
 }

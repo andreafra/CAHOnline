@@ -46,6 +46,7 @@
         &__rooms {
             font-size: $size--font;
             padding: 0;
+            margin-bottom: $size;
             list-style: none;
             .player-score {
                 display: block;
@@ -53,12 +54,17 @@
                 background-color: $color--light-background;
                 font-size: $size;
                 border-radius: 0.5 * $size;
-
+                background-color: $color--dark-player-score;
                 &:nth-child(even) {
-                    background-color: $color--accent;
+                    background-color: $color--light-player-score;
                 }
                 &__points {
                     float: right;
+                }
+                &--placeholder {
+                    border: $size--button-margin dashed $color--dark-player-score;
+                    background-color: $color--white;
+                    color: $color--dark-player-score;
                 }
             }
         }
