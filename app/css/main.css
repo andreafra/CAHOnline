@@ -432,7 +432,7 @@ body {
     font-size: 3.6vw;
     font-weight: bold; }
 
-@media screen and (max-height: 499px) and (min-aspect-ratio: 13 / 9) {
+@media screen and (max-height: 499px) and (min-aspect-ratio: 12 / 7) {
   .home {
     flex-direction: row;
     flex-wrap: wrap;
