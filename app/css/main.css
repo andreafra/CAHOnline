@@ -161,7 +161,10 @@ body {
   .text-input::placeholder {
     color: #0cd17f; }
   .text-input--red {
-    border: 0.2rem solid #cf3b3b; }
+    border: 0.2rem solid #cf3b3b;
+    color: #cf3b3b; }
+    .text-input--red::placeholder {
+      color: #cf3b3b; }
 
 .home {
   display: flex;
