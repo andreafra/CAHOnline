@@ -859,5 +859,7 @@
     {"text":"Baci il rospo ma, invece di trasformarsi in un principe, diventa ____.","pick":1},
     {"text":"La più grande disavventura che può capitare a una donna è ____.","pick":1},
     {"text":"&quot;Mamma mamma perchè papà indossa le scarpe col tacco 12?&quot;<br><br>____.","pick":1}
-  ]
+  ],
+  "ita":{"name":"Italiano"},
+  "order":["ita"]
 }

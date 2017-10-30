@@ -21,11 +21,25 @@
             <!-- Create Room -->
             <div ng-show="homeIntro && homeCreateRoom">
                 <input class="text-input start-button--full" type="text" name="roomName" placeholder="Nome stanza" ng-model="roomName">
-                <select class="text-input start-button--full"
+                <!--<select class="text-input start-button--full"
                         ng-init="lang='ita'" ng-model="lang">
                     <option value="ita">Italiano</option>
                     <option value="eng">Inglese</option>
-                </select>
+                </select>-->
+
+                <div class="multiselect text-input start-button--full" ng-class="{'text-input--red' : setsWrong, 'shake' : setsWrong}">
+                    <div class="selectBox" onclick="showCheckboxes()">
+                        <select>
+                        <option>Scegli i set</option>
+                        </select>
+                        <div class="overSelect"></div>
+                    </div>
+                    <div id="checkboxes">
+                        <label ng-repeat="setName in gameSets" for="{{setName.split(' ').join('_');}}">
+                            <input class="set" type="checkbox" id="{{setName.split(' ').join('_');}}"/>{{setName}}</label>
+                    </div>
+                </div>
+
                 <button class="start-button start-button--full"
                         type="button" name="create_room" ng-click="createRoom()">
                     Crea una partita!

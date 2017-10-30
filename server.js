@@ -15,10 +15,12 @@ console.log("http server listening on %d", port)
 
 let players = {}
 let timers = {}
-let cards = { 
-  "ita": JSON.parse(fs.readFileSync(__dirname + '/app/json/italian-cards.json', 'utf8')),
-  "eng": JSON.parse(fs.readFileSync(__dirname + '/app/json/cards.json', 'utf8'))
-}
+let cards = {}
+fs.readdirSync(__dirname + "/app/json/").forEach(filename => {
+  let json = JSON.parse(fs.readFileSync(__dirname + "/app/json/" + filename, "utf8"))
+  let setName = json[json["order"]].name
+  cards[setName] = json;
+})
 
 app.get("*", function(req, res) {
   res.sendFile(__dirname + "/app/index.html")
@@ -34,7 +36,7 @@ io.on("connection", function(socket) {
     socket.join(roomId)
     io.nsps['/'].adapter.rooms[roomId].gameState=0
     io.nsps['/'].adapter.rooms[roomId].name=data.roomName || roomId
-    io.nsps['/'].adapter.rooms[roomId].lang=data.lang
+    io.nsps['/'].adapter.rooms[roomId].sets=data.sets
     io.sockets.emit('show_rooms', {rooms: shrinkRooms(io.nsps['/'].adapter.rooms)})
     addPlayer({data, socket}, true)
     console.log("NEW ROOM WITH ID " + roomId)
@@ -145,6 +147,10 @@ io.on("connection", function(socket) {
     endRound(data.room, data.winner, data.winnerCards)
   })
 
+  socket.on('get_sets', function(){
+    socket.emit('show_sets', {sets: Object.keys(cards)})
+  })
+
   function startRound(room){
     if(!io.nsps['/'].adapter.rooms[room]) return;
     syncGamestate(room,1)
@@ -242,7 +248,7 @@ function shrinkRooms(){
   let rooms = io.nsps['/'].adapter.rooms
   let out = {}
   for(let [id, room] of entries(rooms)){
-    out[id] = {name: room.name, length: room.length, lang: room.lang}
+    out[id] = {name: room.name, length: room.length}
   }
   return out
 }
@@ -253,18 +259,21 @@ function* entries(obj) {
   }
 }
 
-function getNewDeck(set,room){
-  let lang = io.nsps['/'].adapter.rooms[room].lang || 'ita';
-  let newDeck = {}
-  console.log("Creating new deck of " + set + " for room " + room + " with language " + lang)
-  switch(set){
+function getNewDeck(color,room){
+  let sets = io.nsps['/'].adapter.rooms[room].sets || ['Base Set'];
+  let newDeck = []
+  console.log("Creating new deck of " + color + " for room " + room + " with sets " + sets)
+  switch(color){
     case "whiteCards":
-      newDeck = cards[lang].whiteCards
+      for(let i=0; i<sets.length; i++)
+        newDeck = newDeck.concat(cards[sets[i]].whiteCards);
+
       shuffle(newDeck)
       io.nsps['/'].adapter.rooms[room].whiteCards=newDeck
       return newDeck
     case "blackCards":
-      newDeck = cards[lang].blackCards
+      for(let i=0; i<sets.length; i++)
+        newDeck = newDeck.concat(cards[sets[i]].blackCards);
       shuffle(newDeck)
       io.nsps['/'].adapter.rooms[room].blackCards=newDeck
       return newDeck

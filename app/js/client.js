@@ -192,7 +192,20 @@ app.controller('mainCtrl', function($scope, $location, $cookies, $timeout, socke
   $cookies.remove("lastId")
 
   $scope.createRoom = function() {
-      socket.emit("create_room", {playerName: $scope.playerName, roomName: $scope.roomName, lang: $scope.lang})
+    let cbs = document.getElementsByClassName("set");
+    let sets = [];
+    for(let i=0; i<cbs.length; i++){
+      if(cbs[i].checked) sets.push(cbs[i].id.split("_").join(" "))
+    }
+    console.log(sets);
+    if(sets.length < 1){
+      $scope.setsWrong = true
+      $timeout(function(){
+        $scope.setsWrong = false
+      },2000)
+    }
+    else
+      socket.emit("create_room", {playerName: $scope.playerName, roomName: $scope.roomName, sets: sets})
   }
 
   $scope.joinRoom = function() {
@@ -245,11 +258,29 @@ app.controller('mainCtrl', function($scope, $location, $cookies, $timeout, socke
     $location.path("/"+data.room)
   })
 
+  socket.on('show_sets', function(data){
+    $scope.gameSets = data.sets;
+  })
+  socket.emit('get_sets');
+
   $scope.$on('$destroy', function (event) {
       socket.removeAllListeners()
       // or something like
       // socket.removeListener(this);
   })
-
-
 })
+
+/* MultiSelect */
+
+let expanded = false;
+
+function showCheckboxes() {
+    let checkboxes = document.getElementById("checkboxes");
+    if (!expanded) {
+        checkboxes.style.display = "block";
+        expanded = true;
+    } else {
+        checkboxes.style.display = "none";
+        expanded = false;
+    }
+}
