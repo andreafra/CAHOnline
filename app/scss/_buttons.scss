@@ -41,5 +41,9 @@
 
     &--red {
         border: $size--button-margin solid $color--red;
+        color: $color--red;
+        &::placeholder {
+            color: $color--red;
+        }
     }
 }
