@@ -27,7 +27,7 @@
                     <option value="eng">Inglese</option>
                 </select>-->
                 <a class="start-button start-button--full" ng-class="{'shake' : setsWrong}" ng-click="showCheckboxes = !showCheckboxes">Mostra set</a>
-                <div class="input-multi text-input start-button--full" ng-show="showCheckboxes" ng-class="{'text-input--red' : setsWrong, 'shake' : setsWrong}">
+                <div class="input-multi text-input start-button--full ng-hide" ng-show="showCheckboxes" ng-class="{'text-input--red' : setsWrong, 'shake' : setsWrong}">
                     <div class="input-multi__checkboxes">
                         <div class="set" ng-repeat="setName in gameSets">
                             <input class="set--mark" type="checkbox" id="{{setName.split(' ').join('_');}}"/>
@@ -47,8 +47,8 @@
             <div ng-show="homeIntro && homeJoinRoom">
                 <h2 class="box__subtitle">Stanze</h2>
                 <ul class="box__rooms">
-                    <li class="player-score player-score--placeholder" ng-show="roomList.length === 0">VUOTO</li>
-                    <li class="player-score" ng-repeat="(id, room) in roomList" ng-show="room.name" ng-click="getRoom(id); joinRoom()">
+                    <li class="player-score player-score--placeholder" ng-show="roomCount === 0">VUOTO</li>
+                    <li class="player-score" ng-repeat="(id, room) in roomList" ng-click="getRoom(id); joinRoom()">
                         {{room.name}}
                         <span class="player-score__points">{{room.length}}</span>
                     </li>

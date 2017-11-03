@@ -248,6 +248,7 @@ app.controller('mainCtrl', function($scope, $location, $cookies, $timeout, socke
 
   socket.on('show_rooms', function(data){
     $scope.roomList = data.rooms
+    $scope.roomCount = Object.keys(data.rooms).length;
   });
 
   $scope.getRoom = function(id){

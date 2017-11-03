@@ -248,7 +248,8 @@ function shrinkRooms(){
   let rooms = io.nsps['/'].adapter.rooms
   let out = {}
   for(let [id, room] of entries(rooms)){
-    out[id] = {name: room.name, length: room.length}
+    if(room.name)
+      out[id] = {name: room.name, length: room.length}
   }
   return out
 }
