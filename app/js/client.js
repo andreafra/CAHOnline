@@ -192,7 +192,7 @@ app.controller('mainCtrl', function($scope, $location, $cookies, $timeout, socke
   $cookies.remove("lastId")
 
   $scope.createRoom = function() {
-    let cbs = document.getElementsByClassName("set");
+    let cbs = document.getElementsByClassName("set--mark");
     let sets = [];
     for(let i=0; i<cbs.length; i++){
       if(cbs[i].checked) sets.push(cbs[i].id.split("_").join(" "))
@@ -202,7 +202,7 @@ app.controller('mainCtrl', function($scope, $location, $cookies, $timeout, socke
       $scope.setsWrong = true
       $timeout(function(){
         $scope.setsWrong = false
-      },2000)
+      },1000)
     }
     else
       socket.emit("create_room", {playerName: $scope.playerName, roomName: $scope.roomName, sets: sets})
@@ -269,18 +269,3 @@ app.controller('mainCtrl', function($scope, $location, $cookies, $timeout, socke
       // socket.removeListener(this);
   })
 })
-
-/* MultiSelect */
-
-let expanded = false;
-
-function showCheckboxes() {
-    let checkboxes = document.getElementById("checkboxes");
-    if (!expanded) {
-        checkboxes.style.display = "block";
-        expanded = true;
-    } else {
-        checkboxes.style.display = "none";
-        expanded = false;
-    }
-}

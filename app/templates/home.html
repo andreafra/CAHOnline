@@ -26,8 +26,8 @@
                     <option value="ita">Italiano</option>
                     <option value="eng">Inglese</option>
                 </select>-->
-                <a class="start-button start-button--full" onclick="showCheckboxes()">Mostra set</a>
-                <div class="input-multi text-input start-button--full" ng-class="{'text-input--red' : setsWrong, 'shake' : setsWrong}">
+                <a class="start-button start-button--full" ng-class="{'shake' : setsWrong}" ng-click="showCheckboxes = !showCheckboxes">Mostra set</a>
+                <div class="input-multi text-input start-button--full" ng-show="showCheckboxes" ng-class="{'text-input--red' : setsWrong, 'shake' : setsWrong}">
                     <div class="input-multi__checkboxes">
                         <div class="set" ng-repeat="setName in gameSets">
                             <input class="set--mark" type="checkbox" id="{{setName.split(' ').join('_');}}"/>
