@@ -9,6 +9,7 @@
     align-self: center;
     margin: $size--button-margin 0;
     transition: 0.3s ease-out all;
+    box-sizing: border-box;
     &:focus, &:hover {
         background-color: $color--light-accent;
     }
@@ -44,6 +45,44 @@
         color: $color--red;
         &::placeholder {
             color: $color--red;
+        }
+    }
+}
+
+.input-multi {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0;
+    height: 60vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    &__title {
+        padding: $size--button-padding;
+        background: $color--accent;
+        color: $color--white;
+    }
+
+    &__checkboxes {
+        width: 100%;
+        .set {
+            padding: $size--button-padding;
+            box-sizing: border-box;
+            border: $size/3 solid transparent;
+            width: 100%;
+            &--mark {
+                display: none;
+                & + label {
+                    position: relative;
+                    width: 100%;
+                    cursor: pointer;
+                    padding: $size--button-padding;
+                    border-radius: $size--card-border-radius;
+                }
+                &:checked + label {
+                    background: $color--light-accent;
+                    color: $color--white;
+                }
+            }
         }
     }
 }

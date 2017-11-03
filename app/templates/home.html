@@ -26,17 +26,15 @@
                     <option value="ita">Italiano</option>
                     <option value="eng">Inglese</option>
                 </select>-->
-
-                <div class="multiselect text-input start-button--full" ng-class="{'text-input--red' : setsWrong, 'shake' : setsWrong}">
-                    <div class="selectBox" onclick="showCheckboxes()">
-                        <select>
-                        <option>Scegli i set</option>
-                        </select>
-                        <div class="overSelect"></div>
-                    </div>
-                    <div id="checkboxes">
-                        <label ng-repeat="setName in gameSets" for="{{setName.split(' ').join('_');}}">
-                            <input class="set" type="checkbox" id="{{setName.split(' ').join('_');}}"/>{{setName}}</label>
+                <a class="start-button start-button--full" onclick="showCheckboxes()">Mostra set</a>
+                <div class="input-multi text-input start-button--full" ng-class="{'text-input--red' : setsWrong, 'shake' : setsWrong}">
+                    <div class="input-multi__checkboxes">
+                        <div class="set" ng-repeat="setName in gameSets">
+                            <input class="set--mark" type="checkbox" id="{{setName.split(' ').join('_');}}"/>
+                            <label class="set--label" for="{{setName.split(' ').join('_');}}">
+                                {{setName}}
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -47,11 +45,6 @@
             </div>
             <!-- Join Room -->
             <div ng-show="homeIntro && homeJoinRoom">
-                <!--<input class="text-input" type="tel" name="roomId" placeholder="1234" pattern="[1-9][0-9]{3}" 
-                    ng-model="roomId" ng-class="{'text-input--red' : roomIdWrong}">
-                <button class="start-button start-button--full" type="button" name="join_room" ng-click="joinRoom()">
-                    Unisciti alla partita!
-                </button>-->
                 <h2 class="box__subtitle">Stanze</h2>
                 <ul class="box__rooms">
                     <li class="player-score player-score--placeholder" ng-show="roomList.length === 0">VUOTO</li>
@@ -59,14 +52,11 @@
                         {{room.name}}
                         <span class="player-score__points">{{room.length}}</span>
                     </li>
-                </ul> 
+                </ul>
             </div>
             <button class="start-button start-button--full start-button--secondary" type="button" name="join_room" ng-click="homeJoinRoom=false; homeCreateRoom=false; homeIntro=false">
                 Indietro
             </button>
         </div>
     </div>
-    <!--<div class="box" ng-show="homeIntro && homeJoinRoom">
-        
-    </div>-->
 </div>

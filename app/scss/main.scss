@@ -6,6 +6,8 @@
     border: 0;
     outline-style: none;
     font-family: $font;
+    //-webkit-touch-callout: none;
+    //user-select: none;
 }
 body {
     overflow: hidden;

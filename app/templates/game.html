@@ -1,12 +1,12 @@
 <!-- Board -->
-<div class="board">
+<div class="board" ng-class="{'board--': gameState === 3}">
   <div class="board__section board__section__top">
     <div class="black-card shadow" id="black-card" ng-class="{'flip': blackCard}">
       <p class="black-card__text" ng-bind-html="blackCard.text"></p>
       <span class="black-card__pick">{{blackCard ? 'Pick: ' + blackCard.pick : ''}}</span>
     </div>
   </div>
-  <div class="board__section board__section__middle">
+  <div class="board__section board__section__middle" ng-hide="gameState === 3">
     <button class="start-button pop" type="button" ng-if="iAmGameMaster && gameState==0" ng-click="startGame()">Start</button>
     <div class="waiting-text pop" ng-if="!iAmGameMaster && gameState!=1" ng-switch="gameState">
       <span ng-switch-when="0">Aspettando che il GameMaster avvii la partita...</span>

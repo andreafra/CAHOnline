@@ -137,7 +137,8 @@ body {
   border-radius: 0.5rem;
   align-self: center;
   margin: 0.2rem 0;
-  transition: 0.3s ease-out all; }
+  transition: 0.3s ease-out all;
+  box-sizing: border-box; }
   .start-button:focus, .start-button:hover {
     background-color: #1ef29a; }
   .start-button:active {
@@ -165,6 +166,36 @@ body {
     color: #cf3b3b; }
     .text-input--red::placeholder {
       color: #cf3b3b; }
+
+.input-multi {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+  height: 60vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; }
+  .input-multi__title {
+    padding: 0.5rem;
+    background: #0cd17f;
+    color: #ffffff; }
+  .input-multi__checkboxes {
+    width: 100%; }
+    .input-multi__checkboxes .set {
+      padding: 0.5rem;
+      box-sizing: border-box;
+      border: 0.33333rem solid transparent;
+      width: 100%; }
+      .input-multi__checkboxes .set--mark {
+        display: none; }
+        .input-multi__checkboxes .set--mark + label {
+          position: relative;
+          width: 100%;
+          cursor: pointer;
+          padding: 0.5rem;
+          border-radius: 0.5rem; }
+        .input-multi__checkboxes .set--mark:checked + label {
+          background: #1ef29a;
+          color: #ffffff; }
 
 .home {
   display: flex;
