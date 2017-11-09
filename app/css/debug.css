@@ -1,0 +1,59 @@
+#cah-issue-tracker-form {
+    position: absolute;
+    top: 2px;
+    left: 24px;
+    display: flex;
+    width: 200px;
+    height: 302px;
+    border: 1px solid red;
+    background-color: #ffa4a4;
+    padding: 2px;
+    flex-flow: column;
+}
+
+#cah-issue-tracker-title {
+    flex-grow: 0;
+}
+#cah-issue-tracker-description {
+    flex-grow: 1;
+    display: block;
+    width: 100%;
+    resize: none;
+    height: 170px;
+    background: transparent;
+    padding: 4px;
+    border: 1px solid red;
+    border-radius: 2px;
+    margin-bottom: 2px;
+}
+#cah-issue-tracker-send {
+    flex-grow: 0;
+    display: block;
+    float: right;
+    padding: 5px;
+    border: 1px solid red;
+    border-radius: 2px;
+    background: white;
+}
+#cah-issue-tracker-icon {
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFCSURBVDhPndM9KEVhHMfxR3lJeUnChhiNBmIwSWKUMIgUKZOSDDalFGUzKIVSJlmYlIXJgA2RkpeJ8jIw8P2d/31uzz0dt/jVp/7nOc/b6X+vy5ImnGAPFRrIFk3IszJKNc7wnbKBYviUotBKywFGrXQteIVf7F2hDMoWZq207GLeSreC+GKvH8oxJq20TOMUOZhB0mJpRRU+0Yx0KvGCOehbF3GOR9xBJ46gBPs4gg7LSDve8IRl9KENndDiNTzjEjVIpxx1KRcIr3yPj9jYJvz8IrgHhBNCQ9DJSe9kG1E/1R5ZRzihC+pOODYOPz8fUVQsIH7dpA1042FkZBU36MYOfttALZ7AOwYRpR5faIierFWHiG+wBN86fcatlc714trKdHIxhkb0oANh9F/Rpvr9uFoMqPhDdJMpFERP/49zP2LObayOyv6/AAAAAElFTkSuQmCC");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius: 2px;
+    opacity: .5;
+    transition: all 0.3s ease;
+    z-index: 99999999;
+}
+#cah-issue-tracker-icon:hover {
+    opacity: 1;
+}
+.cah-hidden {
+    display: none !important;
+}
