@@ -66,7 +66,7 @@
 </div>
 
 <!-- Highlight -->
-<div class="highlight" ng-show="gameState === 3 || showNewGameMaster || isWaitingRoom || isToKick">
+<div class="highlight" ng-show="gameState === 3 || showNewGameMaster || isWaitingRoom || isToKick || skippingRound">
   <div class="highlight__cards" ng-show="gameState === 3">
     <div class="black-card shadow slide-in-left" id="black-card">
       <p class="black-card__text" ng-bind-html="gameState==3 ? blackCard.text : ''"></p>
@@ -79,6 +79,7 @@
     </div>
     <div class="winner__text">Giocata da {{players[winner].name}}</div>
   </div>
+  <p class="highlight__text" ng-show="skippingRound">Il turno è finito prematuramente</p>
   <p class="highlight__text" ng-show="showNewGameMaster">Sei il GameMaster</p>
   <p class="highlight__text" ng-show="isWaitingRoom">Attendi il prossimo turno</p>  
   <p class="highlight__text" ng-show="isToKick">Non risulti partecipante a questa partita.<br>Verrai reindirizzato al menu principale.</p>

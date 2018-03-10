@@ -56,7 +56,15 @@ io.on("connection", function(socket) {
   socket.on('disconnect', function() {
     if(players[socket.id]){
       let room = players[socket.id].room;
-      if(!io.nsps['/'].adapter.rooms[room]){
+      if(io.nsps['/'].adapter.rooms[room]){
+        if(players[socket.id].isGameMaster){
+          // Skip turn
+          clearTimeout(timers[room])
+          delete timers[room]
+          endRound(room)
+        }
+      }
+      else{
         clearTimeout(timers[room])
         delete timers[room]
       }
@@ -169,7 +177,11 @@ io.on("connection", function(socket) {
   }
 
   function endRound(room, lastWinner, lastWinnerCards){
-    syncGamestate(room, 3, {winner: lastWinner, winnerCards: lastWinnerCards})
+    let wait = 5;
+    if(lastWinner && lastWinnerCards)
+      syncGamestate(room, 3, {winner: lastWinner, winnerCards: lastWinnerCards})
+    else wait = 0;
+
     setTimeout(function(){
       let roomPlayers = getPlayersInRoom(room)
       let newGameMaster = pickNewGameMaster(roomPlayers)
@@ -182,7 +194,7 @@ io.on("connection", function(socket) {
         io.nsps['/'].adapter.rooms[room].playedCards = null; 
         startRound(room)
       }
-    },5*1000)
+    },wait*1000)
   }
 
   function syncGamestate(room, gamestate, data){

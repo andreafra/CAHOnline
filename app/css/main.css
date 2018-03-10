@@ -433,7 +433,8 @@ body {
       text-align: center; }
   .highlight__text {
     font-size: 2rem;
-    align-self: center; }
+    align-self: center;
+    flex-direction: column; }
 
 .black-card {
   height: 49.5vw;

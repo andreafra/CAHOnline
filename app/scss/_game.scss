@@ -218,6 +218,7 @@
     &__text {
         font-size: $size--font*2;
         align-self: center;
+        flex-direction: column;
     }
 }
 .black-card {

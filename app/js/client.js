@@ -113,6 +113,12 @@ app.controller("joinGame", function ($scope, $routeParams, $cookies, $timeout, $
   let timer;
   socket.on('sync_gamestate', function(data){
     $scope.isWaitingRoom = false
+    if(data.gameState == 1 && $scope.gameState != 3 && $scope.gameState != 0){
+      $scope.skippingRound=true
+      $timeout(function(){
+        $scope.skippingRound=false
+      },3000)
+    }
     $scope.gameState=data.gameState
 
     switch(data.gameState){
